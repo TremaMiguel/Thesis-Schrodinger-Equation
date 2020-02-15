@@ -1,0 +1,352 @@
+\documentclass[aspectratio=1610]{beamer}
+\usetheme{KTH}
+
+% remove this if using XeLaTeX or LuaLaTeX
+\usepackage[utf8]{inputenc}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+\usepackage{lipsum}
+\usepackage{minted}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{algorithm,algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[export]{adjustbox}
+\newcommand*{\field}[1]{\mathbb{#1}}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{defn}{Definición}
+\newtheorem*{lem}{Lema} 
+\begin{document}
+
+%------------------------------------------------
+\begin{frame}[noframenumbering,plain]
+
+  \vspace{0.02\textheight}
+  
+\begin{columns}[]
+\column{37em}
+\Large{\centerline{\usebeamercolor[fg]{title}Una interpretación matemática de la Ecuación de Schrödinger}}
+
+\vspace{0.1\textheight}
+
+\vspace{0.1\textheight}
+
+\small{\centerline{Armando Miguel Trejo Marrufo}}
+\scriptsize{\centerline{\tt Asesor: Pablo Castañeda}}
+\scriptsize{\centerline{}}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\usebackgroundtemplate{\vbox{\null\vspace{3mm}
+  \hspace{3mm}\pgfuseimage{kthlogosmall}\par
+  \vspace{72mm}\hbox{\hspace{-75mm}\pgfuseimage{kthplatta}}}}
+
+%------------------------------------------------
+\begin{frame}
+\begin{columns}
+\column{37em}
+\vspace{1cm}
+\Huge{\centerline{\usebeamercolor[fg]{title}Ecuación Dependiente del Tiempo}}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Ecuación Dependiente del Tiempo de Schrödinger}
+
+Dado que 
+\begin{align*}
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t},
+\end{align*}
+buscamos modelar el comportamiento de una partícula libre, es decir, $\mathcal{V}(x,t) = 0$. Así,
+el problema de valor inicial (PVI) a resolver es:
+    \begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2},\:\:\:x\in\field{R},\:t>0 \\
+         \psi(x,0) = \psi_{0}(x),\:x\in\field{R} \\
+         \end{array}
+\right.
+    \label{eq:TISchrodinger}
+    \end{align}
+donde pediremos que $\psi_{0} \in L^2(\field{R},\field{C})$.
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}{Solución general de la Ecuación Dependiente del Tiempo de Schrödinger}
+   
+\begin{teo}
+    Supongamos $\psi_{0} \in L^2(\field{R},\field{C})$. Definamos $\psi(x,t)$ por:
+    \begin{align*}
+        \psi(x,t) = \sqrt{\frac{m}{2\pi it\hslash}}\int_{-\infty}^{\infty}\exp\bigg[-\frac{m}{2it\hslash}(x-y)^2\bigg]\psi_{0}(y) \: dy.
+    \end{align*}
+    Entonces $\psi(x,t)$ satisface el PVI $\eqref{eq:TISchrodinger}$.
+    \label{teo:Rev4}
+\end{teo}
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Solución Débil}
+   
+Qué es una solución débil?   
+   
+\begin{lem}
+    Sea $\psi(x,t)$ una función suave, en el sentido de tener primera derivada espacial y temporal, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
+\end{lem}
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Qué es un Paquete de Ondas?}
+   
+Dentro de un paquete de ondas, sus componentes se mueven a distintas velocidades. Es útil pensar que éstas varían en el tiempo y en el espacio.  
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 9cm, height = 3cm]{figs/GroupandPhase.png}
+\end{figure}
+Por un lado, la velocidad a la cuál la parte externa (la cobertura) se propaga en el espacio a velocidad se conoce como velocidad de grupo y queda determinada por $A(x,t)$. Por otro lado, la rápidez a la cual las ondas individuales dentro de la cobertura se mueven se conoce como velocidad fase y queda determinada por $\theta(x,t)$. 
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Paquete de ondas como Condición Inicial}
+   
+Al suponer que la fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$, debido a que el momento inicial de la partícula es $p_{0}$, tendremos el Problema de Valor Inicial siguiente: 
+\begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2} , \:x\in\field{R}, \:t>0,\\
+         \psi(x,0) = \psi_{0}(x) = A_{0}(x)e^{ip_{0}x/h}, \:x\in\field{R}. \\
+         \end{array} \label{eq:Paqonda}
+\right.
+    \end{align}
+donde notamos que $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es decir, $A_{0}(x)$ envuelve al paquete de ondas.
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Solución del Paquete de ondas como Condición Inicial}
+   
+\begin{teo}
+    La solución del PVI $\eqref{eq:Paqonda}$ con condición inicial $\theta(x,0) = p_{0}x/\hslash$ y $A(x,0) = A_{0}(x)$ está dado por:
+    \begin{align*}
+        \theta(x,t) & = \frac{p_{0}}{\hslash}\bigg(x - \frac{p_{0}}{2m}t\bigg),
+        \\
+        A(x,t) & = A_{0}\bigg(x-\frac{p_{0}}{m}t\bigg),
+    \end{align*}
+    las cuáles dan como solución a la Ecuación Libre de Schrödinger el paquete de ondas:
+    \begin{align}
+        \psi(x,t) = A_{0}\bigg(x-\frac{p_{0}}{m}t\bigg)\exp\bigg[i\frac{p_{0}}{\hslash}(x - \frac{p_{0}}{2m}t)\bigg].
+        \label{eq:Apoyo7}
+    \end{align}
+\end{teo}
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\begin{columns}
+\column{37em}
+\vspace{1cm}
+\Huge{\centerline{\usebeamercolor[fg]{title}Ecuación Independiente del Tiempo}}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{}
+La Ecuación Independiente del Tiempo de Schrödinger tiene la siguiente forma:   
+    \begin{align}
+        \frac{-\hslash^2}{2m}\Psi''(x) + \mathcal{V}(x)\Psi(x) = E \Psi(x)
+        \label{eq:EITS}
+    \end{align}
+
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Pozo Infinito}
+   
+Consideramos el caso de confinar a una partícula en un intervalo finito $[0 , A]$ con $A$ un valor fijo, para esto, pedimos que la energía potencial en este intervalo sea nula.
+\begin{align*}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        0, \:\:\:  x \in [0,A],
+        \\
+        \kappa, \:\:\: x \notin [0,A],
+        \end{array}
+        \right.
+\end{align*}
+donde $\kappa$ toma valores muy grandes, es decir, $\kappa \to\infty$. Además, pedimos $\Psi(x) = 0$ en las fronteras, para que la partícula no escape de la región. Así, tendremos 
+\begin{align*}
+    \frac{d^2\Psi}{dx^2} = -k^2\Psi(x),
+\end{align*}
+con $k^2 = (2mE)/\hslash^2$.
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Pozo Finito}
+   
+Al tomar una región par $[-A , A]$ para obtener soluciones pares e impares y considerar que la energía potencial es de la siguiente forma  
+\begin{align}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        -C, \:\:\:  x \in [-A,A],
+        \\
+        0, \:\:\: x \notin [-A,A],
+        \end{array}
+        \right.
+        \label{eq:PotencialFinito}
+\end{align}
+donde $C$ es positiva. Así, cuando $E < 0$ tendremos que 
+\begin{align}
+        \frac{d^2\Psi}{dx^2}= 
+        \left\{ \begin{array}{ll}
+        -(c-\mathcal{E})\Psi,& \:\:\:  |x| \leq A,
+        \\
+        \mathcal{E}\Psi,& \:\:\: |x| > A.
+        \end{array}
+        \right.
+        \label{eq:SCsimple}
+\end{align}
+donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$ y \\ $c = (2mC)/\hslash^2$
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}{Solución Par}
+   
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Solución Impar}
+   
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Tunelaje Cuántico}
+   
+En este caso $E > 0$, así $\mathcal{E} = 2mE/\hslash^2$, la ecuación de interés es:
+\begin{align}
+        \frac{d^2\Psi}{dx^2}= 
+        \left\{ \begin{array}{ll}
+        -\mathcal{E}\Psi,& \:\:\:  x \in (-\infty,-A)\cup (A,\infty),
+        \\
+        -(c+\mathcal{E})\Psi& \:\:\: |x| \leq A.
+        \end{array}
+        \right.
+        \label{eq:SCsimple}
+\end{align}
+con correspondiente solución:
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        Me^{i\sqrt{\mathcal{E}}x}+Be^{-i\sqrt{\mathcal{E}}x}, & x<-A,
+        \\
+        T\sen(qx) + D\cos(qx), & x \in [-A,A],
+        \\ Fe^{i\sqrt{\mathcal{E}}x},& x > A.
+        \end{array}
+        \right.
+        \label{eq:Tunelaje}
+\end{align}
+donde al buscar que $\Psi(x)$ y $\Psi'(x)$ sean continuas en los límites de la región $\pm A$, obtendremos un sistema de ecuaciones para determinar las constantes $M, B, T, D$ y $F$. 
+
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{Tunelaje Cuántico}
+   
+Al resolver el sistema de ecuaciones anteriores, obtenemos el valor del coeficiente de Reflexión $\mathcal{R}$
+\begin{align*}
+    \mathcal{R}(E) = \bigg[\frac{C^2}{4(C+E)E}\bigg]\sen^2(2qA)\frac{|F|^2}{|M|^2}.
+\end{align*}
+y del coeficiente de Transmisión $\mathcal{T}$
+\begin{align*}
+    \mathcal{T}(E) = 
+    \bigg[1+\bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)\bigg] ^{-1}.
+\end{align*}
+
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+%\begin{frame}
+%\frametitle{Collaborative }
+%\begin{columns}
+%\column{37em}
+%\begin{itemize}\itemsep1em
+%  \justifying
+%  \item A \textcolor{Ocean}{shared platform} for all %\textcolor{TextGreen}{data science} contributors
+%  \item Open data science \textcolor{Ocean}{tools at scale}
+%  \item \textcolor{TextGreen}{Self-service} access to %\textcolor{Ocean}{data}, \textcolor{Ocean}{storage}, and %\textcolor{Ocean}{compute}
+%  \item A complete \textcolor{darkred}{pipeline} from data to deployment
+%  \item Collaborative \textcolor{Ocean}{development tools}
+%  \item \textcolor{Ocean}{Management} and \textcolor{Ocean}{reproducibility}
+%\end{itemize}
+%\end{columns}
+%\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\begin{columns}
+\column{37em}
+\vspace{1cm}
+\Huge{\centerline{\usebeamercolor[fg]{title}Thanks!}}
+\end{columns}
+\end{frame}
+
+\end{document}
