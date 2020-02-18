@@ -18,6 +18,7 @@
 \newcommand*{\field}[1]{\mathbb{#1}}
 \newtheorem*{teo}{Teorema}
 \newtheorem*{defn}{Definición}
+\newtheorem*{prop}{Proposición}
 \newtheorem*{lem}{Lema} 
 \begin{document}
 
@@ -304,7 +305,7 @@ donde al buscar que $\Psi(x)$ y $\Psi'(x)$ sean continuas en los límites de la 
 \end{columns}
 \end{frame}
 %------------------------------------------------
-\begin{frame}{Tunelaje Cuántico}
+\begin{frame}{}
    
 Al resolver el sistema de ecuaciones anteriores, obtenemos el valor del coeficiente de Reflexión $\mathcal{R}$
 \begin{align*}
@@ -320,6 +321,160 @@ y del coeficiente de Transmisión $\mathcal{T}$
 \begin{columns}
 \column{37em}
 \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\begin{columns}
+\column{37em}
+\vspace{1cm}
+\Huge{\centerline{\usebeamercolor[fg]{title}El Operador de Schrödinger}}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{¿Qué es un Operador?}
+
+Un mapeo entre dos espacios de funciones. En otras palabras, es una aplicación que toma como entrada una función (un \textit{vector}) en un espacio de dimensión infinita, y le asigna otra función en un espacio de dimensión infinita.
+
+\vspace{0.1\textheight}
+
+\begin{defn}
+    Un \textbf{espacio de Hilbert} $\mathcal{H}$ es un espacio vectorial $\mathcal{H}$ sobre un campo $\field{R}$ ó $\field{C}$ equipado con un \textbf{producto interno} $\langle\cdot,\cdot \rangle$, tal que $\mathcal{H}$ es completo, en el sentido que cada sucesión de Cauchy converge en este espacio, bajo la norma asociada al producto interno.
+\end{defn}
+   
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{}
+
+\begin{defn}
+    Sea $\mathcal{H}$ un espacio de Hilbert. El mapeo $A:Dom(A)\subseteq\mathcal{H}\longrightarrow\mathcal{H}$, donde $Dom(A)$ es un subespacio denso de $\mathcal{H}$, es un \textbf{operador lineal} si dados $\phi,\Psi \in Dom(A)$ se cumplen que
+    \begin{align*}
+        A(\alpha\phi + \beta\Psi) = \alpha A\phi + \beta A \Psi,
+    \end{align*}
+    $\forall \alpha, \beta$ constantes arbitrarias (notése que $\alpha\phi + \beta\Psi \in Dom(A)$ al ser un subespacio).
+\end{defn}
+
+\begin{defn}
+    Un operador lineal\: $T:\mathcal{H} \longrightarrow \mathcal{H}$ es $\textbf{acotado}$ si existe una constante $C > 0$ tal que $||T\Psi|| \leq C||\Psi||$ para toda $\Psi \in \mathcal{H}$.
+    \label{def:opeAcot}
+\end{defn}
+donde $Dom(A) = \mathcal{H}$.
+   
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}{Operador Autoadjunto}
+
+\begin{defn}
+    Un operador lineal A no-acotado en  $\mathcal{H}$ es $\textbf{auto-adjunto}$ si
+    \begin{align*}
+        Dom(A^{*}) = Dom(A),
+    \end{align*}
+    y $A^{*}\phi = A\phi$ para toda $\phi \in Dom(A)$.
+    \label{def:Autoadjunto}
+\end{defn}
+
+\vspace{0.05\textheight}
+
+ Donde, el adjunto $A^*$ está definido en un subespacio denso de $\mathcal{H}$. Así, por el Lema de Riesz vemos para que vectores $\phi\in\mathcal{H}$ existe el adjunto $A^*$,
+ pues, el funcional $\langle\phi,A\Psi\rangle$, (con $\Psi\in Dom(A)$), puede no estar acotado para cualquier $\phi\in\mathcal{H}$.
+   
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Dominio de la suma de Operadores}
+
+\begin{defn}[Dominio de la suma de Operadores]
+    Sean A,B dos operadores lineales no-acotados en $\mathcal{H}$, entonces A+B es el operador con dominio:
+    \begin{align*}
+        Dom(A+B) := Dom(A)\cap Dom(B)
+    \end{align*}
+    y dado por $(A+B)\Psi = A\Psi + B\Psi$.
+    \label{def:DomOPADJS}
+\end{defn}
+
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}{El Operador de Schrödinger $\boldsymbol{-\Delta + V}$}
+
+\begin{prop}[Operador Laplaciano]
+    Sea $\Delta$ el operador laplaciano definido como
+    \begin{align*}
+        -\Delta\Psi = \mathcal{F}^{-1}(|k|^{2} \hat{\Psi}),
+    \end{align*}
+    en el dominio:
+    \begin{align*} Dom(\Delta) = \{\Psi\in L^{2}(\field{R},\field{C}) \:|\:
+       \: |k|^{2}\hat{\Psi}(k) \in L^{2}(\field{R},\field{C})\},
+    \end{align*}
+donde $\hat{\Psi}$ es la Transformada de Fourier de $\Psi$ y $\mathcal{F}^{-1}$ denota la Transformada Inversa de Fourier. Entonces $\Delta$ es auto-adjunto.
+\end{prop}    
+    
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Operador Potencial}
+
+\begin{prop}[Operador Potencial]
+    Sea $\mathcal{V}:\field{R}\rightarrow\field{R}$ una función integrable de $x\in\field{R}$. Sea $V$ el operador potencial con dominio:
+    \begin{align*}  Dom(V) = \{
+        \Psi\in L^{2}(\field{R},\field{C})\:|\:\mathcal{V}(x)\Psi(x)\in L^{2}(\field{R},\field{C})
+        \}
+    \end{align*}
+    y definido como:
+    \begin{align*}
+        V[\Psi](x) = \mathcal{V}(x)\Psi(x).
+    \end{align*}
+    Entonces $Dom(V)$ es denso en $L^{2}(\field{R},\field{C})$ en el sentido de que la cerradura del dominio de $V$ es $L^{2}(\field{R},\field{C})$, y $\:V$ es auto-adjunto en este dominio.
+    \label{prop:DomPot}
+\end{prop}
+    
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Teorema de Kato-Rellich}
+
+Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la Definición \ref{def:DomOPADJS} que $Dom(\Delta)\cap Dom(V)$ es el subespacio en el cual $\hat{H}$ está definido. Sin embargo, esta intersección puede ser muy pequeña para que $\hat{H}$ sea auto-adjunto, por ejemplo, si el vector nulo es el único elemento. De esta forma, la pregunta natural es ¿bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta?
+    
+\begin{teo}[Kato-Rellich]
+    Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ y que existen constantes positivas a,b con $a<1$ tal que
+    \begin{align*}
+        ||B\Psi|| \leq a||A\Psi|| + b||\Psi||
+    \end{align*}
+    para toda $\Psi\in Dom(A)$, entonces A+B es auto-adjunto en el Dom(A).
+    \label{teo:K-R}
+\end{teo}    
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{Self-Adjointness of Schrödinger Operator}
+Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era una función constante dentro de un intervalo. Generalizemos ahora el estudio al considerar a $\mathcal{V}$ como una función integrable.
+\begin{teo}
+    Sea $\mathcal{V}:\field{R}\longrightarrow\field{R}$ una función integrable que puede expresarse como la suma de dos funciones reales $V_{1}$ y $V_{2}$, con $V_{1}\in L^{2}(\field{R},\field{C})$ y $V_{2}\in L^{\infty}(\field{R},\field{C})$. Entonces el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
+    \label{teo:SCOperator}
+\end{teo}
+    
 \end{frame}
 
 
