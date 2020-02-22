@@ -1,7 +1,5 @@
 \documentclass[aspectratio=1610]{beamer}
 \usetheme{KTH}
-
-% remove this if using XeLaTeX or LuaLaTeX
 \usepackage[utf8]{inputenc}
 \usepackage{graphics}
 \usepackage{graphicx}
@@ -20,6 +18,7 @@
 \newtheorem*{defn}{Definición}
 \newtheorem*{prop}{Proposición}
 \newtheorem*{lem}{Lema} 
+\newtheorem*{demo}{Demostración}
 \begin{document}
 
 %------------------------------------------------
@@ -60,12 +59,26 @@
 \begin{frame}
 \frametitle{Ecuación Dependiente del Tiempo de Schrödinger}
 
-Dado que 
+Suponiendo que el movimiento de la partícula depende del tiempo, la siguiente ecuación modela este comportamiento
+\begin{align}
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t}.
+    \label{eq:ECDepTiemp}
+\end{align}
+Primero veamos el caso de una \textbf{partícula líbre}, para esto el potencial debe ser cero, es decir, $\mathcal{V}(x,t) = 0$. El caso de la función potencial distinta de cero lo vermemos en la ecuación independiente del tiempo. Ahora, debemos suponer que la onda se comparta inicialmente de cierta forma 
 \begin{align*}
-    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t},
+    \psi(x,0) = \psi_{0}(x),
 \end{align*}
-buscamos modelar el comportamiento de una partícula libre, es decir, $\mathcal{V}(x,t) = 0$. Así,
-el problema de valor inicial (PVI) a resolver es:
+donde $\psi_{0}(x) \in L^{2}(\field{R},\field{C})$
+
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%--------------------------------------
+\begin{frame}
+
+Así, el problema de valor inicial (PVI) a resolver es:
     \begin{align}
          \left\{ \begin{array}{ll}
          \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2},\:\:\:x\in\field{R},\:t>0 \\
@@ -74,17 +87,7 @@ el problema de valor inicial (PVI) a resolver es:
 \right.
     \label{eq:TISchrodinger}
     \end{align}
-donde pediremos que $\psi_{0} \in L^2(\field{R},\field{C})$.
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
-
-
-
-%------------------------------------------------
-\begin{frame}{Solución general de la Ecuación Dependiente del Tiempo de Schrödinger}
-   
+donde el siguiente Teorema nos da la solución.    
 \begin{teo}
     Supongamos $\psi_{0} \in L^2(\field{R},\field{C})$. Definamos $\psi(x,t)$ por:
     \begin{align*}
@@ -93,6 +96,23 @@ donde pediremos que $\psi_{0} \in L^2(\field{R},\field{C})$.
     Entonces $\psi(x,t)$ satisface el PVI $\eqref{eq:TISchrodinger}$.
     \label{teo:Rev4}
 \end{teo}
+
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{}
+   
+Para funciones generales $\psi_{0}(x,t)\in L^2(\field{R},\field{C})$, $\psi(x,t)$ no necesariamente satisface la ecuación de Schrödinger en el sentido clásico por que puede no ser diferenciable en la variable $x$ o en la variable $t$.
+Por ello, las \textbf{funciones de prueba} son de utilidad, estas funciones buscamos que estén definidas en un conjunto compacto para garantizar que la integral en este intervalo sea finita. De esta forma, en lugar de evaluar $\psi(x,t)$ en cada punto de $\field{R}\times\field{R}^{+}$, se evalua $\chi$ en intervalos abiertos. Así, para la ecuación de Schrödinger tenemos 
+
+\begin{defn}
+        Una función $\psi(x,t)$ satisface la ecuación libre \footnote{En el sentido de que consideramos $\mathcal{V}(x,t)$ como nula para $x\in\field{R}$.}  de Schrödinger en el sentido débil, si para toda función de prueba $\chi \in C_{\mathcal{D}}^{\infty}(\field{R}\times\field{R}^{+})$ con soporte compacto $\mathcal{D}\subset \field{R}\times\field{R}^{+}$ se cumple:
+        \begin{align} \int_{\field{R}^+}\int_{\field{R}}\psi(x,t)\bigg[\frac{\partial\chi}{\partial t}-\frac{i\hslash}{2m}\frac{\partial ^2\chi}{\partial x^2}\bigg]\:dxdt = -\int_{\field{R}}\chi(x,0)\psi(x,0). \label{eq:Soldebil}
+        \end{align}
+        \label{lem:Rev5}
+\end{defn}
     
 \begin{columns}
 \column{37em}
@@ -100,13 +120,15 @@ donde pediremos que $\psi_{0} \in L^2(\field{R},\field{C})$.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Solución Débil}
-   
-Qué es una solución débil?   
+\begin{frame}{Soluciones Débiles de la Ecuación de Schrödinger}
    
 \begin{lem}
     Sea $\psi(x,t)$ una función suave, en el sentido de tener primera derivada espacial y temporal, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
 \end{lem}
+
+\begin{demo}
+    
+\end{demo}
     
 \begin{columns}
 \column{37em}
@@ -117,12 +139,12 @@ Qué es una solución débil?
 %------------------------------------------------
 \begin{frame}{Qué es un Paquete de Ondas?}
    
-Dentro de un paquete de ondas, sus componentes se mueven a distintas velocidades. Es útil pensar que éstas varían en el tiempo y en el espacio.  
+Las componentes de un paquete de ondas se mueven a distintas velocidades. Es útil pensar que éstas varían en el tiempo y en el espacio.  
 \begin{figure}[h]
     \centering
     \includegraphics[width = 9cm, height = 3cm]{figs/GroupandPhase.png}
 \end{figure}
-Por un lado, la velocidad a la cuál la parte externa (la cobertura) se propaga en el espacio a velocidad se conoce como velocidad de grupo y queda determinada por $A(x,t)$. Por otro lado, la rápidez a la cual las ondas individuales dentro de la cobertura se mueven se conoce como velocidad fase y queda determinada por $\theta(x,t)$. 
+Por un lado, la velocidad a la cual la parte externa (la cobertura) se propaga en el espacio se conoce como velocidad de grupo y queda determinada por $A(x,t)$. Por otro lado, la rápidez a la cual las ondas individuales dentro de la cobertura se mueven se conoce como velocidad fase y queda determinada por $\theta(x,t)$. 
     
 \begin{columns}
 \column{37em}
@@ -132,7 +154,7 @@ Por un lado, la velocidad a la cuál la parte externa (la cobertura) se propaga 
 %------------------------------------------------
 \begin{frame}{Paquete de ondas como Condición Inicial}
    
-Al suponer que la fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$, debido a que el momento inicial de la partícula es $p_{0}$, tendremos el Problema de Valor Inicial siguiente: 
+Supongamos que la fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$, debido a que el momento inicial de la partícula es $p_{0}$, y que para $t=0$  la amplitud inicial es $A_{0}(x)$, tendremos el Problema de Valor Inicial siguiente: 
 \begin{align}
          \left\{ \begin{array}{ll}
          \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2} , \:x\in\field{R}, \:t>0,\\
@@ -140,12 +162,13 @@ Al suponer que la fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$, de
          \end{array} \label{eq:Paqonda}
 \right.
     \end{align}
-donde notamos que $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es decir, $A_{0}(x)$ envuelve al paquete de ondas.
+donde $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es decir, $A_{0}(x)$ envuelve al paquete de ondas.
     
 \begin{columns}
 \column{37em}
 \end{columns}
 \end{frame}
+
 
 %------------------------------------------------
 \begin{frame}{Solución del Paquete de ondas como Condición Inicial}
@@ -169,6 +192,17 @@ donde notamos que $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es d
 \end{columns}
 \end{frame}
 
+%---------------------------------------
+\begin{frame}{Slowly Varying Envelope Approximation}
+ 
+El paquete de ondas $A_{o}(x)$ es una función que varía lentamente respecto al espacio, es decir, se debe satisfacer que la razón de crecimiento de la curva de la amplitud sea de magnitud más pequeña que una constante veces la altura de la amplitud. En notación matemática
+\begin{align*} 
+    A_{0}''(\kappa) \ll A_{0}(\kappa)\bigg(\frac{p_{0}}{\hslash}\bigg)^2,
+    \end{align*}
+Físicamente, el paquete de ondas inicial debe tener crestas chatas para que sea constante sobre los periodos de la función $e^{ip_{0}x/\hslash}$.
+\end{frame}
+
+
 %------------------------------------------------
 \begin{frame}
 \begin{columns}
@@ -180,17 +214,26 @@ donde notamos que $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es d
 
 
 %------------------------------------------------
+\bgroup
 \begin{frame}{}
-La Ecuación Independiente del Tiempo de Schrödinger tiene la siguiente forma:   
-    \begin{align}
-        \frac{-\hslash^2}{2m}\Psi''(x) + \mathcal{V}(x)\Psi(x) = E \Psi(x)
-        \label{eq:EITS}
-    \end{align}
+Proponemos como solución de \eqref{eq:ECDepTiemp} a
+\begin{align*}
+    \psi(x,t) = \Psi(x)T(t).
+\end{align*}
+Así, después de una serie de operaciones algebráicas llegamos a 
+\begin{align*}
+    i\hslash \frac{T'(t) }{T(t)} = \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x),
+\end{align*}
+donde notamos que si variamos $x$ el lado dependiente del término $t$ no varía y viceversa. Por lo que, estos términos son iguales a alguna constante $E \in \field{R}$, es decir, 
+\begin{align*}
+\frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x) = E \implies 
+\hat{H} \Psi(x) = E \Psi(x),
+\end{align*}
+donde $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ se conoce como el  \textit{Hamiltoniano}.
 
-\begin{columns}
-\column{37em}
-\end{columns}
 \end{frame}
+
+
 
 %------------------------------------------------
 \begin{frame}{Pozo Infinito}
@@ -497,11 +540,11 @@ Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era 
 
 %------------------------------------------------
 \begin{frame}
-\begin{columns}
-\column{37em}
+%\begin{columns}
+%\column{37em}
 \vspace{1cm}
 \Huge{\centerline{\usebeamercolor[fg]{title}Thanks!}}
-\end{columns}
+%\end{columns}
 \end{frame}
 
 \end{document}
