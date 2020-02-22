@@ -218,17 +218,18 @@ Físicamente, el paquete de ondas inicial debe tener crestas chatas para que sea
 \begin{frame}{}
 Proponemos como solución de \eqref{eq:ECDepTiemp} a
 \begin{align*}
-    \psi(x,t) = \Psi(x)T(t).
+    \psi(x,t) = \Psi(x)T(t),
 \end{align*}
-Así, después de una serie de operaciones algebráicas llegamos a 
+por el método de separación de variables y después de una serie de operaciones algebráicas llegamos a 
 \begin{align*}
     i\hslash \frac{T'(t) }{T(t)} = \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x),
 \end{align*}
-donde notamos que si variamos $x$ el lado dependiente del término $t$ no varía y viceversa. Por lo que, estos términos son iguales a alguna constante $E \in \field{R}$, es decir, 
-\begin{align*}
+donde notamos que si variamos $x$ el lado dependiente del término $t$ no varía y viceversa. Por lo que, estos términos son iguales a alguna constante $E \in \field{R}$, así
+\begin{align}
 \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x) = E \implies 
 \hat{H} \Psi(x) = E \Psi(x),
-\end{align*}
+\label{eq:HamiltonianEigenValues}
+\end{align}
 donde $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ se conoce como el  \textit{Hamiltoniano}.
 
 \end{frame}
@@ -249,10 +250,11 @@ Consideramos el caso de confinar a una partícula en un intervalo finito $[0 , A
         \right.
 \end{align*}
 donde $\kappa$ toma valores muy grandes, es decir, $\kappa \to\infty$. Además, pedimos $\Psi(x) = 0$ en las fronteras, para que la partícula no escape de la región. Así, tendremos 
-\begin{align*}
+\begin{align}
     \frac{d^2\Psi}{dx^2} = -k^2\Psi(x),
-\end{align*}
-con $k^2 = (2mE)/\hslash^2$.
+    \label{eq:PozoInfinito}
+\end{align}
+con $k^2 = (2mE)/\hslash^2$ y $ E>0.$
     
 \begin{columns}
 \column{37em}
@@ -261,9 +263,28 @@ con $k^2 = (2mE)/\hslash^2$.
 
 
 %------------------------------------------------
+\begin{frame}{}
+ La solución general de la ecuación \eqref{eq:PozoInfinito} es una combinación lineal de senos y cosenos
+\begin{align*}
+    \Psi(x) = a\sen(kx) + b\cos(kx),
+\end{align*}   
+donde $k,a,b$ son constantes a determinar. Así al encontrar $k_{n}$ podemos encontrar los autovalores $E_{n}$ asociados al Hamiltoniano
+\begin{align*}
+    k_{n}=\frac{n\pi}{A}, E_{n} = \frac{\hslash^2n^2\pi^2}{2mA^2}, n \in \field{N}.
+\end{align*}
+y al considerar los modos asociados a la partícula, llegamos a la solución dependiente de la posición
+\begin{align}
+    \Psi_{n}(x) = \sqrt{\frac{2}{A}}\sen\bigg(\frac{n\pi x}{A}\bigg), n \in \field{N},
+    \label{eq:PsiPI}
+\end{align}
+    
+\end{frame}
+
+
+%------------------------------------------------
 \begin{frame}{Pozo Finito}
    
-Al tomar una región par $[-A , A]$ para obtener soluciones pares e impares y considerar que la energía potencial es de la siguiente forma  
+Tomando una región par $[-A , A]$ porque nos permite obtener soluciones pares e impares. Consideramos la energía potencial dentro de esta región es de la siguiente forma  
 \begin{align}
         \mathcal{V}(x) = 
         \left\{ \begin{array}{ll}
@@ -274,7 +295,7 @@ Al tomar una región par $[-A , A]$ para obtener soluciones pares e impares y co
         \right.
         \label{eq:PotencialFinito}
 \end{align}
-donde $C$ es positiva. Así, cuando $E < 0$ tendremos que 
+donde $C$ es positiva. Así, recordanddo \eqref{eq:HamiltonianEigenValues} tenemos
 \begin{align}
         \frac{d^2\Psi}{dx^2}= 
         \left\{ \begin{array}{ll}
@@ -285,7 +306,7 @@ donde $C$ es positiva. Así, cuando $E < 0$ tendremos que
         \right.
         \label{eq:SCsimple}
 \end{align}
-donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$ y \\ $c = (2mC)/\hslash^2$
+donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$, \\ $c = (2mC)/\hslash^2$ y $ E<0$
     
 \begin{columns}
 \column{37em}
@@ -296,7 +317,25 @@ donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$ y \
 
 %------------------------------------------------
 \begin{frame}{Solución Par}
-   
+Para el comportamiento de la partícula fuera y dentro del pozo, tenemos las siguientes ecuaciones respectivamente
+ \begin{align*}
+     \frac{d^2\Psi}{dx^2} = \mathcal{E}\Psi, \:\:      \frac{d^2\Psi}{dx^2} = -q^2\Psi,
+ \end{align*}
+cuya solución general es 
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
+        \\
+        b\cos(qx), & \:\:\: |x| \leq A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A,
+        \end{array}
+        \right.
+        \label{eq:Solpar}
+\end{align}
+con $a, b$ constantes a determinar. Notamos que los paramaetros
+$a,b,\mathcal{E}$, y $q$ varían la forma de la onda. Por ejemplo, mientras mayor sea $q$ mayor será el número de crestas y mientras menor sea $\mathcal{E}$ mayor será el área abarcada por las colas de la función.
     
 \begin{columns}
 \column{37em}
@@ -306,7 +345,23 @@ donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$ y \
 
 %------------------------------------------------
 \begin{frame}{Solución Impar}
-   
+Buscamos que $\Psi(x) = - \Psi(-x)$, es decir, funciones impares. Así, 
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        -ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
+        \\
+        \Tilde{a}\sen(qx), & \:\:\: |x| \leq A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A.
+        \end{array}
+        \right.
+        \label{eq:Solimpar}
+\end{align}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 12cm, height = 6cm]{figs/Solimpar.png}
+\end{figure}
     
 \begin{columns}
 \column{37em}
@@ -359,13 +414,15 @@ y del coeficiente de Transmisión $\mathcal{T}$
     \mathcal{T}(E) = 
     \bigg[1+\bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)\bigg] ^{-1}.
 \end{align*}
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 12.5cm, height = 5.7cm]{figs/Tunelaje.png}
+\end{figure}
     
 \begin{columns}
 \column{37em}
 \end{columns}
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}
 \begin{columns}
