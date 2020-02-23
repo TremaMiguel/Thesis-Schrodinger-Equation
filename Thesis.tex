@@ -1,0 +1,2554 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{scalerel}
+\usepackage{mathtools}
+\usepackage[spanish]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage[pdftex,
+            pdfauthor={NOMBRE DEL AUTOR},
+            pdftitle={TÍTULO DE LA TESIS},
+            pdfsubject={ÁREA DE LA TESIS},
+            pdfkeywords={PALABRAS CLAVE},
+            pdfproducer={Latex con hyperref},
+            pdfcreator={pdflatex}]{hyperref}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{defn}[teo]{Definición}
+\newtheorem{prop}[teo]{Proposición}
+\newtheorem{lem}[teo]{Lema}
+\newtheorem{afirm}[teo]{Afirmación}
+\theoremstyle{definition}
+    \newtheorem*{demo}{Demostración}
+    \newtheorem{obs}{Observación}
+\newcommand*{\field}[1]{\mathbb{#1}}
+\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
+\newcommand{\sign}{\text{sign}}
+
+
+\begin{document}
+
+\title{TÍTULO DE LA TESIS} %Con este nombre se guardará el proyecto en writeLaTex
+
+\begin{titlepage}
+\begin{center}
+
+\textsc{\Large Instituto Tecnológico Autónomo de México}\\[4em]
+
+%Figura
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 7cm, height = 3cm]{logo-ITAM.png}
+\end{center}
+\end{figure}
+
+\vspace{4em}
+
+\textsc{\huge \textbf{Una interpretación matemática de la ecuación de Schrödinger}}\\[4em]
+
+\textsc{\large Tesis}\\[1em]
+
+\textsc{que para obtener el título de}\\[1em]
+
+\textsc{Lic. en Matemáticas Aplicadas}\\[1em]
+
+\textsc{presenta}\\[1em]
+
+\textsc{\Large Armando Miguel Trejo Marrufo}\\[1em]
+
+\textsc{\large Asesor: Dr. Pablo Castañeda Rivera}
+
+\end{center}
+
+\vspace*{\fill}
+\textsc{México, D.F. \hspace*{\fill} 2020}
+
+\end{titlepage}
+
+
+%----------------------------------------------------------------------------------------
+%	DECLARACIÓN
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begingroup
+``Con fundamento en los artículos 21 y 27 de la Ley Federal del Derecho de Autor y como titular de los derechos moral y patrimonial de la obra titulada ``\textbf{TÍTULO DE LA TESIS}'', otorgo de manera gratuita y permanente al Instituto Tecnológico Autónomo de México y a la Biblioteca Raúl Bailléres Jr., la autorización para que fijen la obra en cualquier medio, incluido el electrónico, y la divulguen entre sus usuarios, profesores, estudiantes o terceras personas, sin que pueda percibir por tal divulgación una contraprestación''.
+
+\centering
+
+\hspace{3em}
+
+\textsc{AUTOR}
+
+\vspace{5em}
+
+\rule[1em]{20em}{0.5pt} % Línea para la fecha
+
+\textsc{Fecha}
+ 
+\vspace{8em}
+
+\rule[1em]{20em}{0.5pt} % Línea para la firma
+
+\textsc{Firma}
+
+\endgroup
+\vspace*{\fill}
+
+%	TABLA DE CONTENIDOS
+%---------------------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\cleardoublepage
+\addcontentsline{toc}{section}{Introducción} % para que aparezca en el indice de contenidos
+
+\frontmatter
+
+\newpage
+\section*{Introducción}
+\noindent
+Mi atracción por la mecanica cuántica se debe a los programas de divulgación de Michio Kaku. En ellos, introducían al televidente a conceptos como el \textit{tunelaje cuántico} o el \textit{entrelazamiento cuántico}. Debido a esto, recuerdo haberme pasado gran parte del verano del 2011 leyendo las tres obras de divulgación $\footnote{The Elegant Universe, The Fabric of the Cosmos y The Hidden Reality.}$ de Brian Greene. 
+\\ \\
+Ahora, debido a la formación que he tenido a lo largo de estos cuatro años como matemático aplicado puedo abordar formalmente el desarrollo de estos temas. De esta forma, el objetivo de esta tesis es el estudio de la ecuación de modelación de partículas subatómicas, la ecuación de Schrödinger, y para complementar con salsa al taco abordaremos la teoría de los operadores de Schrödinger en el último capítulo.
+\\ \\
+Para comenzar, en el primer capítulo se deriva formalmente la ecuación independiente del tiempo de Schrödinger mediante los postulado de la dualidad onda-partícula de la materia-energía propuestos por Albert Einstein y Louis de Broglie a principios del siglo XX. De ahí, en el capítulo dos abordaremos los prerrequisitos necesarios para comprender el desarrollo de los capítulos posteriores, introduciendo al lector al campo de las ecuaciones diferenciales parciales (EDP). También, veremos una técnica muy útil para resolver EDP's al pasarla a una ecuación diferencial ordinaria (EDO) mediante la tranformada de Fourier.
+\\ \\
+Una vez comprendidos los conceptos del segundo capítulo, abordaremos el tema central de la tesis, la ecuación de Schrödinger, en dos capítulos. Primero, en el capítulo tres nos encargaremos del caso dependiente del tiempo mediante la transformada de Fourier y el teorema de la convolución, probando que la solución encontrada es válida en el sentido débil. Además queremos estudiar el comportamiento de un paquete de ondas al derivar la velocidad fase y de grupo del mismo. Luego, en el capítulo cuatro abordamos dos aplicaciones del caso independiente del tiempo. Por un lado, abordaremos el comportamiento de la partícula cuando se la confina en una región, aquí veremos que al suceder esto, su energía sólo puede tomar valores discretos, es decir, la energía se cuantiza. Por otro lado, al estudiar el viaje de una partícula que se acerca a una barrera potencial, se da el fenómeno del tunelaje cuántico, es decir, existe una probabilidad mayor a cero de que penetre la barrera potencial sin poseer la energía suficiente para hacerlo. Sin embargo, dado el enfoque probabilístico de la mecánica cuántica, se determinará la probabilidad de que suceda esto. En este capítulo, al notar que las funciones de onda deben tener ciertas propiedades para ser vectores propios del operador Hamiltoniano correspondiente,
+ surge el interés de estudio de la teoría de operadores.
+\\ \\
+Así, en el capítulo cinco se estudian formalmente los operadores no-acotados auto-adjuntos, enunciando algunas de sus propiedades y probando el famoso teorema de Kato-Rellich. En particular, se estudiará el dominio del operador laplaciano $\Delta$ y del operador potencial $V$. Finalmente, veremos que las funciones que modelan el movimiento de una partícula deben pertenecer al dominio de $\Delta$.
+
+\mainmatter
+
+\newpage
+\section{Derivación de la ecuación de Schrödinger}
+\noindent
+En mecánica cuántica no podemos tener certeza de que suceda cierto evento, lo único que podemos hacer es predicir cuál es la probabilidad de que suceda el evento en cuestión. De hecho, la forma de representar estos eventos es mediante amplitudes, en nuestro caso, para una partícula ésta dependerá de la posición y del tiempo. Gráficamente podemos verlo como:
+\\
+\begin{figure}[h]
+    \includegraphics[width = 12cm]{ondas}
+    \caption{Descripción gráfica de una onda. \\ Imagen tomada de http://zenodoto.com}
+    \label{fig:onda}
+\end{figure}
+\\
+En general, la probabilidad de encontrar una partícula es proporcional al valor absoluto al cuadrado de la amplitud de la función de onda, postulado que propuso Max Born y que veremos más adelante. Pero, ¿cómo es que Schrödinger llegó a resolver esto? Hay una respuesta simple de Richard Feynman ``De la nada, no es posible derivarla de algo que conoces, simplemente, vino de la mente de Schrödinger''. Lo que Feynman intenta decirnos es que no es posible derivarla de las ecuaciones de la física clásica, por lo que necesitamos algunos postulados que nos ayuden a formar un argumento de tal forma que la ecuación sea plausible. 
+\\
+\\
+Primero, Einstein al analizar el espectro de absorción de luz de materiales formuló que la luz tiene un comportamiento corpuscular \footnote{El lector interesado puede consultar el siguiente artículo \text{https://www.scientificamerican.com/article/einstein-s-legacy-the-photoelectric-effect/}}. Así, él  consideró la energía de la partícula asociada a la energía electromagnética a través de la relación
+\begin{align}
+    E =  hv,
+    \label{eq:Einstein}
+\end{align}
+donde $E$ es la energía total de la partícula, $v$ representa la frecuencia de la onda electromagnética y $h$ la constante de Planck, denominada ``\textit{Quantum of action}'', pues, la energía asociada a la partícula está descrita por $v$ veces $h$, es decir, sólo puede tomar múltiplos de $h$, lo cual veremos en el Capítulo 4 cuando resolvamos la ecuación de Schrödinger para una partícula confinada a un Pozo Infinito.  Así, Einstein propone que las ondas electromagnéticas se comportan como partículas en determinados procesos porque solamente se debe cononcer la frecuencia de la onda. Sin embargo, en 1924 Louis de Broglie propone una relación inversa en su tesis doctoral ``\textit{Recherches sur la théorie des quanta}''; al analizar el espectro de emisión de átomos propuso el comportamiento ondulatorio de la materia\footnote{El experimento de la rejilla doble llevada a cabo de forma independiente, por un lado, por George Thompson en 1926, por otro lado, por Clinton Davinson y Lester Garner en 1927, mostro que los electrones tenian un comportamiento de interferencia (patron de difracción), lo cual confirmo la hipótesis de Louis de Broglie, el lector puede consultar \cite{FeyLectures}.}, es decir, una partícula con masa $m$ puede mostrar el comportamiento de una onda a través de la siguiente relación:
+\begin{align}
+    \lambda = \frac{h}{p},
+    \label{eq:Broglie}
+\end{align}
+donde $\lambda$ representa la longitud de onda (distancia entre las crestas de la onda) y $p$ el momento de la partícula. Hemos mencionado que $E$ representa la energía total de la partícula, pero ¿qué es la energía total? Desde el punto de vista mecánico, en su forma más simple es la suma de la energía cinética y potencial, entonces, podemos expresar esta energía mediante la siguiente relación: 
+\begin{align}
+    E = \frac{p^2}{2m} + V,
+    \label{eq:Energi}
+\end{align}
+donde el primer y el segundo término de la igualdad representan respectivamente la energía cinética y potencial \footnote{ En el capítulo 5, $V$ denota el operador potencial, sin embargo, en este caso denota una cantidad física, por lo que nos referiremos a él como el potencial.}. De esta forma, podemos relacionar \eqref{eq:Einstein} y \eqref{eq:Broglie} mediante \eqref{eq:Energi} al despejar el valor de $p$ en \eqref{eq:Broglie} y sustituyendo la relación de Einstein \eqref{eq:Einstein} en \eqref{eq:Energi}, para obtener:
+\begin{align}
+    hv = \frac{h^2}{2m\lambda^2} + V.
+    \label{eq:Energi2}
+\end{align}
+Ya que estudiamos un fenómeno espacio-temporal consideramos
+la frecuencia angular $\omega = 2\pi v$ y la frecuencia espacial $k =2\pi/\lambda$ porque describen el número ondas por unidad de tiempo y unidad de espacio respectivamente. Así, podemos tomar la constante de Planck reducida $\hslash = h/2\pi$; reescribiendo \eqref{eq:Energi2} como
+\begin{align}
+    \dfrac{\hslash^2k^2}{2m} + V  = \hslash\omega.
+    \label{eq:Energi3}
+\end{align}
+ Para una partícula libre cada estado posible es representado por una función de onda plana, como en la Figura  \ref{fig:onda}, y se describe mediante la siguiente relación:
+\begin{align}
+    \psi(x,t) = Ae^{i(kx - \omega t)},
+    \label{eq:onda}
+\end{align}
+donde $A$ es una constante que representa la amplitud de la onda, en nuestro caso supondremos por el momento $A = 1$. Buscamos que \eqref{eq:onda} satisfaga el postulado de energía \eqref{eq:Energi3}. Primero, notemos que la segunda derivada espacial y la primera derivada respecto al tiempo de \eqref{eq:onda} son:
+\begin{align}
+    \frac{\partial^2\psi}{\partial x^2} = -k^2\psi\:\:\: y\:\:\: \frac{\partial \psi}{\partial t} = -i\omega\psi.
+    \label{eq:Rev1}
+\end{align}
+Por lo que al multiplicar \eqref{eq:Energi3} por la ecuación \eqref{eq:onda}
+y sustituyendo \eqref{eq:Rev1}, la ecuación diferencial parcial es:
+\begin{align*}
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t},
+\end{align*}
+conocida como la {\it ecuación de Schrödinger dependiente del tiempo}, la cual describe el comportamiento de una partícula. Sin embargo, ¿cómo podemos interpretarla? En la época en la que se derivó no se podía dar una interpretación física, hasta que en 1926 Max Born la consideró desde el punto de vista probabilístico, es decir, se debe cumplir lo siguiente:
+\begin{align}
+    \int_{\field{R}}|\psi(x,t)|^2 dx= 1.
+    \label{eq:Rev2}
+\end{align}
+En otras palabras, si en determinado momento $t$ hacemos una medición para determinar la posición de la partícula, entonces la probabilidad de encontrarla en cierto intervalo $(x, x + \Delta x)$ es:
+\begin{align*}
+    \int_{x}^{x+\Delta x}
+    |\psi(s,t)|^2 ds =
+    \int_{x}^{x+\Delta x}
+    \overline{\psi(s,t)}\psi(s,t)ds,
+\end{align*}
+(donde $\overline{\psi(s,t)}$ denota el complejo conjugado de $\psi(s,t)$) y por lo tanto la probabilidad es unitaria si consideramos todo el dominio.
+Esta nueva forma de concebir la física mediante incertidumbre generó controversia entre los físicos mas reconocidos de aquella época como Einstein, quién llego a decir que ``Dios no juega a los dados". No obstante, esta nueva concepción lleva naturalmente a preguntarse cuáles son las propiedades de estas funciones, por ejemplo, ¿en qué espacios viven? A primera vista por la condición \eqref{eq:Rev2} debe ser aquel donde las funciones son integrables cuadráticamente, este concepto lo introducimos en el siguiente capítulo. Adelantamos diciendo que nos ocuparemos de funciones que viven en el espacio de Hilbert $L^2(\field{R},\field{C})$.
+\newpage
+\section{Requisitos Elementales}
+\label{cap:Requisitos}
+\noindent
+El objetivo de este capítulo es introducir conceptos necesarios para comprender los desarrollos de las capítulos posteriores. Por ejemplo, en la sección  \ref{sec:EAF}, se introducen los teoremas que usaremos para resolver mediante la transformada de Fourier la ecuación de Schrödinger. También se incluye una sección sobre ecuaciones diferenciales parciales para introducir al lector mediante la ecuación del transporte y la ecuación del calor a esta rama de las matemáticas. Después de haber comprendido esta última, nos daremos cuenta, en el siguiente capítulo, que la ecuación de Schrödinger es parecida a la ecuación del calor pero con una constante de difusión imaginaria. 
+
+\subsection{Elementales de Análisis Funcional} \label{sec:EAF}
+\noindent
+En el primer capítulo, hemos mencionado el espacio donde las funciones de onda viven. De hecho, sabemos que un espacio de Hilbert $\mathcal{H}$ tiene asociada una base ortonormal de vectores, el lector puede corrobar este concepto en \cite{Reed}. En mecánica cuántica, estos vectores unitarios van a representar los posibles estados de la partícula, es decir, las probabilidades de los resultados al hacer la medición de su posición. Si volvemos a ver la forma de la función propuesta en  $\eqref{eq:onda}$, notamos que no cumple con el enfoque en \eqref{eq:Rev2} propuesto por Born, por eso es que definimos el espacio al que pertenecen estas funciones como $L^2$ (Definición \ref{def:espacioL2}), para ello introducimos primero las siguientes definiciones. 
+\begin{defn}
+    Un \textbf{producto interno} en un espacio vectorial $V$ sobre $\field{C}$, es un mapeo $\langle\cdot,\cdot \rangle:V\times V \rightarrow \field{C}$ con las siguientes propiedades:
+    \begin{enumerate}[1.]
+    \item  $\forall \phi,\Psi \in V$, se tiene que $\langle\Psi,\phi\rangle = \overline{\langle\phi,\Psi\rangle}.$
+    \item $\forall \phi \in V, \langle\phi,\phi\rangle$ es real y no negativo, y $\langle\phi,\phi\rangle = 0$ si y solamente si $\phi = 0$.
+    \item $\forall \phi,\Psi \in V$ y $c\in\field{C}$, tenemos que $\langle c\phi,\Psi \rangle = \overline{c}\langle \phi,\Psi\rangle$ y $\langle\phi,c\Psi\rangle = c\langle\phi,\Psi\rangle$.
+    \item $\forall \phi,\Psi,\varkappa \in V$, tenemos que $\langle\phi+\Psi,\varkappa\rangle = \langle\phi,\varkappa\rangle + \langle\Psi,\varkappa\rangle$ y $\langle\phi,\Psi+\varkappa\rangle = \langle\phi,\Psi\rangle + \langle\phi,\varkappa\rangle$.
+    \end{enumerate}
+    \label{def:ProdInt}
+\end{defn}
+\begin{defn}
+    Considerando $0<p<\infty$ fijo. Definimos $L^{p}(\field{R},\field{C})$ como el espacio de todas las funciones $\Psi:\field{R}\rightarrow\field{C}$ tales que
+    \begin{align*}
+        ||\Psi||_{p} =\bigg( \int_{\field{R}}|\Psi(x)|^{p}dx\bigg)^{1/p} < +\infty,
+    \end{align*}
+    donde $||\Psi||_{p}$ es la \textbf{norma} $\boldsymbol{L^{p}}$ de $\Psi(x)$.
+\end{defn}
+\begin{defn}
+    Dada una función $\Psi$, decimos que $\Psi \in L^{2}(\field{R},\field{C})$ si es \textbf{2-integrable}, es decir, si
+    \begin{align*}
+        \int_{\field{R}} \mid \Psi(x)\mid^2 dx < +\infty.
+    \end{align*}
+    Entonces se dice que $\Psi$ es también \textbf{integrable cuadráticamente}. En este caso el producto interno asociado a este espacio considerando $\Psi,\phi \in L^{2}(\field{R},\field{C})$ es
+    \begin{align*}
+        \langle\Psi,\phi \rangle = \int_{\field{R}} \overline{\Psi(x)}\phi(x)dx.
+    \end{align*}
+    donde $\overline{\Psi(x)}$ denota el complejo conjugado de $\Psi(x)$. La norma asociada a este espacio se define como:
+    \begin{align*}
+        ||\Psi|| := \sqrt{\langle\Psi,\Psi\rangle},
+    \end{align*}
+    llamada comúnmente \textbf{norma 2}.
+    \label{def:espacioL2}
+\end{defn}
+\noindent
+Intuitivamente, la tranformada de Fourier expresa una función mediante sus frecuencias, es decir, la descompone en funciones sinusoidales. En mecánica cuántica, es importante pues considera a la función de onda como una superposición de ondas planas, en otras palabras, se repiten de manera análoga infinitamente. En este caso, la tranformada de Fourier describe la relación entre un vector de posición $x$ y un vector de propagación de onda $k$ de la siguiente forma.
+\begin{defn}
+    Dado $\Psi \in L^{2}(\field{R},\field{C})$, la \textbf{Transformada de Fourier} de $\Psi$ es la función $\hat{\Psi} :\field{R}\rightarrow\field{C}$ dada por:
+    \begin{align*}
+        \mathcal{F}(\Psi(x)): =
+        \hat{\Psi}(k) = (2\pi)^{-1/2}\int^{+\infty}_{-\infty}e^{-ikx}\Psi(x) dx.
+    \end{align*}
+    \label{def:TIFourier}
+\end{defn}
+\begin{teo}[Teorema de Inversión de Fourier]
+    Dado $\Psi, \hat{\Psi} \in L^{2}(\field{R},\field{C})$ entonces se cumple que:
+    \begin{align*}
+        \mathcal{F}^{-1}(\hat{\Psi}):= 
+        \Psi(x) = (2\pi)^{-1/2}\int^{+\infty}_{-\infty}e^{ikx}\hat{\Psi}(k) dk,
+    \end{align*}
+    donde $\hat{\Psi}$ es la transformada de Fourier de $\Psi$.
+    \label{teo:InvFourier}
+\end{teo}
+\noindent
+La demostración de este teorema se puede consultar \cite[\text{Teorema\: 7.4, p.339}]{Iorio}. La transformada de Fourier se define originalmente en $L^1(\field{R},\field{C})$, así se considera inicialmente el espacio $L^1(\field{R},\field{C})\cap L^2(\field{R},\field{C})$. Sin embargo, se puede demostrar que es unitaria del espacio $L^{2}(\field{R},\field{C})$ a $L^{2}(\field{R},\field{C})$ mediante la identidad de Plancherel (Teorema \ref{teo:Plancherel}), y probando que $L^1(\field{R},\field{C})\cap L^2(\field{R},\field{C})$ es denso en $L^{2}(\field{R},\field{C})$, al tomar una función con soporte compacto que pertenezca a esta intersección se prueba que la transformada de Fourier se puede extender por continuidad a una isometría de $L^{2}(\field{R},\field{C})$ en $L^{2}(\field{R},\field{C})$. El lector puede corrobar esto en $\cite{Junior,Katznelson}$, pues de ahora en adelante sólo nos ocuparemos con funciones en $L^{2}(\field{R},\field{C})$. En otras palabras, siempre que apliquemos la transformada de Fourier para $\Psi\in L^{2}(\field{R},\field{C})$, esta ímplicito el hecho de que $\Psi\in L^1(\field{R},\field{C})\cap L^2(\field{R},\field{C})$   Ahora, el siguiente teorema es importante porque te garantiza que la norma dos se preserva a través de la transformada de Fourier, es decir, $||\Psi|| = ||\hat{\Psi}||$, y eso nos va asegurar la biyectividad de la Transformada Inversa de Fourier que veremos en el Capítulo 3. 
+\begin{teo}[Teorema de Plancherel]
+    Para toda $\Psi \in L^{2}(\field{R},\field{C})$, se satisface que:
+    \begin{align*}
+        \int_{\field{R}} \mid \Psi(x)\mid^2 dx = \int_{\field{R}} \mid \hat{\Psi}(k) \mid^2 dk,
+    \end{align*}
+    es decir, $\hat{\Psi}\in L^{2}(\field{R},\field{C})$ también.
+    \label{teo:Plancherel}
+\end{teo}
+\noindent
+Notemos que si $\Psi$ es de soporte compacto tal que $\Psi\in L^1(\field{R},\field{C})\cap L^2(\field{R},\field{C})$, entonces
+\begin{align}
+    \int_{\field{R}^2}|\Psi(x)\hat{\Psi}(k)e^{ikx}|\:dk\:dx < \infty
+    \label{eq:finproducto}
+\end{align}
+utilizaremos este hecho en la demostración del teorema.
+\begin{demo} De la definición de producto interno tenemos que:
+    \begin{align*}
+     \int_{\field{R}} \mid \Psi(x)\mid^2 dx & = 
+    \int_{\field{R}}  \Psi(x)\overline{\Psi(x)} dx \\  & = 
+    (2\pi)^{-1/2} \int_{\field{R}} \Psi(x) \int_{\field{R}} \overline{e^{ikx}\hat{\Psi}(k)}dk\:dx
+    \\ & = 
+    (2\pi)^{-1/2} \int_{\field{R}} \overline{\hat{\Psi}(k)} \int_{\field{R}} e^{-ikx}\Psi(x)dx\:dk
+    \\ & = 
+     \int_{\field{R}} \overline{\hat{\Psi}(k)} \hat{\Psi}(k) dk = \int_{\field{R}} \mid \hat{\Psi}(k) \mid^2 dk,
+    \end{align*}
+    donde hemos intercambiado las integrales en la tercera igualdad por el teorema de Fubini ya que se cumple \eqref{eq:finproducto}. Es importante aclarar también que en este caso
+    \begin{align*}
+        \overline{\int_{\field{R}}\Psi(x)dx} = \int_{\field{R}}\overline{\Psi(x)dx}
+    \end{align*}
+    se cumple, pues estamos evaluando la integral sobre $\field{R}$.
+    \qed
+\end{demo}
+\begin{defn}
+    Sean $\phi$, $\Psi$ $\in L^2(\field{R},\field{C})$, se define la \textbf{convolución} $\phi*\Psi$ de $\phi$ y $\Psi$ como una función de $\field{R}$ en $\field{C}$ dada por: 
+    \begin{align*}
+        (\phi*\Psi)(x) = \int_{\field{R}} \phi(x-y)\Psi(y)dy.
+    \end{align*}
+\end{defn}
+\noindent
+El siguiente teorema es de gran utilidad para los procedimientos posteriores ya que permite expresar el producto de la transformada de Fourier de dos funciones como la convolución de ellas mismas. En otras palabras, como se verá al resolver la ecuación del calor y la ecuación de Schrödinger, obtendremos una solución en el espacio transformado a partir de la cual se determina la solución en el espacio original mediante este teorema.
+\begin{teo}[Teorema de la Convolución]
+    Supongamos que $\phi$ y $\Psi$ pertenecen a $ L^2(\field{R},\field{C})$, entonces $\phi * \Psi$ está definido y pertenece a $L^2(\field{R},\field{C})$, cumpliéndose que:
+    \begin{align}
+        (2\pi)^{-1/2}\mathcal{F}(\phi * \Psi) = \mathcal{F}(\phi)\mathcal{F}(\Psi),
+        \label{eq:Convolucion}
+    \end{align}
+    donde $\mathcal{F}$ denota la tranformada de Fourier.
+    \begin{demo}
+    Sea $\Psi \in L^2(\field{R},\field{C})$\footnote{Al realizar la convolución entre dos funciones, se lleva a cabo una multiplicación entre ellas. Así, se considera $\phi*\Psi\in L^1\cap L^2$, consultar $\cite{Iorio}$}, por definición tenemos que
+        \begin{align*}
+            \mathcal{F}(\phi*\Psi) & = (2\pi)^{-1/2}\int_{-\infty}^{\infty}e^{-ikx}(\phi*\Psi)(x)\:dx
+            \\
+            & = (2\pi)^{-1/2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-ikx}\phi(x-y)\Psi(y)\:dydx
+            \\
+            & = 
+            (2\pi)^{-1/2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-ikx}\phi(x-y)\Psi(y)\:dxdy,
+        \end{align*}
+donde las integrales se intercambian por el teorema de Fubini. Ahora, al considerar $y$ fijo, tomamos el cambio de variables $\xi = x - y$, con diferencial $d\xi = dx$. Obteniendo lo siguiente después de intercambiar las integrales
+\begin{align*}  \mathcal{F}(\phi*\Psi)
+         & =(2\pi)^{-1/2}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-ik(\xi + y)}\phi(\xi)\Psi(y)\:dyd\xi
+        \\
+        & =
+        (2\pi)^{-1/2}\int_{-\infty}^{\infty}e^{-ik\xi}\phi(\xi)\bigg(\int_{-\infty}^{\infty}e^{-iky}\Psi(y)dy\bigg)d\xi
+        \\
+        & =
+        \hat{\Psi}(k)\int_{-\infty}^{\infty}e^{-ik\xi}\phi(\xi)d\xi 
+        \\
+        & =
+        (2\pi)^{-1/2}\hat{\Psi}(k)\hat{\phi}(k),
+\end{align*}
+        notando que esta última igualdad muestra la validez de \eqref{eq:Convolucion}, hemos probado el teorema.
+        \qed
+    \end{demo}
+\end{teo}
+\noindent
+Introducimos el siguiente teorema, ya que es de utilidad en el Capítulo 5 para la demostración de la Proposición \ref{prop:Acotamiento}.
+\begin{teo}[Desigualdad de Hölder]
+    Sean $p,q \in [1,\infty)$ y $\frac{1}{p}+\frac{1}{q}=1$. Si $\Psi\in L^{p}(\field{R},\field{C})$ y $\phi\in L^{q}(\field{R},\field{C})$, entonces $\Psi\phi\in L^{1}(\field{R},\field{C})$ y la \textbf{desigualdad de Hölder} se cumple:
+    \begin{align*}
+        ||\Psi\phi||_{L^{1}(\field{R},\field{C})}\leq
+        ||\Psi||_{L^{p}(\field{R},\field{C})}\:||\phi||_{L^{q}(\field{R},\field{C})}.
+    \end{align*}
+    \label{def:Holder}
+\end{teo}
+\noindent
+La demostración se omite, pero, el lector puede verificarla en la pg. 66 de $\cite{Rudin2}$.
+
+\subsection{Elementales de Ecuaciones Diferenciales Parciales}
+\label{ElementalesEDP}
+\noindent
+Para comprender una EDP, es deseable haber estudiado antes las EDO, es decir, una función de una sola variable que involucra a sus derivadas, el lector que lo necesite puede consultar \cite{Braun}. En el caso de las EDP involucramos dos o más variables con sus respectivas derivadas mediante una función de la siguiente forma:
+\begin{align*}
+    f\bigg(\frac{\partial ^k u}{\partial x_{1}^{k}},...,\frac{\partial^k u}{\partial x_{n}^{k}},...,\frac{\partial u}{\partial x_{1}},...,
+    \frac{\partial u}{\partial x_{n}}
+    ,u(x),x\bigg) = 0,
+\end{align*}
+donde $x\in\field{R}^n$ representa el vector de variables independientes involucradas, $u:U\longrightarrow\field{R}$ es la función solución desconocida con $U$ un subconjunto abierto de $\field{R}^{n}$; $f:\field{R}^{n^{k}}\times\field{R}^{n^{k-1}}\times...\times\field{R}^{n}\times\field{R}\times U\longrightarrow\field{R}$ es dada. Ya que las derivadas parciales indican tasas de cambio, utilizamos las EDP, entre otras aplicaciones, para modelar fenoménos físicos como la propagación del calor en cierta superficie, o la vibración del sonido en un tambor. La definición de arriba es una generalización de acuerdo a la notación en $\cite{Evans}$, sin embargo, de ahora en adelante usaremos $x\in\field{R}$ por el interés de estudio. 
+\subsubsection{Ecuación del Transporte homogénea}
+\noindent
+La Ecuación del Transporte describe cómo una cantidad escalar, por ejemplo, carga eléctrica o masa, es transportada a través del espacio. Matemáticamente se representa mediante la función $u(x,t)$. Por la ley de la conservación escalar \footnote{El termino escalar se refiere a una cantidad física con magnitud como la masa o la energía.}, el cambio con respecto al tiempo es proporcional al cambio con respecto al espacio con constante de proporcionalidad $c$, es decir, $u_{t}+cu_{x}=0$, donde $c$ es una constante positiva porque las magnitudes se conservan. El lector interesado puede encontrar una deducción formal en $\cite{Novozhilov}$. Así, consideremos el problema de valor inicial (PVI) siguiente:
+\begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} = 0,\:\:\:\text{en}\:\:\: \field{R} \times (0,\infty) ,\\
+         u(x,0) = u_{0}(x), \:\:\:\text{en}\:\:\: \field{R} \times \{0\},\\
+         \end{array}  \label{eq:HomoTransport}
+\right.
+\end{align}
+donde $u_{0}(x)$ es una función conocida. Para resolver esta EDP, la idea general es convertirla a un sistema de Ecuaciones Diferenciales Ordinarias. Por consiguiente, suponemos que la posición solo depende del tiempo. Así, consideramos la función auxiliar $z$, tal que:
+\begin{align}
+    z(t) = u(x(t),t),
+    \label{eq:z}
+\end{align}
+al derivar $\eqref{eq:z}$ respecto al tiempo:
+\begin{align*}
+    \frac{d}{dt}z(t) = \frac{d}{dt}u(x(t),t) = \frac{\partial}{\partial x}u(x,t)\frac{d}{dt}x(t) + \frac{\partial}{\partial t}u(x,t)\frac{d}{dt}t,
+\end{align*}
+donde notamos la diferencia entre derivadas totales y parciales \footnote{Aclaramos la siguiente notación $z'(t) = z_{t} = \frac{d}{dt}z(t)$, ya que se utiliza indistintamente.}. De manera simplificada obtenemos:
+\begin{align}
+    z'(t) = u_{x}x'(t) + u_{t},
+    \label{eq:refdef}
+\end{align}
+al suponer $x'(t) = c$ en la ecuación \eqref{eq:refdef}, obtenemos que $z'(t)=0$. Entonces llegamos a dos problemas de EDO a resolver:
+\begin{align*}
+     \left\{ \begin{array}{ll}
+         x'(t) = c , \:t > 0\\
+         x(0) = \xi
+         \end{array}
+         \right.
+         ,\:y
+        \qquad
+          \left \{ \begin{array}{ll}
+         z'(t) = 0 , \:t > 0\\
+         z(0) = u(x(0),0)
+         \end{array}
+         \right.
+         ,
+\end{align*}
+donde $\xi$ debe ser determinada. El primer PVI tiene como solución:
+\begin{align}
+    x(t) = ct + \xi.
+    \label{eq:carac}
+\end{align}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 10cm]{Caracteristicas}
+    \caption{Características de la Ecuación del Transporte \\
+    Figura tomada de $\cite{Oleinik}$}.
+    \label{fig:Caracteristicas}
+\end{figure}
+\\
+En la Figura $\ref{fig:Caracteristicas}$, $P^{t}$ representa un punto en el plano y las líneas negras de pendiente 1/c en el plano $(x,t)$ se conocen como las curvas $\textit{características}$. Con respecto al segundo problema, dado que $z'(t)=0$, $z(t)$ se mantiene constante a lo largo del tiempo, y por la solución anterior, es constante a lo largo de las rectas $x(t)$. Por lo que, si bajamos a la base de la recta $P = (\xi,0)$ tendremos que:
+\begin{align*}
+    z(0) = u(x(0),0) = u_{0}(\xi).
+\end{align*}
+El valor de $\xi$ se despeja de $\eqref{eq:carac}$, obteniendo $\xi = x - ct$. Ahora, recordando la ley de la conservación escalar, el valor de $z(t)$ es el mismo que en su condición inicial, en consecuencia, la solución del sistema es:
+\begin{align*}
+    z(t) = u(x(t),t) = u(\xi,0) = u(x - ct,0) = u_{0}(x-ct),
+\end{align*}
+donde la última igualdad  es por la condición inicial en $\eqref{eq:HomoTransport}$. En otras palabras, vemos que se cumple la ley de la conservación, ya que el incremento en la posición $x$ es inversamente proporcial al tiempo $-ct$. Las siguientes secciones (2.2.2 y 2.2.3)  se desarrollan para facilitar los cálculos de la Sección 2.2.4.
+\subsubsection{La Transformada de Fourier de la gaussiana}
+\noindent
+Sea $f(x) = e^{-ax^2}$, con $x\in\field{R}$, $a>0$, la función gaussiana. Su transformada de Fourier es, 
+\begin{align*}
+    \hat{f}(k) = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{ikx}e^{-ax^2}\:dx,
+\end{align*}
+Como veremos a continuación
+resolveremos esta integral impropia al convertirla a un problema de ecuaciones diferenciales de primer orden, notando que:
+\begin{align*}
+    \frac{d}{dk} \hat{f}(k) = \frac{i}{2\pi}\int_{-\infty}^{\infty}xe^{ikx}e^{-ax^2}\:dx,
+\end{align*}
+donde el operador derivada e integral conmutan por la convergencia uniforme de la serie de Fourier, el lector puede verificar esta propiedad en $\cite{Katznelson}$ ya que consecutivamente la usaremos frecuentemente. Al tomar como variables de integración:
+\begin{align*}
+    u=e^{ikx},\: du=ike^{ikx}dx,\:v=-\frac{1}{2a}e^{-ax^2},\:dv = xe^{-ax^2}dx,
+\end{align*}
+ por integración por partes, obtenemos:
+\begin{align*}
+    \frac{d}{dk} \hat{f}(k) = \frac{i}{4\pi a}[-e^{ikx}e^{-ax^2}]\Big|_{-\infty}^{\infty} +\frac{i}{2\pi}\int_{-\infty}^{\infty}\frac{1}{2a}e^{-ax^2}ike^{ikx}\:dx,
+\end{align*}
+donde el primer término es cero en virtud de que $e^{-ax^2}$ lo es al calcular el límite en $\pm\infty$, entonces:
+\begin{align*}
+    \frac{d}{dk} \hat{f}(k) = \frac{-k}{2a} \hat{f}(k),
+\end{align*}
+obteniendo la EDO mencionada. Dado que depende de una sola variable, donde $\hat{f}(k)\neq 0$, hacemos lo siguiente:
+\begin{align*}
+     \frac{\hat{f}'(k)}{ \hat{f}(k)} = \frac{-k}{2a} \implies
+    \ln{\hat{f}(k)} = \frac{-k^2}{4a}+z_{1} \implies  \hat{f}(k) = z_{2}e^{-k^2/(4a)},
+\end{align*}
+donde $z_{1},z_{2}$ son constantes a determinar con $z_{2} = e^{z_{1}}$. Para esto, notamos lo siguiente:
+\begin{align*}
+    z_{2}= \hat{f}(0) = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-ax^2}\:dx = \frac{1}{2\pi}\sqrt{\frac{\pi}{a}}.
+\end{align*}
+Por lo tanto, la transformada de Fourier de la gaussiana está dada por:
+\begin{align}
+     \hat{f}(k) = \frac{1}{2\sqrt{\pi a}}e^{-k^2/(4a)}.
+     \label{eq:TraGauss}
+\end{align}
+\subsubsection{Transformada inversa de Fourier de la gaussiana}
+\noindent
+Tomando $b = 1/(4a)$, se reescribe $\eqref{eq:TraGauss}$ y la función gaussiana como:
+\begin{align*}
+     \hat{f}(k) =
+     \sqrt{\frac{b}{\pi}}e^{-bk^2}, f(x) = e^{-x^2/(4b)}.
+\end{align*}
+Así, multiplicando ambas funciones por el término $\sqrt{\pi/b}$:
+\begin{align*}
+    \sqrt{\pi/b}\hat{f}(k) = e^{-bk^2}, \mathcal{F}^{-1}\hat{f}(k) = \sqrt{\frac{\pi}{b}} e^{-x^2/(4b)}.
+\end{align*}
+Por lo que, con el cambio de variables introducido la transformada inversa de Fourier de la gaussiana es:
+\begin{align}
+   f(x)= \sqrt{\frac{\pi}{b}} e^{-x^2/(4b)}. 
+   \label{eq:InvGauss}
+\end{align}
+
+\subsubsection{Ecuación del Calor}
+\noindent
+En el caso de esta ecuación, la resolveremos mediante la transformada de Fourier, ya que ésta al mapear el problema a un espacio dual lo transforma a un sistema de ecuaciones diferenciales ordinarias, por lo que los cálculos serán más sencillos. Además, como préambulo del procedimiento que usaremos en la sección 3.1 y 3.2 para resolver la ecuación de Schrödinger, estudiamos la ecuación del calor. Pensamos en el problema de valor inicial
+\begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial u}{\partial t} = m\dfrac{\partial^2 u}{\partial x^2}, x\in\field{R}\\
+         u(x,0) = f(x) , t\geq 0\\
+         \end{array}
+         \label{eq:EcCalor}
+\right.
+    \end{align}
+que representa la ecuación del calor para $m$ alguna constante positiva que define el término de difusión. Además, pedimos en las condiciones de frontera que $u(x,t) \rightarrow 0$ y $\frac{\partial u}{\partial x}$ cuando $x \rightarrow \pm \infty$. De esta forma, al aplicar la transformada de Fourier a ambos lados de la ecuación,
+\begin{align*}
+    \mathcal{F}\bigg(\frac{\partial u}{\partial t} \bigg)=m\mathcal{F}\bigg(\frac{\partial^2 u}{\partial x^2}\bigg),
+\end{align*}
+donde
+\begin{align*}
+    \mathcal{F}\bigg(\frac{\partial u}{\partial t} \bigg) = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{ikx}\frac{\partial u}{\partial t}\:dx = \frac{\partial}{\partial t}\hat{u}(k,t),
+\end{align*}
+pues la integral no depende del tiempo. Por otro lado, para el término del lado derecho usaremos integración por partes. Veamos la primera derivada:
+\begin{align*}
+    \mathcal{F}\bigg(\frac{\partial u}{\partial x}\bigg) & = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{ikx}\frac{\partial u}{\partial x}\:dx
+    \\
+    & = \frac{1}{2\pi}\bigg[e^{ikx}u(x,t)\Big|_{-\infty}^{\infty}\bigg] - \frac{1}{2\pi}ik\int_{-\infty}^{\infty}u(x,t)e^{ikx}dx,
+    \\
+    & = (-ik)\hat{u}(k,t),
+\end{align*}
+que se obtuvo tomando como variables de integración $a = e^{ikx}, da = ike^{ikx}dx,$ \\  $b = u(x,t), db = \frac{\partial u}{\partial x}dx$. Notamos que el primer término de la segunda igualdad se anula por las condiciones de frontera y porque $e^{ikx}$ es acotada. Con respecto a la segunda derivada tendremos:
+\begin{align*}
+    \mathcal{F}\bigg(\frac{\partial ^2u}{\partial x^2}\bigg) = -ik \mathcal{F}\bigg(\frac{\partial u}{\partial x}\bigg) = (-ik)^2\hat{u}(k,t) = -k^2\hat{u}(k,t).
+\end{align*}
+De hecho, vemos que en general se satisface:
+\begin{align}
+    \mathcal{F}\bigg(\frac{\partial^nu}{\partial x^n}\bigg) =
+    (-ik)^n\hat{u}(x,t),
+    \label{eq:GeneralTransformada}
+\end{align}
+por inducción matemática. Así, podemos escribir la ecuación de $\eqref{eq:EcCalor}$ en el espacio transformado como:
+\begin{align*}
+    \frac{\partial}{\partial t}\hat{u}(k,t) = -k^2m\hat{u}(k,t),
+\end{align*}
+donde para cada $k$ fija tenemos una EDO de primer orden lineal. Para resolverla primero pasemos el término del lado derecho a la izquierda y multipliquemos ambos lados por $e^{mk^2t}$:
+\begin{align*}
+    \frac{\partial}{\partial t}\hat{u}(k,t)e^{mk^2t} + k^2m\hat{u}(k,t)e^{mk^2t} = 0
+    \implies
+    \frac{\partial}{\partial t}[e^{mk^2t}\hat{u}(k,t)] = 0.
+\end{align*}
+Integrando con respecto a $t$:
+\begin{align*}
+    e^{mk^2t}\hat{u}(k,t) = h(k) 
+    \implies
+    \hat{u}(k,t) = h(k)e^{-mk^2t},
+\end{align*}
+donde $h(k)$ es alguna función dependiente de $k$ que debemos determinar. Al evaluar en la condición inicial $\hat{u}(k,0) = h(k)$, esto es, $h(k)$ es la transformada de Fourier de $f(x)$, así:
+\begin{align*}
+    \hat{u}(k,t) = \hat{f}(k)e^{-mk^2t},
+\end{align*}
+donde el término $e^{-mk^2t}$ lo podemos ver como la transformada de Fourier de alguna función. De hecho, recordamos que en la sección 2.2.3 (Ec.\eqref{eq:InvGauss}) hemos determinado la transformada inversa de Fourier de la gaussiana como:
+\begin{align*}
+    g(x) = \sqrt{\frac{\pi}{mt}}e^{-x^2 / 4mt}.
+\end{align*}
+Por consiguiente, al aplicar el teorema de la convolución, la solución es:
+\begin{align*}
+    u(x,t) & = \frac{1}{2\pi}\int_{-\infty}^{\infty}g(x-y)f(y)\:dy
+    \\
+    & = \frac{1}{2\pi}\sqrt{\frac{\pi}{mt}}\int_{-\infty}^{\infty}e^{-(x-y)^2/4mt}f(y)\:dy
+    \\
+    & = \frac{1}{\sqrt{4\pi mt}}\int_{-\infty}^{\infty}e^{-(x-y)^2/4mt}f(y)\:dy,
+\end{align*}
+donde la función que denotamos como $K(x,t) = \frac{1}{\sqrt{4\pi mt}}e^{-x^2/4mt}$
+se conoce como el \textbf{núcleo del calor}.
+\\ \\
+Veamos que se satisface la condición inicial $u(x,0) = f(x)$. Primero, por construcción tenemos que:
+\begin{align}
+    \int_{\field{R}}K(x,t)dx = 1, \:\: \forall t>0,
+    \label{eq:Chaleur}
+\end{align}
+y queremos ver que pasa cuando $t \rightarrow 0^{+}$. Para esto definimos la
+siguiente función:
+\begin{align*}
+    \delta(x,\epsilon) = 
+    \left\{ \begin{array}{ll}
+        1/\epsilon,\:\:\:&x\in[-\epsilon/2,\epsilon/2],
+          \\
+          0,\:\:\:&x\notin[-\epsilon/2,\epsilon/2],
+          \\
+         \end{array}
+         \label{eq:EcCalor}
+\right.
+\end{align*}
+donde $\epsilon > 0$, que cumple $\int_{\field{R}}\delta(x,\epsilon)dx = \int_{-\epsilon/2}^{\epsilon/2}1/\epsilon\: dx = 1$. Así:
+\begin{align*}
+    \lim_{\epsilon\to 0^+} \int_{\field{R}}\delta(x,\epsilon)dx = 1 \:\:\: y \:\:\: \lim_{\epsilon\to 0^+} \delta(x,\epsilon) =
+    \left\{ \begin{array}{ll}
+        \infty,\:\:\:&x = 0,
+          \\
+          0,\:\:\:&x\neq 0.
+          \\
+         \end{array}
+\right.
+\end{align*}
+\noindent
+Además, suponemos que $\delta(x,\epsilon)$ cumple  las siguientes dos propiedades:
+\begin{enumerate}[1.]
+    \item $\lim_{\epsilon\to 0}\int_{\field{R}}\delta(x,\epsilon)dx = 1$
+    \item $\lim_{\epsilon\to 0}\int_{\field{R}}\delta(x,\epsilon)f(x)dx = f(0)$
+    \item
+    $\lim_{\epsilon\to 0}\int_{a}^{b}\delta(x,\epsilon)dx = 0$\: si\: $0\notin[a,b]$
+\end{enumerate}
+\noindent
+En la segunda propiedad, consideramos valores cercanos de $x$ al origen, es decir, 
+\begin{align*}
+    \lim_{\epsilon\to 0}\int_{\field{R}}\delta(x,\epsilon)f(x)dx & = \lim_{\epsilon\to 0} \int_{-\epsilon/2}^{\epsilon/2}(1/\epsilon)f(x_{\epsilon})dx, \:\:\text{con}\: x_{\epsilon} \in[-\epsilon/2,\epsilon/2]
+    \\
+    & =
+    \lim_{\epsilon\to 0} f(x_{\epsilon})
+    \\
+    & =
+    f(0).
+\end{align*}
+En el caso del núcleo del calor se puede mostrar que cumple las tres propiedades enunciadas arriba. Así, obtendremos:
+\begin{align*}
+    &\lim_{t\to 0^{+}} K(x,t) = 
+    \lim_{t\to 0^{+}}
+    \frac{1}{\sqrt{4\pi mt}}e^{-x^2/4mt} = 0, \:\: \text{cuando}\:\: x \neq 0,
+    \\
+    &\lim_{t\to 0^{+}} K(x,t) = \lim_{t\to 0^{+}}
+    \frac{1}{\sqrt{4\pi mt}} = \infty, \:\: \text{cuando}\:\: x = 0.
+\end{align*}
+Por lo tanto, suponiendo que el nucleo del calor satisface la segunda condición se cumple la condición inicial:
+\begin{align*}
+    \lim_{t\to 0^{+}} \int_{-\infty}^{\infty}K(x-y,t)f(y)dy = f(x).
+\end{align*}
+El núcleo del calor podemos interpretarlo como la evolución de la temperatura a lo largo de una región, veamos qué pasa cuando $t$ tiende al infinito.
+\begin{align*}
+    \lim_{t\to \infty} u(x,t) =
+    \lim_{t\to \infty} \frac{1}{\sqrt{4\pi mt}}\int_{-\infty}^{\infty}e^{-(x-y)^2/4mt}f(y)\:dy = 0,
+\end{align*}
+(pues las funciones dentro de la integral están acotadas), 
+en otras palabras, puntualmente se va a cero. Sin embargo, por el principio de conservación del calor se debe cumplir que:
+\begin{align*}
+    \int_{\field{R}}u(x,t)dx = \int_{\field{R}}f(x) dx, \:\forall t>0,
+\end{align*}
+al considerar que $K(x,t)$ cumple la propiedad 1.
+\newpage
+\section{La Ecuación dependiente del tiempo de Schrödinger}
+\noindent
+Antes de este capítulo, el lector ya abarcó los conocimientos necesarios para comprender los procedimientos que se desarrollarán. Se resolverá la ecuación dependiente del tiempo de Schrödinger, la cual se dedujo en el capítulo 1 y la reescribimos por comodidad:
+\begin{align*}
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t}.
+\end{align*}
+Para representar el movimiento de una partícula ``libre'' en el espacio-tiempo, debemos suponer que no hay fuerzas actuando sobre ella, es decir, hay que considerar la energía potencial $\mathcal{V}(x,t)$ como nula, pues, si fuera positiva confinaría a la partícula a cierta región, esto lo estudiaremos en el Capítulo 4. Por el momento, la condición inicial es de la siguiente forma $\psi(x,0) = \psi_{0}(x)$, no obstante, más adelante veremos que es necesario que esta función pertenezca al espacio $L^{2}(\field{R},\field{C})$. El problema de valor inicial (PVI) a resolver es:
+    \begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2},\:\:\:x\in\field{R},\:t>0 \\
+         \psi(x,0) = \psi_{0}(x),\:x\in\field{R} \\
+         \end{array}
+\right.
+\label{eq:TISchrodinger}
+    \end{align}
+
+\subsection{Solución por la transformada de Fourier y el teorema de la convolución}
+\noindent
+Hemos visto en el capítulo 1 que la función $\eqref{eq:onda}$ representa un estado de la partícula con la frecuencia angular $\omega$ y frecuencia espacial $k$ de la siguiente forma:
+\begin{align*}
+    \psi(x,t) = e^{i(kx - \omega t)},
+\end{align*}
+en este caso $k$ y $\omega$ son tales que $\psi(x,t)$ satisface $\eqref{eq:TISchrodinger}$. En otras palabras, estos parámetros son elegidos de tal modo que al derivar $\psi_{t}$ y $\psi_{xx}$ tenemos que:
+\begin{align*}
+    \frac{\partial\psi}{\partial t} = -i\omega\psi(x,t) ,\\
+    \frac{\partial^2\psi}{\partial x^2} = -k^2\psi(x,t).
+\end{align*}
+Al incorporar estas derivadas en \eqref{eq:TISchrodinger}, obtenemos que $\omega = (k^2\hslash)/(2m)$ debe satisfacerse, donde notamos que $\omega$ es una función dependiente de $k$ que denotaremos por $\omega(k)$ y se conoce como \textbf{relación de dispersión} porque se determina la frecuencia en el tiempo a partir de la frecuencia en el espacio. Así:
+\begin{align*}
+    \psi(x,t) = e^{i(kx-\omega(k)t)}.
+\end{align*}
+Al factorizar un $ik$, el término de la exponencial se puede expresar como $x - \dfrac{\omega(k)}{k}t$. De esta forma, podemos interpretarlo como un desplazamiento de la función a la derecha por $\dfrac{\omega(k)}{k}t$, es decir, $\psi(x,t)$ se mueve a la derecha con esta velocidad, la cual se conoce como \textbf{velocidad fase}; en la siguiente sección daremos una interpretación apropiada. 
+Ahora, introduciremos los siguientes enunciados para comprender el desarrollo del Teorema 3.1. La primera es la evaluación de una integral impropia, y por otro lado, el concepto de las funciones de prueba. 
+\begin{afirm}
+    El valor de la siguiente integral impropia es:
+    \begin{align}
+       \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\exp\big[ikx\big]\exp\bigg[-i\frac{\hslash k^2t}{2m}\bigg]dk = \sqrt{\frac{m}{i2\pi\hslash t}}\exp\bigg[i\frac{mx^2}{2t\hslash}\bigg].
+       \label{eq:Impropia}
+    \end{align}  
+\end{afirm}
+\begin{demo}
+    \text{Sabemos que:}
+    \begin{align} \int_{-\infty}^{\infty}\exp\bigg[-\frac{(k-\mu)^2}{4\pi\sigma^2}\bigg]dk = \sqrt{2\pi\sigma^2},
+    \label{eq:Normal}
+    \end{align}
+    por lo que, al reescribir \eqref{eq:Impropia} de la siguiente forma
+    \begin{align}
+        \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+        \exp\bigg[-i\frac{mx^2}{2t\hslash}\bigg]
+        \exp\big[ikx\big]\exp\bigg[-i\frac{\hslash k^2t}{2m}\bigg]dk = 
+        \sqrt{\frac{m}{i2\pi\hslash t}},
+        \label{eq:reescritura}
+    \end{align}
+    podemos deducir el valor de $\sigma^2$ al igualar los términos del lado derecho de las últimas dos expresiones
+    \begin{align*}
+        \sqrt{2\pi\sigma^2} = \sqrt{2\pi}\sqrt{\frac{m}{i2\pi\hslash t}} \implies \sigma ^2 = \frac{m}{i 2\pi\hslash t},
+    \end{align*}
+    con lo cual el término de la exponencial en $\eqref{eq:Normal}$ es:
+    \begin{align*} \exp\bigg[-\frac{(k-\mu)^2}{4\pi\sigma ^2}\bigg] & = \exp\bigg[-\frac{1}{4\pi}(k-\mu)^2\bigg(\frac{i 2\pi\hslash t}{m}\bigg)\bigg] \\ & = \exp\bigg[-\frac{ik^2\hslash t}{2m} + \frac{ik\mu\hslash t}{m}-\frac{i\mu^2\hslash t}{2m}\bigg].
+    \end{align*}
+    Por otro lado, al igualar los términos dentro de la integral de $\eqref{eq:reescritura}$ y $\eqref{eq:Normal}$
+    \begin{align*}
+        e^{ikx}\exp\bigg[-i\frac{\hslash k^2t}{2m}\bigg]\exp\bigg[-i\frac{mx^2}{2t\hslash}\bigg] = \exp\bigg[-\frac{ik^2\hslash t}{2m} + \frac{ik\mu\hslash t}{m}-\frac{i\mu^2\hslash t}{2m}\bigg],
+    \end{align*}
+    obtenemos:
+    \begin{align*}
+        ikx = i\frac{k\mu\hslash t}{m} \implies 
+        \mu = \frac{mx}{\hslash t}.
+    \end{align*}
+    Así:
+    \begin{align*}
+        \frac{1}{2\pi}\int_{-\infty}^{\infty}\exp[ikx]\exp\bigg[-\frac{i\hslash k^2 t}{2m}\bigg] \: dk = \sqrt{\frac{m}{i2\pi\hslash t}} \exp\bigg[i\frac{mx^2}{2\hslash t}\bigg].
+    \end{align*}
+    \qed
+\end{demo}
+\begin{teo}
+    Supongamos $\psi_{0} \in L^2(\field{R},\field{C})$. Definamos $\psi(x,t)$ por:
+    \begin{align*}
+        \psi(x,t) = \sqrt{\frac{m}{2\pi it\hslash}}\int_{-\infty}^{\infty}\exp\bigg[-\frac{m}{2it\hslash}(x-y)^2\bigg]\psi_{0}(y) \: dy.
+    \end{align*}
+    Entonces $\psi(x,t)$ satisface el PVI $\eqref{eq:TISchrodinger}$.
+    \label{teo:Rev4}
+\end{teo}
+\begin{demo}
+    La demostración es parecida a la solución que derivamos de la ecuación del calor en la Sección 2.2.4, por lo que algunos pasos serán explicados de manera breve. Primero, al aplicar la transformada de Fourier por ambos lados a la EDP en $\eqref{eq:TISchrodinger}$, llegamos a que
+    \begin{align}
+        \hat{\psi}(k,t) = e^{-(i\hslash)/(2m)k^{2}t}\hat{\psi_{0}}(k). \label{eq:Transformada}
+    \end{align}
+    De manera equivalente al procedimiento en la ecuación del calor, $e^{-(i\hslash)/(2m)k^{2}t}$ lo podemos ver como la transformada inversa de Fourier de alguna función. De esta forma, al aplicar el teorema de la convolución, existe $K(x,t)$ tal que:
+    \begin{align*}
+        \psi(x,t) = K(x,t)*\psi_{0},
+    \end{align*}
+    donde $K(x,t)$ es el núcleo de la ecuación de Schrödinger y tiene la siguiente forma:
+    \begin{align}
+    K(x,t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{ikx}\exp\bigg[-i\frac{\hslash k^2t}{2m}\bigg]dk.
+    \label{eq:NucleoSch}
+\end{align}
+    El valor de $\eqref{eq:NucleoSch}$ lo determinamos en $\eqref{eq:Impropia}$.  Considerando esto, la solución es:
+    \begin{align*}
+        \psi(x,t) = K(x,t)*\psi_{0} & = \int_{-\infty}^{\infty}K(x-y,t)\psi_{0}(y) \: dy ,
+        \\
+        & = \sqrt{\frac{m}{2\pi it\hslash}}\int_{-\infty}^{\infty}\exp\bigg[-\frac{m}{2it\hslash}(x-y)^2\bigg]\psi_{0}(y) \: dy.
+    \end{align*}
+    Falta verificar que $\psi(x,t)$ cumple la condición inicial en $\eqref{eq:TISchrodinger}$. Para empezar, dado que $\eqref{eq:Transformada}$ es la transformada de Fourier de $\psi(x,t)$, tomando $\mathcal{F}^{-1}$ en la ecuación \eqref{eq:Transformada} obtenemos
+    \begin{align}
+        \psi(x,t) =    \frac{1}{\sqrt{2\pi}} \int^{\infty}_{-\infty}e^{-i(kx-\omega(k)t)}\hat{\psi_{0}}(k)dk,
+        \label{eq:Apoyo}
+    \end{align}
+    donde $\omega(k) = (-k^2\hslash)/(2m)$.
+    \\ \\ 
+    Por un lado, veamos que $\eqref{eq:Apoyo}$ satisface la condición inicial:
+    \begin{align*}
+         \psi(x,0)  
+         = \frac{1}{\sqrt{2\pi}} \int^{\infty}_{-\infty}e^{-i(kx)}\hat{\psi_{0}}(k)dk
+        = 
+        \psi_{0}(x) .
+    \end{align*}
+    Por otro lado, veamos que $\psi(x,t)$ satisface la EDP del PVI en $\eqref{eq:TISchrodinger}$:
+    \begin{align*}
+        \frac{\partial\psi}{\partial t} & = \frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}\frac{\partial}{\partial t}\bigg(\hat{\psi_{0}}(k)e^{i(kx-\omega(k)t)}\bigg)dk
+        \\
+        & =
+        \frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}-i\omega(k)\hat{\psi_{0}}(k)e^{i(kx-\omega(k)t)}dk
+        \\
+        & =
+        \frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}\frac{-i\hslash k^2}{2m}\hat{\psi_{0}}(k)e^{i(kx-\omega(k)t)}dk,
+    \end{align*}
+    donde consideramos en el último procedimiento funciones continuas. Con respecto a la derivada espacial:
+    \begin{align*}
+        \frac{\partial^2\psi}{\partial x^2} & = \frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}-k^2\hat{\psi_{0}}(k)e^{i(kx-\omega(k)t)}dk.
+    \end{align*}
+    Así:
+    \begin{align*}
+        \frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2} & = \frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}-\frac{i\hslash k^2}{2m}\hat{\psi_{0}}(k)e^{i(kx-\omega(k)t)}dk
+         =
+        \frac{\partial\psi}{\partial t}.
+    \end{align*}
+    \qed
+\end{demo}
+\noindent
+Para funciones generales $\psi_{0}(x,t)\in L^2(\field{R},\field{C})$, $\psi(x,t)$ no necesariamente satisface la ecuación de Schrödinger en el sentido clásico por que puede no ser diferenciable en la variable $x$ o en la variable $t$.
+
+
+\begin{defn}
+    Sea $\chi \in C^{\infty}(\field{R}\times\field{R}^{+})$, el \textbf{soporte} de $\chi$ se define como:
+    \begin{align*}
+        supp \: \chi = \{(x,t) \in \field{R}\times\field{R}^{+}\:|\: \chi(x,t) \neq 0 \},
+    \end{align*}
+    donde $\field{R}^+ = [0,\infty]$.
+    \label{eq:Soporte}
+\end{defn}
+\begin{defn}
+    Sea $\mathcal{D}$ un conjunto compacto definido en $\field{R}\times[0,\infty)$
+    y $\chi$ una función suave con soporte $\mathcal{D}$, entonces se dice que $\chi$ es una \textbf{función de prueba} y la denotamos por $\chi \in C_{\mathcal{D}}^{\infty}(\field{R}\times\field{R}^{+})$.
+    \label{eq:TestFunc}
+\end{defn}
+\noindent
+Las funciones de prueba $\chi$ se busca que estén definidas en un conjunto compacto para garantizar que la integral en este intervalo sea finita. Para el Teorema \ref{teo:Rev4} supondremos que $\psi_{0}$ es integrable cuadráticamente, es decir,  $\psi_{0}\in L^{2}(\field{R},\field{C})$.\\ \\
+Ahora, se explica brevemente el concepto de soluciones débiles.
+ Hay casos en los que la solución a una EDP no es necesariamente diferenciable, por esto se utilizan las funciones de prueba para que cuando aparezca alguna derivada de $\psi(x,t)$ sea ``transferida'' mediante integración por partes a la derivada de $\chi$. En otras palabras, en lugar de evaluar $\psi(x,t)$ en cada punto de $\field{R}\times\field{R}^{+}$, se evalua $\chi$ en intervalos abiertos. Para lograr esto último, decimos que $\psi(x,t)$ tiene una derivada débil en el espacio si existe una función $h$ tal que
+\begin{align*}
+    \int_{\field{R}}h\:\chi(x,t) dx = \int_{\field{R}}\psi(x,t)\frac{\partial}{\partial x}\chi(x,t) dx,
+\end{align*}
+para toda $\chi$ función de prueba, donde $h = \partial\psi(x,t) / \partial x$ y se conoce como derivada débil. Para derivadas mayores o temporales la definición es análoga.
+\begin{defn}
+        Una función $\psi(x,t)$ satisface la ecuación libre \footnote{En el sentido de que consideramos $\mathcal{V}(x,t)$ como nula para $x\in\field{R}$.}  de Schrödinger en el sentido débil, si para toda función de prueba $\chi \in C_{\mathcal{D}}^{\infty}(\field{R}\times\field{R}^{+})$ con soporte compacto $\mathcal{D}\subset \field{R}\times\field{R}^{+}$ se cumple:
+        \begin{align} \int_{\field{R}^+}\int_{\field{R}}\psi(x,t)\bigg[\frac{\partial\chi}{\partial t}-\frac{i\hslash}{2m}\frac{\partial ^2\chi}{\partial x^2}\bigg]\:dxdt = -\int_{\field{R}}\chi(x,0)\psi(x,0). \label{eq:Soldebil}
+        \end{align}
+        \label{lem:Rev5}
+\end{defn}
+\begin{lem}
+    Sea $\psi(x,t)$ una función suave, en el sentido de tener primera derivada espacial y temporal, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
+\end{lem}
+    \begin{demo}
+        Sea $\chi \in C^{\infty}_{\mathcal{D}}(\field{R},\field{R}^{+})$ una función de prueba con soporte compacto $\mathcal{D}$, dado que:
+        \begin{align*}
+            \frac{\partial\psi}{\partial t} = \frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2} \implies
+            \frac{\partial\psi}{\partial t} -
+            \frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2}  = 0,
+        \end{align*}
+        Integrando contra $\chi(x,t)$:
+        \begin{align*}
+           \int_{\field{R}^+}\int_{\field{R}}\bigg[\frac{\partial\psi}{\partial t} -\frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2}\bigg]\chi(x,t) \:dxdt = 0,
+        \end{align*}
+        lo cual se reescribe como:
+        \begin{align} \int_{\field{R}}\int_{\field{R}^+}\frac{\partial\psi}{\partial t}\chi(x,t) \: dtdx - \int_{\field{R}^+}\int_{\field{R}}\frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2}\chi(x,t) \:dxdt = 0.
+        \label{eq:Apoyo2}  \end{align}
+        El hecho de intercambiar la integral es gracias al teorema de Fubini, pues se satisfacen las hipótesis de Fubini. 
+        Al aplicar integración por partes al primer término de $\eqref{eq:Apoyo2}$:
+        \begin{align*}
+            \int_{\field{R}^+}\frac{\partial\psi}{\partial t}\chi(x,t) \: dt & = \chi(x,t)\psi(x,t)\Big|_{\field{R}^+} - \int_{\field{R}^+}\psi(x,t)\frac{\partial\chi}{\partial t} \: dt,
+            \\
+            & = -\chi(x,0)\psi(x,0) - \int_{\field{R}^+}\psi(x,t)\frac{\partial\chi}{\partial t} \: dt,
+        \end{align*}
+        donde análogamente a la solución del calor $\psi(x,t) \rightarrow 0$ cuando $t \rightarrow \infty$. De igual forma, al resolver por partes el segundo término en $\eqref{eq:Apoyo2}$: \begin{align*} \int_{\field{R}}\bigg[\frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2}\bigg]\chi \: dx = \frac{i\hslash}{2m}\bigg[\chi(x,t)\frac{\partial\psi}{\partial x}\bigg]\Big|_{\field{R}} - \frac{i\hslash}{2m} \int_{\field{R}}\bigg(\frac{\partial\psi}{\partial x} \bigg)\frac{\partial \chi}{\partial x} \: dx,
+        \end{align*}
+        donde el término evaluado en $\pm\infty$ se anula, pues, $\partial\psi(x,t) / \partial x \rightarrow 0$ cuando $x \rightarrow \pm \infty$ y $\chi$ está acotada al tener soporte compacto.
+        Por otro lado, por una razonamiento semejante en la integral que resta: \begin{align*}
+            - \frac{i\hslash}{2m} \int_{\field{R}}\bigg(\frac{\partial\psi}{\partial x} \bigg)\frac{\partial \chi}{\partial x} \: dx = - \frac{i\hslash}{2m}\int_{\field{R}}\psi(x,t)\frac{\partial ^2\chi}{\partial x^2} \: dx,
+        \end{align*} En consecuencia, se reescribe $\eqref{eq:Apoyo2}$ como: \begin{align*}
+            -\int_{\field{R}}\chi(x,0)\psi(x,0) - \int_{\field{R}}\int_{\field{R}^+}\psi(x,t)\frac{\partial\chi}{\partial t} \: dt dx + \int_{\field{R}^+}\frac{i\hslash}{2m}\int_{\field{R}}\psi(x,t)\frac{\partial ^2\chi}{\partial x^2} \: dxdt = 0,
+        \end{align*}
+        por lo tanto:
+        \begin{align*}
+            \int_{\field{R}^+}\int_{\field{R}}\psi(x,t)\bigg[\frac{\partial\chi}{\partial t}-\frac{i\hslash}{2m}\frac{\partial ^2\chi}{\partial x^2}\bigg]\:dxdt = -\int_{\field{R}}\chi(x,0)\psi(x,0)\:dx.
+            \qedhere
+        \end{align*}
+        Para la otra dirección la demostración es análoga, sin embargo, notamos que
+        \begin{align*}
+            \int_{\field{R}^+}\int_{\field{R}}\bigg[\frac{\partial\psi}{\partial t} -\frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2}\bigg]\chi(x,t) \:dxdt = 0 \implies \frac{\partial\psi}{\partial t} -
+            \frac{i\hslash}{2m}\frac{\partial^2\psi}{\partial x^2} = 0,
+        \end{align*}
+        se satisface al ser para toda función $\chi$ con soporte compacto. 
+        \qed
+    \end{demo}
+    \noindent
+     Notamos que si tomaramos $\mathcal{D}\subset A$, con $A$ un abierto, podría darse el caso de soportes compactos que no intersectan el eje $t = 0$, es decir, $D\cap\{t=0\}=\emptyset$, por lo que la evaluación de $\chi(x,0)\psi(x,0)$ es cero, y así la parte derecha de la ecuación $\eqref{eq:Soldebil}$ también. Sin embargo, en este caso al imponer restricciones de frontera a la ecuación de Schrödinger, es necesario que $\mathcal{D}$ sea un subconjunto de $\field{R}\times\field{R}^{+}$ por la condición inicial en $t=0$.
+
+\subsection{Paquete de onda como condición inicial}
+\noindent
+En la seccion anterior, hemos utilizado metodología matemáticas para encontrar la solución en el Teorema \ref{teo:Rev4}, ahora, por motivaciones físicas haremos una propuesta distinta (ansatz) y veremos que es consistente la solución.
+\\ \\
+En el capítulo 1 consideramos la siguiente función:
+\begin{align*}
+    \psi(x,t) = Ae^{i(kx - \omega t)},
+\end{align*}
+donde $A$ la habíamos tomado como una constante. Ahora, como resolveremos la ecuación libre de Schrödinger en términos de la amplitud y la fase de la onda, es útil pensar que éstas varían en el tiempo y en el espacio, es decir
+\begin{align}
+    \psi(x,t) = A(x,t)e^{i\theta(x,t)},
+    \label{eq:Apoyo3}
+\end{align}
+con $A(x,t)$ representando la amplitud  y $\theta(x,t)$ la fase de la onda, respectivamente.
+Esta última función determina la rápidez a la cual los picos individuales se mueven (línea azul en Figura \ref{fig:Velocidades}), y se conoce como la velocidad fase. Mientras que la función $A(x,t)$ controla la velocidad a la cual el paquete de ondas (línea negra en Figura \ref{fig:Velocidades}) se propaga en el espacio, esto se denomina la velocidad de grupo, más adelante veremos la forma particular de estas funciones.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 9cm, height = 5.5cm]{Velocidades}
+    \caption{Velocidades de un paquete de ondas. La línea negra representa un paquete de ondas y la línea azul con fondo amarillo representa las ondas individuales dentro del paquete. Vemos que la Velocidad Fase oscila más rápido que la Velocidad de Grupo. Al final del capítulo nos quedará más clara esta idea.}
+    \label{fig:Velocidades}
+\end{figure}
+\\ \\
+Ya que el interés de estudio de esta sección es el paquete de onda, tomamos como condición inicial una partícula con momento (energía) $p_{0}$. En consecuencia, suponemos que la fase de onda inicial es $\theta(x,0) = (p_{0}x)/\hslash$, donde al considerar la relación \eqref{eq:Broglie} de Louis de Broglie, notamos que la fase inicial es $x/\lambda$, es decir, es el cociente entre la posición y la longitud de onda. Por último, el paquete de onda inicial está dado por $e^{i\theta(x,0)}$, veamos gráficamente distintas velocidades de la fase del paquete de onda en la Figura $\ref{fig:Part}$.
+\begin{figure}[h]
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{Paqonda1}
+\caption{Fase de la partícula con $p_{0}/\hslash = 1$.}
+\label{fig:Particula1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{Paqonda2}
+\caption{Fase de la partícula con $p_{0}/\hslash = 2$. }
+\label{fig:Particula2}
+\end{subfigure}
+\caption{Ejemplo de una partícula con distintos valores de $p_{0}$ iniciales.}
+\label{fig:Part}
+\end{figure}
+\noindent
+La constante de Planck $\hslash$ es un término fijo, así, como podemos apreciar en la Figura \ref{fig:Part}, existe una relación inversa entre la energía de la partícula $p_{0}$ y su periodo, ya que al aumentar $p_{0}$, el periodo disminuye y viceversa. Al comparar la Figura \ref{fig:Particula1} y la Figura \ref{fig:Particula2}, notamos que la velocidad es mayor mientas mayor es $p_{0}$ para este ejemplo, pues $\hslash$ es constante.
+\\
+\\
+Para $t=0$ consideramos un paquete de ondas con amplitud inicial $A_{0}(x)$. Así, El Problema de Valor Inicial es el siguiente:
+\begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2} , \:x\in\field{R}, \:t>0,\\
+         \psi(x,0) = \psi_{0}(x) = A_{0}(x)e^{ip_{0}x/h}, \:x\in\field{R}. \\
+         \end{array} \label{eq:Paqonda}
+\right.
+    \end{align}
+La forma de la función $\theta(x,t)$ en $\eqref{eq:Paqonda}$ la aclararemos en la siguiente página. Por el momento, suponemos que $A_{0}(x)$ es una función real positiva que envuelve el paquete de ondas original, es decir, $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, y $p_{0}$ un real distinto de cero que se identifica con la energía de la onda. Derivemos la solución modelo $\eqref{eq:Apoyo3}$ respecto a sus componentes
+\begin{align*}
+    \frac{\partial\psi}{\partial t} & = \bigg[\frac{\partial A}{\partial t} + iA\frac{\partial\theta}{\partial t}\bigg]e^{i\theta(x,t)},
+    \\
+    \frac{\partial\psi}{\partial x}  & = \bigg[\frac{\partial A}{\partial x} + iA\frac{\partial\theta}{\partial x}\bigg]e^{i\theta(x,t)},
+    \\
+    \frac{\partial^2\psi}{\partial x^2}  & = \bigg[\frac{\partial^2 A}{\partial x^2} + 2i\frac{\partial\theta}{\partial x}\frac{\partial A}{\partial x}  +
+    iA\frac{\partial^2 \theta}{\partial x^2} - A\bigg(\frac{\partial\theta}{\partial x}\bigg)^2\bigg]e^{i\theta(x,t)}.
+\end{align*}
+Al sustituir en la EDP en $\eqref{eq:Paqonda}$ y cancelando  el factor $e^{i\theta(x,t)}$ obtenemos:
+\begin{align*}
+    \frac{\partial A}{\partial t} + iA\frac{\partial\theta}{\partial t} = \frac{i\hslash}{2m}
+    \frac{\partial^2 A}{\partial x^2} -\frac{\hslash}{2m}\frac{\partial\theta}{\partial x}\frac{\partial A}{\partial x} - \frac{\hslash}{2m}A\frac{\partial^2 \theta}{\partial x^2} - \frac{i\hslash}{2m}A\bigg( \frac{\partial\theta}{\partial x}\bigg) ^2.
+\end{align*}
+Separamos la parte real de la imaginaria, donde la ecuación con componentes imaginarias la dividimos entre $A$, obteniendo:
+\begin{align}
+    \frac{\partial A}{\partial t} & =
+    -\frac{\hslash}{2m}\frac{\partial\theta}{\partial x}\frac{\partial A}{\partial x} - \frac{\hslash}{2m}A\frac{\partial^2 \theta}{\partial x^2},
+    \label{eq:Apoyo4}
+    \\
+    \frac{\partial\theta}{\partial t} & = 
+    \frac{\hslash}{2m}\frac{1}{A}
+    \frac{\partial^2 A}{\partial x^2} - \frac{\hslash}{2m}\bigg(\frac{\partial\theta}{\partial x}\bigg)^2.
+    \label{eq:Apoyo5}
+\end{align}
+\noindent
+  Para simplificar la Ec. \eqref{eq:Apoyo5}, supondremos que es válido $\forall t>0$ y $\forall x\in\field{R}$ la siguiente condición
+\begin{align}
+    \frac{1}{A}\frac{\partial^2 A}{\partial x^2} \ll \bigg(\frac{\partial\theta}{\partial x}\bigg)^2,
+    \label{eq:CondAmp}
+\end{align}
+donde $\ll$ denota ``mucho más pequeño que", pues, así nos permite simplificar $\eqref{eq:Apoyo5}$ sólo a términos de $\theta(x,t)$. Más adelante, veremos la forma explicita de esta condición al encontrar las soluciones de $\eqref{eq:Apoyo4}$ y $\eqref{eq:Apoyo5}$,
+  donde consideramos la aproximación de $\eqref{eq:Apoyo5}$ como:
+\begin{align}
+    \frac{\partial\theta}{\partial t} & = 
+    - \frac{\hslash}{2m}\bigg(\frac{\partial\theta}{\partial x}\bigg)^2,
+    \label{eq:Apoyo6}
+\end{align}
+bajo el supuesto de \eqref{eq:CondAmp}.
+\begin{teo}
+    La solución para las ecuaciones $\eqref{eq:Apoyo4}$ y $\eqref{eq:Apoyo6}$ con condición inicial $\theta(x,0) = p_{0}x/\hslash$ y $A(x,0) = A_{0}(x)$ está dado por:
+    \begin{align*}
+        \theta(x,t) & = \frac{p_{0}}{\hslash}\bigg(x - \frac{p_{0}}{2m}t\bigg),
+        \\
+        A(x,t) & = A_{0}\bigg(x-\frac{p_{0}}{m}t\bigg),
+    \end{align*}
+    las cuáles dan como solución a la Ecuación Libre de Schrödinger el paquete de ondas:
+    \begin{align}
+        \psi(x,t) = A_{0}\bigg(x-\frac{p_{0}}{m}t\bigg)\exp\bigg[i\frac{p_{0}}{\hslash}(x - \frac{p_{0}}{2m}t)\bigg].
+        \label{eq:Apoyo7}
+    \end{align}
+\end{teo}
+\begin{demo}
+    Primero, debemos encontrar una función que satisfaga $\eqref{eq:Apoyo6}$ de tal forma que al encontrarla podamos reducir los términos en $\eqref{eq:Apoyo4}$. El PVI a resolver para $\theta(x,t)$ es
+    \begin{align}
+         \left\{ \begin{array}{ll}
+         \dfrac{\partial\theta}{\partial t} =  - \dfrac{\hslash}{2m}\bigg(\dfrac{\partial\theta}{\partial x}\bigg)^2 , \\
+         \theta(x,0) = p_{0}x/h. \\
+         \end{array}
+        \right.
+        \label{eq:PVItheta}
+    \end{align}
+    Se propone como solución $\theta(x,t) = c_{1}x + c_{2}t$ con $c_{1}$ y $c_{2}$ constantes a determinar. Para encontrarlas, $\theta(x,t)$ debe satisfacer la condición inicial y la EDP, lo cual da un sistema de dos ecuaciones algebraicas a resolver, de la Condición Inicial (C.I.):
+    \begin{align*}
+        \theta(x,0) = c_{1}x \implies c_{1} = \frac{p_{0}}{\hslash},
+    \end{align*}
+    por un lado, y por otro lado, para la segunda constante se deriva la solución propuesta respecto a las componentes para obtener en la EDP:
+    \begin{align*}
+        c_{2} = -\frac{\hslash}{2m}c_{1}^2
+        \implies c_{2} = -\frac{p_{0}^2}{2m\hslash},
+    \end{align*} 
+    al utilizar el valor de $c_{1}$.
+    Sustituyendo las constantes encontradas tenemos que:
+    \begin{align}
+        \theta(x,t)
+         = \frac{p_{0}}{\hslash}\bigg(x - \frac{p_{0}}{2m}t\bigg),
+         \label{eq:PhaseSol}
+    \end{align}
+    satisface el PVI $\eqref{eq:PVItheta}$.
+    \\ \\
+    En $\eqref{eq:Apoyo4}$, notamos que hay términos de las derivadas de la función $\theta(x,t)$ multiplicando términos de la función $A(x,t)$, y como
+    \begin{align*}
+        \frac{\partial\theta}{\partial x} & = \frac{p_{0}}{\hslash} \:
+        \:\:\:\:
+        y \:\:\:\:\:
+        \frac{\partial^2 \theta}{\partial x^2}  = 0,
+    \end{align*}
+    el segundo PVI a resolver es:
+    \begin{align}
+        \left\{ \begin{array}{ll}
+        \dfrac{\partial A}{\partial t} = 
+        \dfrac{-p_{0}}{2m}\bigg(
+        \dfrac{\partial A}{\partial x}\bigg),
+        \\
+        A(x,0) = A_{0}(x).
+        \end{array}
+        \right.
+        \label{eq:SistAmp}
+    \end{align}
+    Este sistema es una ecuación de transporte  de la forma $u_{t} + cu_{x} = 0$, el cual ya hemos resuelto en la Sección 2.2.1. Por lo que
+    \begin{align}
+        A(x,t) = A_{0}\bigg(x - \frac{p_{0}}{2m}t\bigg),
+        \label{eq:AmplitudeSol}
+    \end{align}
+     es la solución del PVI \eqref{eq:SistAmp}. Con las soluciones \eqref{eq:PhaseSol} y \eqref{eq:AmplitudeSol}, al introducirlas en \eqref{eq:Apoyo3} nos da la solución esperada.  
+    \qed
+\end{demo}
+\noindent
+ Ahora veamos de $\eqref{eq:CondAmp}$, que al derivar respectivamente las soluciones de $\eqref{eq:PVItheta}$ y $\eqref{eq:SistAmp}$ debemos obtener:
+    \begin{align*} \frac{A_{0}''(\kappa)}{A_{0}(\kappa)} \ll \bigg(\frac{p_{0}}{\hslash}\bigg)^2 \:\:\:\:\text{o, de modo equivalente}\:\:\:\:
+    A_{0}''(\kappa) \ll A_{0}(\kappa)\bigg(\frac{p_{0}}{\hslash}\bigg)^2,
+    \end{align*}
+    donde $\kappa = x - (p_{0}/2m)t$.
+    En otras palabras, se debe satisfacer que la razón de crecimiento de la curva de la amplitud sea de magnitud más pequeña que una constante veces la altura de la amplitud, de esta forma $A_{0}$ es una función que varía lentamente con respecto al espacio. Físicamente, quiere decir que el paquete de ondas inicial debe tener crestas chatas para que sea constante sobre los periodos de la función $e^{ip_{0}x/\hslash}$, y se conoce como \textit{Slowly Varying Envelope Approximation} (SVEA). Es decir, bajo este supuesto nuestra solución es como \eqref{eq:Apoyo7}.
+    \\ \\
+ Al considerar las soluciones obtenidas, notamos en \eqref{eq:AmplitudeSol} que la amplitud $A(x,t)$ se mueve a velocidad $p_{0}/m$ mientras que la fase $\theta(x,t)$ en \eqref{eq:PhaseSol} se mueve a velocidad $p_{0}/2m$. Recordamos que estas  velocidades son la velocidad de grupo y la velocidad fase respectivamente, es decir,
+    \begin{align}
+        velocidad \:  fase & = \frac{p_{0}}{2m},
+        \label{eq:velfase}
+        \\
+        velocidad \:  de \: grupo & = \frac{p_{0}}{m}.
+        \label{eq:velgrupo}
+    \end{align}
+    Por último, la amplitud de la función en $\eqref{eq:Apoyo7}$ determina dónde es más probable encontrar la partícula. 
+Entonces, ¿cuál es la velocidad de la partícula? La velocidad del grupo, pues, es la celeridad a la cual la amplitud del paquete de ondas se mueve. Así, considerando la masa $m$ constante, tendremos que a mayor energía inicial $p_{0}$ la velocidad de la partícula es mayor. 
+\newpage
+\section{La Ecuación Independiente del Tiempo de Schrödinger}
+\noindent
+Considerando que el tiempo no afecta el movimiento de la partícula, en este capítulo, estudiaremos diferentes situaciones en las que se puede confinar a una partícula. Por ejemplo, en el caso de considerar un pozo infinito (energía potencial infinita fuera del pozo), la energía de la partícula estará cuantizada, es decir, se pueden presentar sólo ciertos niveles de energía. Posteriormente, se estudiará el caso de considerar valores negativos y finitos para la energía potencial dentro de cierto región y valores nulos fuera de este intervalo. Así veremos que en ese caso es posible que la partícula entre o salga de dicha región, esto último se conoce como \textit{Tunelaje Cuántico}. Dado el enfoque probabilístico de la mécanica cuántica, es necesario determinar las probabilidades de que estos eventos sucedan.
+Para empezar, deduzcamos la ecuación independiente del tiempo (E.I.T.)
+a partir de la ecuación dependiente del tiempo de Schrödinger obtenida en el primer capítulo:
+\begin{align}
+    i\hslash\frac{\partial\psi(x,t)}{\partial t} = 
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) ,
+    \label{eq:TIS2}
+\end{align}
+ donde aclaramos que $\mathcal{V}(x)$ denota la función potencial y $V$ denota el operador potencial de ahora en adelante. La independencia del tiempo  se cosiderará también para $\mathcal{V}$, es decir, $\mathcal{V}(x)$. La deducción de las soluciones se hace mediante el método de separación de variables, a saber, se propone como solución una función producto de las variables de interés, en este caso, una función dependiente de la posición $x$, y otra dependiente del tiempo $t$, digamos
+\begin{align*}
+    \psi(x,t) = \Psi(x)T(t).
+\end{align*}
+Al derivar obtenemos:
+\begin{align*}
+    \frac{\partial\psi}{\partial t} & = \Psi(x)T'(t),
+    \\
+    \frac{\partial\psi}{\partial x^2} & = \Psi''(x)T(t),
+\end{align*}
+al sustituir las derivadas en \eqref{eq:TIS2}, tenemos
+\begin{align*}
+   i\hslash \Psi(x)T'(t) = \frac{-\hslash ^2}{2m}\bigg[\Psi''(x)T(t)\bigg] + \mathcal{V}(x)\Psi(x)T(t),\end{align*}
+que dividiento sobre $\Psi(x)$ y $T(t)$, pues $\Psi(x)T(t)\neq 0\:\:\:\forall (x,t)\in \field{R}\times\field{R}^{+}$ puesto que la función identicamente cero es solución, nos lleva a
+\begin{align*}
+    i\hslash \frac{T'(t) }{T(t)} = \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x).
+\end{align*}
+Notamos que si variamos $x$ el lado dependiente del término $t$ no varía y viceversa, si variamos $t$, el lado dependiente del término $x$ no cambia. Por lo que, estos términos son iguales a alguna constante $E \in \field{R}$. En el siguiente capítulo veremos que $E$ es un autovalor del operador de Schrödinger, el cual solo tiene valores propios reales. Tenemos así dos ecuaciones, a saber
+\begin{align}
+    & i\hslash \frac{T'(t) }{T(t)} = E,
+    \label{eq:SVTime}
+    \\
+    & \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x) = E,
+    \label{eq:SVPosition}
+\end{align}
+que están relacionadas para el valor específico de $E$.
+Para $\eqref{eq:SVTime}$ notamos que como
+\begin{align*}
+     i\hslash \frac{T'(t) }{T(t)} = i\hslash \bigg[\frac{1}{T(t)}\frac{dT}{dt}\bigg],
+\end{align*}
+tenemos
+\begin{align}
+     \frac{dT}{T} = \frac{1}{i\hslash}E dt
+     \implies
+     \ln(T) = \frac{1}{i\hslash}E t + \Tilde{K}
+     \implies T(t) = \tau\exp\bigg[\frac{1}{i\hslash}E t\bigg],
+     \label{eq:TimeSep}
+\end{align}
+donde $\tau$ es una constante que se determina de acuerdo a la condición inicial. La ecuación  $\eqref{eq:SVPosition}$ se reformula de la siguiente forma:
+\begin{align*}                           \frac{-\hslash^2}{2m}\Psi''(x) + \mathcal{V}(x)\Psi(x) = E \Psi(x),
+\end{align*}
+la cual reescribimos como:
+\begin{align}
+    \hat{H} \Psi(x) = E \Psi(x).
+    \label{eq:TISchro}
+\end{align}
+donde $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ es el \textit{Hamiltoniano}, el cual describe la suma de la energía cinética y la energía potencial de la partícula respectivamente, es decir, la energía total, la cual denotamos por $E$. El hecho de considerar la independencia en el tiempo quiere decir que estudiaremos los estados estacionarios de la partícula. En otras palabras, tomando en cuenta la forma de la ecuación en $\eqref{eq:TISchro}$, lo que haremos es encontrar los valores propios y vectores propios del Hamiltoniano, considerando que sus vectores propios solo dependen de la posición.
+\begin{defn}
+    Sea $\hat{H}$ el Hamiltoniano del sistema cuántico definido en \eqref{eq:TISchro}, entonces la ecuación de valores propios:
+    \begin{align}
+        \hat{H}\Psi =  E\Psi, \: E \in \field{R},
+        \label{eq:Hamiltoniano}
+    \end{align}
+    se conoce como la $\textbf{Ecuación Independiente del Tiempo de Schrödinger}$.
+    \label{def:E.I.TdeSch}
+\end{defn}
+\subsection{Pozo Infinito}
+\noindent
+Como preámbulo al caso de la Sección 4.2 donde consideramos un pozo finito, estudiaremos primero el caso de confinar a una partícula con $E>0$ en cierto intervalo espacial en $\field{R}$, a saber, $[0,A]$. $A$ es un valor fijo y así una vez que la partícula entre a esta región veremos que no puede salir.  Para esto necesitamos que la energía potencial en ese intervalo sea nula, entonces:
+\begin{align*}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        0, \:\:\:  x \in [0,A],
+        \\
+        \kappa, \:\:\: x \notin [0,A],
+        \end{array}
+        \right.
+\end{align*}
+donde $\kappa$ toma valores muy grandes, es decir, $\kappa \to\infty$. Para asegurarnos que la partícula no se escape de la región pedimos que $\Psi(x)$ sea cero en las fronteras, además tendremos que $\Psi(x) = 0$ para $x \notin (0,A)$, que tiene sentido pues satisface la Ec.\eqref{eq:TISchro} porque su segunda derivada también vale cero. En este caso, la E.I.T. de Schrödinger tiene la siguiente forma:
+\begin{align}
+    \frac{-\hslash^2}{2m}\frac{d^2\Psi}{dx^2} = E\Psi(x), \:x\in[0,A],
+    \label{eq:Ec4}
+\end{align}
+con condiciones de frontera $\Psi(x) = 0$ para $x=0,A$.
+Para facilitarnos la notación se reescribe como:
+\begin{align*}
+    \frac{d^2\Psi}{dx^2} = -k^2\Psi(x),
+\end{align*}
+con $k^2 = (2mE)/\hslash^2$, pues a partir de ahora consideramos solo energías $E$ positivas. Ahora, la solución general de la ecuación de arriba es una combinación lineal de senos y cosenos, por lo que tomamos como solución
+\begin{align*}
+    \Psi(x) = a\sen(kx) + b\cos(kx),
+\end{align*}
+donde $k,a,b$ son constantes a determinar. De las condiciones de frontera:
+\begin{align*}
+    & \Psi(0)=b\cos(0)=0 \implies b = 0,
+    \\
+    & \Psi(A) = a\sen(kA) = 0.
+\end{align*}
+Dado que no queremos la solución trivial (con $a = 0$), de la condición inicial en $A$, notamos que el seno es el que tiene que anularse, lo cual sucede en valores múltiplos de $\pi$, así:
+\begin{align*}
+    kA = n\pi \implies k_{n}=\frac{n\pi}{A}, n \in \field{N},
+\end{align*}
+\noindent
+donde vemos que para cada $n$ hay una solución distinta.
+A partir de cada $k_{n}$ podemos encontrar los autovalores asociados $E_{n}$ al Hamiltoniano, pues:
+\begin{align}
+    k_{n}^2=\frac{2mE_{n}}{\hslash^2}
+    \implies
+    \frac{n^2\pi^2}{A^2}=\frac{2mE_{n}}{\hslash^2} \implies E_{n} = \frac{\hslash^2n^2\pi^2}{2mA^2}, n \in \field{N}.
+    \label{eq:Enecuant}
+\end{align}
+Esto lo podemos interpretar como la cuantización de la energía, es decir, la energía sólo puede tomar valores discretos dados por los valores de $E_{n}$. Este fenómeno fue descubierto por Max Planck en 1900 al estudiar la radiación de los objetos calientes (radiación de cuerpo negro). Para esto, supuso que la energía sólo puede ser liberada o transmitida a través de ``paquetes"\: de energía con lo cual explicó por qué ciertos objetos cambian de color cuando se calientan. 
+Ahora, considerando que se satisface $k_{n} = (n\pi)/A$ para cada $n\in\field{N}$, podemos definir los \textit{modos}:
+\begin{align*}
+    \Psi_{n}(x) = a_{n}\sen\bigg(\frac{n\pi x}{A}\bigg), n\in\field{N},
+\end{align*}
+que son soluciones de \eqref{eq:Ec4} para cualquier $a_{n}\in\field{R}$.
+Por último, determinaremos $a_{n}$ haciendo uso de la condición de normalización de la función de onda, al pedir que la probabilidad de que la partícula se encuentre en la región confinada sea uno, esto es,
+\begin{align*}
+    \int_{0}^{A} \mid\Psi_{n}(x)\mid^2\:dx=1.
+\end{align*}
+Observamos que $||\Psi_{n}||_{2} = 1$ también, pues $\Psi_{n}(x)$ es nula fuera de la región confinada.
+Suponiendo que $\Psi_{n}$ cumple la condición de arriba, el cálculo es de la siguiente manera:
+\begin{align*}
+    \int_{0}^{A} \bigg|a_{n}\sen\bigg(\frac{n\pi x}{A}\bigg)\bigg| ^2\:dx = |a_{n}|^2 \int_{0}^{A} \sen^2\bigg(\frac{n\pi x}{A}\bigg)\:dx = |a_{n}|^2\frac{A}{2}.
+\end{align*}
+De esta forma:
+\begin{align*}
+    |a_{n}|^2\frac{A}{2} = 1 \implies a_{n} = \sqrt{\frac{2}{A}},\:\forall n \in \field{N},
+\end{align*}
+donde se toma $a_{n}$ positiva por conveniencia. Así:
+\begin{align}
+    \Psi_{n}(x) = \sqrt{\frac{2}{A}}\sen\bigg(\frac{n\pi x}{A}\bigg), n \in \field{N},
+    \label{eq:PsiPI}
+\end{align}
+donde cada $n$ es un estado estacionario particular de la partícula con energía asociada $E_{n}$. Si consideraramos la dependencia del tiempo, cada estado de la partícula se comporta de la siguiente forma
+\begin{align*}
+    \psi_{n}(x,t) & = \Psi_{n}(x)T_{n}(t) \\
+    & = \sqrt{\frac{2}{A}}\sen\bigg(\frac{n\pi x}{A}\bigg)\tau_{n}\exp\bigg[
+    \frac{-i\hslash^2n^2\pi^2}{2mA^2}t
+    \bigg],
+\end{align*}
+ al considerar la solución $T_{n}(t)$ obtenida en \eqref{eq:TimeSep}, donde $\tau_{n}$ se determina al evaluar en la condición inicial para $T_{n}(t)$. Así, al tomar $A$ fijo, en la exponencial notamos que mientras mayor sea el valor de $n$ el periodo de la onda es más corto. Por último, si pidieramos una condición inicial en el Pozo Infinito, ya podríamos resolver el problema al evaluar en $t=0$ la superposición infinita de estos estados:
+ \begin{align*}
+     \psi(x,t) = \sum_{n=1}^{\infty}\tau_{n} \psi_{n}(x,t),
+ \end{align*}
+ donde $\tau_{n}$ son las constantes que se determinan en base a la condición inicial. Por ejemplo, supongamos que $\Psi(x,0) = \mathcal{P}(x)$ entonces
+ \begin{align*}
+      \Psi(x,0) = \sum_{n=1}^{\infty}\tau_{n} \psi_{n}(x,0) = \sum_{n=1}^{\infty}\tau_{n}\sqrt{\frac{2}{A}}\sen\bigg(\frac{n\pi x}{A}\bigg).
+ \end{align*}
+ Para despejar $\tau_{n}$, multiplicamos ambos lados por $\sen(m\pi x)$ e integramos de $0$ a $A$, obteniendo
+ \begin{align*}
+     \tau_{n} = \bigg(\frac{2}{A}\bigg)^{3/2}\int_{0}^{A}\mathcal{P}(x)\sen\bigg(\frac{n\pi x}{A}\bigg)dx,
+ \end{align*}
+ por lo tanto hemos determinado todas las soluciones.
+\subsection{Pozo Finito}
+\noindent
+Antes de comenzar, es importante aclarar que estamos considerando una partícula que viaja de izquierda a derecha. Así, tomamos una región de la forma $[-A,A]$, que llamaremos pozo cuadrado, pues esta convención será útil en soluciones pares e impares. Además, pedimos que la energía potencial sea constante y negativa dentro de la región confinada y nula en el exterior de ella, esto para permitir que la partícula entre o salga del pozo cuadrado. La función potencial es
+\begin{align}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        -C, \:\:\:  x \in [-A,A],
+        \\
+        0, \:\:\: x \notin [-A,A],
+        \end{array}
+        \right.
+        \label{eq:PotencialFinito}
+\end{align}
+donde $C>0$. Para la región $|x|\leq A$, notamos que al tomar $\mathcal{V}(x)$ constante, la profundidad del pozo es mayor conforme la constante $C$ aumenta, es decir, si hacemos tender $C \rightarrow \infty$ tendremos un caso análogo al Pozo Infinito. Sin embargo, no consideramos la restricción de que $\Psi(x) = 0$ en las fronteras por la continuidad de la función en las fronteras. De esta forma, podemos considerar partículas con energías tanto positivas como negativas. 
+\\ \\
+Por la Definición \ref{def:E.I.TdeSch}, tendremos distintos casos dependiendo de los valores que tome la energía $E$, primero trataremos el caso de autovalores negativos, para después estudiar el efecto del tunelaje cuántico en el caso en el que los valores propios sean positivos.
+\\ \\
+En la Sección 4.1 hemos visto de qué forma son los vectores propios del Hamiltaniano para el caso del Pozo Infinito. Sin embargo, en esta sección necesitaremos mayor formalidad para garantizar que estos vectores propios pertenezcan al dominio de $\hat{H}$, para esto, haremos uso de la siguiente definición:
+\begin{defn}
+    Sea $\Psi$ una función suave en los intervalos $(-\infty,-A), (-A,A)$ y $(A,\infty)$. Decimos que $\Psi$ pertenece al dominio de $\hat{H}$ si se cumplen las siguientes condiciones:
+    \begin{enumerate}[1.]
+    \item  $\Psi(x)$ y $\Psi'(x)$ son continuas en $x=\pm A$,
+    \item 
+    $\dfrac{d^2}{dx^2}\Psi(x)$ pertenece a $L^{2}(\field{R},\field{C})$.
+    \end{enumerate}
+    \label{def:Pertenencia1}
+\end{defn}
+\noindent
+El potencial $\mathcal{V}(x)$ que consideramos es constante a trozos, así puede darse el caso de alguna función $\Psi$ suave excepto en las puntos $x=\pm A$, por esta razón se pide la primera condición en la definición anterior.
+\subsubsection{Valores propios negativos (\boldsymbol{E<0})}
+\noindent
+La función del potencial determina si se dan estados acotados, dispersos o ambos. En nuestro caso, la función potencial \eqref{eq:PotencialFinito} es cero cuando $x \rightarrow\pm\infty$, por lo que si la energía $E$ de la partícula es negativa decimos que la partícula está en  \textit{Estado Acotado} porque la energía del Pozo es mucho mayor que la de la partícula, quedandose esta última atrapada dentro de esta región siempre que $-C<E<0$. En caso contrario, si la energía es positiva la partícula no queda atrapada; el potencial sólo influye sobre su velocidad, este caso lo veremos en la siguiente sección y se conoce como \textit{Estado Disperso}.
+\begin{defn}
+    Sea $E$ la energía de la partícula, si
+    \begin{align*}
+        E < \max\bigg\{\lim_{x\to\infty} \mathcal{V}(x), \lim_{x\to-\infty} \mathcal{V}(x)\bigg\},
+    \end{align*}
+    entonces decimos que el \textbf{estado de la partícula es acotado}. 
+\end{defn}
+\noindent
+Recordamos la forma de la E.I.T. de Schrödinger
+\begin{align*}
+    \frac{-\hslash^2}{2m}\frac{d^2\Psi}{dx^2} +  \mathcal{V}(x)\Psi(x) = E\Psi(x),
+\end{align*}
+la cual reescribimos de tal forma que sea fácil de manipular como
+\begin{align*}
+    \frac{d^2\Psi}{dx^2} = \bigg[\frac{2m}{\hslash^2}\mathcal{V}(x)-\frac{2m}{\hslash^2}E\bigg]\Psi(x).
+\end{align*}
+Al notar que la energía potencial en $\eqref{eq:PotencialFinito}$ es nula fuera de la región confinada y $-C$ dentro de ella, obtenemos:
+\begin{align*}
+        \frac{d^2\Psi}{dx^2}=  
+        \left\{ \begin{array}{ll}
+        -\bigg[\dfrac{2mC}{\hslash^2}+\dfrac{2m}{\hslash^2}E\bigg]\Psi, \:\:\:  &|x| \leq A,
+        \\
+        (-2mE/\hslash^2)\Psi, \:\:\: &|x| > A.
+        \end{array}
+        \right.
+\end{align*}
+Por conveniencia, introducimos los siguientes términos: $\mathcal{E} = (-2mE)/\hslash^2$ y \\ $c = (2mC)/\hslash^2$, obteniendo:
+\begin{align}
+        \frac{d^2\Psi}{dx^2}= 
+        \left\{ \begin{array}{ll}
+        -(c-\mathcal{E})\Psi,& \:\:\:  |x| \leq A,
+        \\
+        \mathcal{E}\Psi,& \:\:\: |x| > A.
+        \end{array}
+        \right.
+        \label{eq:SCsimple}
+\end{align}
+Ahora, notemos que las constantes $c$ y $\mathcal{E}$ son positivas, pues:
+\begin{align*}
+    -C<E<0 \implies \frac{2mC}{\hslash^2}>\frac{-2mE}{\hslash^2}>0 \implies c>\mathcal{E}>0.
+\end{align*}
+Al desconocer el comportamiento de la solución en el infinito, la trataremos por casos. Primero, haremos la suposición de una solución par y posteriormente haremos la suposición de un caso impar. Como se verá el procedimiento es similar.  
+\subsubsection{Solución par}
+\noindent
+ En el caso del Pozo Infinito, recordamos que $\Psi(x) = 0$ para $x \notin (0,A)$, pues la partícula permanecía siempre dentro de la región confinada. Ahora, dado que suponemos que inicialmente la partícula no está en el pozo, $\Psi(x)\neq 0$ para cierto intervalo fuera de la región $[-A,A]$ (la probabilidad de que la partícula este afuera de esta región es positiva).
+ \\ \\
+ Para la región en la cual no influye el potencial, la Ecuación Independiente del Tiempo de Schrödinger en \eqref{eq:SCsimple} es:
+ \begin{align*}
+     \frac{d^2\Psi}{dx^2} = \mathcal{E}\Psi,
+ \end{align*}
+ donde el término $\mathcal{E}$ es positivo, por lo que tiene como solución:
+\begin{align*}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A,
+        \end{array}
+        \right.
+\end{align*}
+pues queremos que $\Psi(x)$ sea acotada para pertenecer a $L^2$; $a$ es una constante a determinar. Notamos que esta función es par porque $\Psi(x) = \Psi(-x)$ y decae en el infinito pues
+\begin{align*}
+    \lim_{x\to\infty} \Psi(x) = \lim_{x\to -\infty} \Psi(x) = 0.
+\end{align*}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 13cm, height = 8cm]{Solpar}
+    \caption{Solución par de la E.I.T. de Schrödinger. El cuadrado con líneas intermitentes representa un Pozo con profundidad $-C$, $A$ determina el ancho del Pozo y la curva negra una solución par con una cresta. Sin embargo, es posible tener un mayor número de ellas ya que depende del valor de $q$.}
+    \label{fig:Solpar}
+\end{figure}
+\\
+Pero, ¿cómo se comporta la partícula dentro del pozo? Basta con fijarnos que para $|x|\leq A$, la EDO es de la siguiente forma:
+\begin{align}
+    \frac{d^2\Psi}{dx^2} = -q^2\Psi,
+    \label{eq:EDOseg}
+\end{align}
+donde $q = \sqrt{c-\mathcal{E}}$ es positivo. Así, \eqref{eq:EDOseg} tiene como solución:
+\begin{align*}
+    \Psi(x) &= Me^{-iqx} + Be^{iqx},
+    \\
+    & =
+    \Tilde{a}\sen(qx) + b\cos(qx).
+\end{align*}
+con $\Tilde{a}=i(B-M), b = M+B$. Tomaremos sólamente la parte del coseno que es la función par, por lo que la solución debe ser:
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
+        \\
+        b\cos(qx), & \:\:\: |x| \leq A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A,
+        \end{array}
+        \right.
+        \label{eq:Solpar}
+\end{align}
+con $a, b$ constantes a determinar. Dependiento de los  valores de
+$a,b,\mathcal{E}$, y $q$, la solución tendrá una forma parecida a la Figura \ref{fig:Solpar}, por ejemplo, mientras mayor sea $q$ mayor será el número de crestas en la y mientras menor sea $\mathcal{E}$ mayor será el área abarcada por las colas de la función en los intervalos $(-\infty,-A)\cup(A,\infty)$.
+\\ \\
+La Definición \ref{def:Pertenencia1} para la solución  par $\eqref{eq:Solpar}$ es equivalente a demostrar la siguiente proposición.
+\begin{prop}
+    Sea $\Psi$ la función definida en $\eqref{eq:Solpar}$, entonces existen constantes $a,b$ tal que $\Psi$ pertenece al dominio de $\hat{H}$ si la siguiente condición se cumple:
+    \begin{align}
+        \sqrt{\mathcal{E}} = \sqrt{c-\mathcal{E}}\tan(\sqrt{c-\mathcal{E}}A). \label{eq:Trascendentalpar}
+    \end{align}
+\end{prop}
+\begin{demo}
+Primero veamos que $\frac{d^{2}}{dx^{2}}\Psi(x)$ pertenece a $L^{2}(\field{R},\field{C})$. Así:
+\begin{align}
+    \int_{-\infty}^{-A}|\mathcal{E}ae^{\sqrt{\mathcal{E}}x}|^{2} dx = 
+    \int_{-\infty}^{-A} \mathcal{E}^2a^{2}e^{2\sqrt{\mathcal{E}}x}dx = \frac{a^2\mathcal{E}^2}{2\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A},
+    \notag
+    \\
+    \int_{-A}^{A}|q^2b\cos(qx)|^{2} dx =  \int_{-A}^{A}q^2b^{2}\cos^{2}(qx) dx 
+    \notag
+    \\ = \int_{-A}^{A}q^2b^{2}\bigg(\frac{1+\cos(2qx)}{2}\bigg)dx = q^2b^{2}A,
+    \notag
+    \\ \int_{A}^{\infty} |\mathcal{E}ae^{-\sqrt{\mathcal{E}}x}|^{2} dx = \int_{A}^{\infty} \mathcal{E}^2a^{2}e^{-2\sqrt{\mathcal{E}}x}dx = \frac{a^2\mathcal{E}^2}{2\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A},
+    \label{eq:Desarrollos}
+\end{align}
+donde $2qA$ es un multiplo de $pi$. Así,
+$||\Psi''||_{2}^{2} = (a^2\mathcal{E}^2)/(\sqrt{\mathcal{E}})e^{-2\sqrt{\mathcal{E}}A}+q^2b^2A$.
+Dado que estos términos están acotados, pues $A$ y $\mathcal{E}$ son positivos, se cumple la segunda condición de la Definición \ref{def:Pertenencia1}. \\ \\
+Con respecto a la primera condición, dado que la función exponencial es distinta de cero, podemos asegurar que $\Psi(x)$ es continua eligiendo valores adecuados para las constantes $a,b$. Una vez que $\Psi(x)$ es continua, $\Psi'(x)$ será continua si se cumple que
+\begin{align*}
+     \Psi'(x)/\Psi(x)
+\end{align*}
+ tiene los mismos valores evaluando en los límites laterales en $\pm A$, pues si $\Psi(x)'/\Psi(x)$ es continua se cumple que $\Psi'(x)$ es continua dado que $\Psi(x)$ es continua. Sin perdida de generalidad, tomemos como punto de evaluación $x=A$:
+\begin{align*}
+     \frac{\Psi'(x)}{\Psi(x)}\Big|_{x=A^{-}} =
+    \frac{\Psi'(x)}{\Psi(x)}\Big|_{x=A^{+}}  &
+     \Leftrightarrow
+     \frac{-bq\sen(qx)}{b\cos(qx)} \Big|_{x=A^{-}} = 
+    \frac{-\sqrt{\mathcal{E}}ae^{-\sqrt{\mathcal{E}}x}}{ae^{-\sqrt{\mathcal{E}}x}}\Big|_{x=A^{+}}
+    \\
+    & \Leftrightarrow
+    \frac{-bq\sen(qA)}{b\cos(qA)} 
+     = 
+    \frac{-\sqrt{\mathcal{E}}ae^{-\sqrt{\mathcal{E}}A}}{ae^{-\sqrt{\mathcal{E}}A}}
+    \\
+    &
+    \Leftrightarrow
+    \sqrt{\mathcal{E}} = q\tan(qA).
+\end{align*}
+Recordando que $q=\sqrt{c-\mathcal{E}}$, para el caso par llegamos a:
+\begin{align*}
+    \sqrt{\mathcal{E}} = \sqrt{c-\mathcal{E}}\tan(\sqrt{c-\mathcal{E}}A),
+\end{align*}
+como se quería mostrar.
+\qed
+\end{demo}
+\noindent
+Considerando que  $\mathcal{E}>0$ como variable, notamos que $\sqrt{\mathcal{E}}$ crece desde cero hasta el infinito mientras que el lado derecho de $\eqref{eq:Trascendentalpar}$ decrece desde un valor positivo $\sqrt{c}\tan(\sqrt{c}A)$,
+ por lo que debe existir algún punto de intersección entre las dos funciones al aplicar el teorema del valor intermedio. Podemos darnos cuenta que introduciendo un cambio de variables adecuado se puede graficar este comportamiento, ver la Figura $\ref{fig:Valoresdistintos}$. Sea $z = \sqrt{c-\mathcal{E}}A$, notamos que:
+\begin{align}
+    \mathcal{E} + (c - \mathcal{E}) = c 
+    \implies
+    \mathcal{E}A^2 + (c - \mathcal{E})A^2 = cA^2.
+    \label{eq:Apoyo8}
+\end{align}
+Ahora, al tomar $z_{0} = \sqrt{c}A $, reescribimos \eqref{eq:Apoyo8} como:
+\begin{align*}
+    \mathcal{E}A^2 = z_{0}^2 - z^2 \implies 
+    \frac{\mathcal{E}A^2}{(c-\mathcal{E})A^2} = \frac{z_{0}^2-z^2}{z^2}
+    \implies
+    \frac{\sqrt{\mathcal{E}}}{\sqrt{c-\mathcal{E}}} = \sqrt{\bigg(\frac{z_{0}}{z}\bigg)^2 - 1},
+\end{align*}
+donde el primer término de la última igualdad se despeja de \eqref{eq:Trascendentalpar}, entonces:
+\begin{align}
+    \tan(z) = \sqrt{\bigg(\frac{z_{0}}{z}\bigg)^2 - 1}.
+    \label{eq:Reduccion}
+\end{align}
+\begin{figure}[h]
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{zo=1}
+\caption{Caso $z_{0}=1$}
+\label{fig:z0menor}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{zo=5}
+\caption{Caso $z_{0}=5$}
+\label{fig:z0mayor}
+\end{subfigure}
+\caption{Gráfico de la función $\eqref{eq:Reduccion}$ considerando distintos valores de $z_{0}$. Graficada usando Geogebra}
+\label{fig:Valoresdistintos}
+\end{figure}
+\\
+\noindent 
+Notamos que al tomar valores mayores de $z_{0}$, es decir, el valor de $A$ o de $C$ aumentan, el punto de cruce cambia. Sin embargo, por el teorema de Valor Intermedio podemos garantizar que la igualdad en $\eqref{eq:Reduccion}$ se satisface sin importar los valores que tomemos.
+\\ \\
+En resumen, lo que hemos hecho en esta sección es encontrar una función que sea integrable cuadráticamente, pero que también cumpla la Definición \eqref{def:Pertenencia1} para pertenecer al dominio del
+Hamiltoniano. Este último requisito se simplificó llegando a la forma de \eqref{eq:Reduccion}, es decir, mientras esta ecuación se cumpla, entonces la solución que encontramos pertenece al dominio de $\hat{H}$. En particular, hemos visto por qué pedimos valores de energía $E$ menores a $-C$, ya que en caso contrario $\eqref{eq:Reduccion}$ no tendría soluciones reales.
+\subsubsection{Solución impar}
+\noindent
+En esta sección los cálculos son análogos a la Sección 4.2.2, por lo que se abordará el desarrollo de manera breve. Para empezar, queremos que $\Psi$ sea impar, es decir, $\Psi(-x) = -\Psi(x)$, entonces para el intervalo $(-\infty,-A)\cup(A,\infty)$ tomamos:
+\begin{align*}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        -ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x <- A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A.
+        \end{array}
+        \right.
+\end{align*}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 13cm, height = 8cm]{Solimpar}
+    \caption{Solución impar de la E.I.T. de Schrödinger. El cuadrado con líneas intermitentes representa un Pozo con profundidad $-C$ y anchura $2A$, la curva negra muestra una solución impar.} 
+    \label{fig:Solimpar}
+\end{figure}
+\noindent
+En la sección anterior vimos que la solución para el intervalo $[-A, A]$ está dada por $\Psi(x) = \Tilde{a}\sen(qx) + b\cos(qx)$, con $q = \sqrt{c-\mathcal{E}}$. Tomando ahora la función seno que es impar, obtenemos:
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        -ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
+        \\
+        \Tilde{a}\sen(qx), & \:\:\: |x| \leq A,
+        \\
+        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A.
+        \end{array}
+        \right.
+        \label{eq:Solimpar}
+\end{align}
+
+\begin{prop}
+    Sea $\Psi$ la función definida en $\eqref{eq:Solimpar}$, entonces existen constantes $a,\Tilde{a}$ tal que $\Psi$ pertenece al dominio de $\hat{H}$ si la siguiente condición se cumple:
+    \begin{align*}  -\sqrt{\mathcal{E}} = \sqrt{c-\mathcal{E}}\cot(\sqrt{c-\mathcal{E}}A).
+    \end{align*}
+\end{prop}
+\begin{demo}
+    De modo análogo al procedimiento en \eqref{eq:Desarrollos}, tenemos que
+    \begin{align*}
+        ||\Psi''||_{2}^{2} = \frac{a^2\mathcal{E}^2}{\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A}+\Tilde{q}^2\Tilde{a}^2A,
+    \end{align*}
+    que es limitada para valores constantes $a,\Tilde{a},\mathcal{E},\Tilde{q}$.
+    Además, como en la demostración del caso par, tomando $a,\Tilde{a}$ tales que $\Psi(x)$ sea continua, debemos verificar que se cumpla, sin perdida de generalidad para $x = A$ lo siguiente:
+    \begin{align*}
+    \frac{\Psi'(x)}{\Psi(x)}\Big|_{x=A^{-}} =
+    \frac{\Psi'(x)}{\Psi(x)}\Big|_{x=A^{+}}
+         &
+        \Leftrightarrow \frac{\Tilde{a}q\cos(qx)}{\Tilde{a}\sen(qx)}\Bigg|_{x=A^{-}} 
+         =
+         \frac{-a\mathcal{E}e^{-\mathcal{E}x}}{ae^{-\sqrt{\mathcal{E}x}}}\Bigg|_{x=A^+} 
+         \\
+          & \Leftrightarrow
+          -\sqrt{\mathcal{E}} = \sqrt{c-\mathcal{E}}\cot(\sqrt{c-\mathcal{E}}A),
+    \end{align*}
+    que es justamente (52).
+    \qed 
+\end{demo}
+\noindent
+En la sección anterior ya hemos determinado que:
+\begin{align*}
+    \dfrac{\sqrt{\mathcal{E}}}{\sqrt{c-\mathcal{E}}} = \sqrt{\bigg(\dfrac{z_{0}}{z}\bigg)^2-1},
+\end{align*}
+por lo que si tomamos de manera análoga $z = \sqrt{c-\mathcal{E}}A$, tendremos que:
+\begin{align*}
+    \cot(z) = - \sqrt{\bigg(\dfrac{z_{0}}{z}\bigg)^2-1}.
+\end{align*}
+En breve, en la Sección 4.2 hemos determinado las funciones propias del Hamiltoniano en el caso en que el autovalor $E$ cumpla la desigualdad $-C<E<0$. Ahora pasemos al caso de los autovalores positivos. 
+\subsection{Energía positiva $\boldsymbol{E>0}$}
+\label{sec:Energia}
+\noindent
+Como se mencionó en la sección anterior, en este caso la energía $E$ es mayor a la del potencial $\mathcal{V}(x)$. Así, una partícula que viaja desde $-\infty$ se acelera o desacelera dependiendo de la forma del potencial (esto lo comentaremos más adelante) una vez que llega a la región de influencia del pozo y continua su trayectoria hacia $+\infty$. Además, existe la posibidad de que la partícula sea reflejada o transmitida por el pozo, en el caso de que ocurra lo segundo se conoce como \textit{Tunelaje Cuántico} y suele ocurrir entre regiones donde existe una diferencia de potencial. 
+\\ \\
+Antes de comenzar, notamos que en esta sección tomamos $\mathcal{E} = 2mE/\hslash^2$, ya que ahora estamos considerando $E>0$. También, consideramos un potencial de energía como en $\eqref{eq:PotencialFinito}$, y
+dado que los cálculos son análogos a las secciones anteriores, el desarrollo será breve.
+\\ \\
+Primero, consideremos $x \in (-\infty,-A)\cup (A,\infty)$. De modo semejante a $\eqref{eq:SCsimple}$ la Ecuación de Schrödinger en este caso toma la siguiente forma:
+\begin{align*}
+    \dfrac{d^2\Psi}{dx^2} = -\mathcal{E}\Psi,
+\end{align*}
+su solución es dada por:
+\begin{align*}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        Me^{i\sqrt{\mathcal{E}}x}+Be^{-i\sqrt{\mathcal{E}}x}, & x<-A,
+        \\ Fe^{i\sqrt{\mathcal{E}}x}+Ge^{-i\sqrt{\mathcal{E}}x} ,& x > A,
+        \end{array}
+        \right.
+\end{align*}
+\noindent
+con $M, B, F$ y $G$ constantes a determinar que dependen de la condición incial\footnote{Por ejemplo, consideremos una  onda que se aproxima al pozo por el lado izquierdo, ($x<-A$) en ese caso $B=0$ hasta un valor de tiempo $\tau > 0$. Análogamente, si la onda se aproxima por el lado derecho al pozo $F = 0$.}. Por un lado, para $x < - A$, recordamos que el modo de la función dependiente del tiempo mediante separación de variables es $T(t) = \tau\exp\big[-i\omega t\big]$ donde $\omega = E/\hslash$. Así, al considerar:
+\begin{align*}
+   \Psi(x,t) = Mke^{i(\sqrt{\mathcal{E}}x-\omega t)} + Bke^{-i(\sqrt{\mathcal{E}}x+\omega t)}, 
+\end{align*}
+ el primer término representa una onda que viaja hacia adelante en el espacio por el término $-\omega t$ en la exponencial (a valores mayores de $t$ veremos un desplazamiento hacia la derecha, en el eje x, de la onda), mientras que el segundo término representa lo contrario, es decir, en caso de ser reflejada por el pozo, la partícula viajará hacia $-\infty$. Veámoslo gráficamente en la Figura \ref{fig:Rebote}.
+ \begin{figure}[h]
+    \centering
+    \includegraphics[width = 13cm, height = 10cm]{Tunelaje}
+    \caption{Rebote de una partícula. La onda de línea negra representa una partícula viajando hacia adelante con velocidad $\omega t$, mientras que la onda de línea punteada representa una partícula viajando hacia atras con velocidad $-\omega t$. Por fines ilustrativos del Tunelaje Cuántico se omitió el comportamiento gráfico en la región $[-A,A]$, aquí la profundidad $C$ del pozo afecta las oscilaciones de la onda en relación directa.}
+    \label{fig:Rebote}
+\end{figure}
+\noindent
+\\ \\
+Para la región $x > A$ tenemos:
+\begin{align*}
+    \Psi(x,t) = Fke^{i(\sqrt{\mathcal{E}}x-\omega t)} + Gke^{-i(\sqrt{\mathcal{E}}x+\omega t)}, 
+\end{align*}
+donde el primer término  representa el hecho de que la partícula traspasó el pozo\footnote{Como se ha mencionado en el pie de página de anterior, a partir de un $\tau > 0$ sucede que $B\neq 0$ y $F=0$ si hay un rebote o $B=0$ y $F\neq 0$ si el fenómeno del Tunelaje Cuántico se da.}, es decir, la onda transmitida que avanza en el espacio con velocidad positiva. Mientras que el segundo término lo consideramos nulo (checar el pie de página anterior), pues su presencia representa una partícula viajando de $+\infty$ hacia el pozo al considerar el término $+\omega t$ en la exponencial como un movimiento con velocidad negativa en el espacio.
+\\ \\
+Por último, en la región $x \in [-A,A]$, la profundidad del pozo afecta la velocidad a la cual la partícula viaja, es decir, mientras más profundo sea el pozo más rápido oscilará dentro de esta región, esto lo veremos a continuación.
+\\ \\
+Semejante a $\eqref{eq:SCsimple}$, la Ecuación de Schrödinger dentro del pozo es 
+\begin{align*}
+    \dfrac{d^2\Psi}{dx^2} = -(c+\mathcal{E})\Psi,
+\end{align*}
+su solución es:
+\begin{align*}
+    \Psi(x) = T\sen(qx) + D\cos(qx),
+\end{align*}
+con $q = \sqrt{c+\mathcal{E}}$ y $T,D$ constantes a determinar. Notamos que la partícula inicialmente tiene periodo espacial $2\pi/\sqrt{\mathcal{E}}$ y al entrar al pozo su periodo espacial cambia a $2\pi/\sqrt{c+\mathcal{E}}$, es decir, oscila más rápido pues $\sqrt{c+\mathcal{E}} > \sqrt{\mathcal{E}}$. Además, mientras $c\rightarrow 0$ el cambio en el periodo será menor, en otras palabras, dado que la profundidad del pozo $C$ va disminuyendo la perturbación en las oscilaciones de la partícula se reduce.
+Resumiendo, la solución para la región completa está dada por:
+\begin{align}
+        \Psi(x) = 
+        \left\{ \begin{array}{ll}
+        Me^{i\sqrt{\mathcal{E}}x}+Be^{-i\sqrt{\mathcal{E}}x}, & x<-A,
+        \\
+        T\sen(qx) + D\cos(qx), & x \in [-A,A],
+        \\ Fe^{i\sqrt{\mathcal{E}}x},& x > A.
+        \end{array}
+        \right.
+        \label{eq:Tunelaje}
+\end{align}
+Veamos que $\eqref{eq:Tunelaje}$ cumple el primer criterio de la Definición \ref{def:Pertenencia1}. Para esto, usaremos una definición más sencilla que en  la sección anterior, la continuidad por límites laterales.
+\begin{align}
+    & \lim_{x\to-A^{-}}\Psi(x) = \lim_{x\to-A^{+}}\Psi(x) 
+    \Leftrightarrow 
+    Me^{-i\sqrt{\mathcal{E}}A}+Be^{i\sqrt{\mathcal{E}}A} \\ & = -T\sen(qA) + D\cos(qA) ,
+    \label{eq:ec3}
+    \\
+     & \lim_{x\to-A^{-}}\Psi'(x) = \lim_{x\to-A^{+}}\Psi'(x) 
+     \Leftrightarrow 
+     i\sqrt{\mathcal{E}}( Me^{-i\sqrt{\mathcal{E}}A}-Be^{-i\sqrt{\mathcal{E}}A}) 
+    \\ & =
+     q(D\sen(qA) + T\cos(qA)),
+     \label{eq:ec4}
+     \\
+     & \lim_{x\to A^{-}}\Psi(x) = \lim_{x\to A^{+}}\Psi(x)
+     \Leftrightarrow 
+     Fe^{i\sqrt{\mathcal{E}}A} =
+     T\sen(qA) + D\cos(qA),
+     \label{eq:ecu1}
+     \\
+     & \lim_{x\to A^{-}}\Psi'(x) = \lim_{x\to A^{+}}\Psi'(x) 
+     \Leftrightarrow 
+     i\sqrt{\mathcal{E}}Fe^{i\sqrt{\mathcal{E}}A}
+     = 
+     q\big(T\cos(qA) - D\sen(qA)\big).
+     \label{eq:ecu2}
+\end{align}
+Para resolver este sistema de cuatro ecuaciones, primero  determinemos el valor de las constantes $T$ y $D$. Para esto, multiplicamos $\eqref{eq:ecu1}$ por $\sen(qA)$ y $\eqref{eq:ecu2}$  por $(1/q)\cos(qA)$ para obtener:
+\begin{align*}
+    &
+    Fe^{i\sqrt{\mathcal{E}}A}\sen(qA) = T\sen^2(qA) + D\cos(qA)\sen(qA) ,
+    \\
+    &
+    i\sqrt{\mathcal{E}}Fe^{i\sqrt{\mathcal{E}}A}\dfrac{1}{q}\cos(qA) = T\cos^2(qA)-D\sen(qA)\cos(qA) ,
+\end{align*}
+al sumarlas, obtenemos:
+\begin{align*}
+    T\big(\sen^2(qA)+\cos^2(qA)\big) = Fe^{i\sqrt{\mathcal{E}}A}
+    \bigg(\dfrac{i\sqrt{\mathcal{E}}}{q}\cos(qA) + \sen(qA)\bigg),
+\end{align*}
+donde el término múltiplicando $T$ es igualmente uno, por lo que
+\begin{align*}
+    T = Fe^{i\sqrt{\mathcal{E}}A}
+    \bigg(\dfrac{i\sqrt{\mathcal{E}}}{q}\cos(qA) + \sen(qA)\bigg).
+\end{align*}
+Análogamente para obtener $D$ múltiplicamos $\eqref{eq:ecu1}$  por $\cos(qA)$ y $\eqref{eq:ecu2}$  por $(1/q)\sen(qA)$, así:
+\begin{align*}
+    &
+    Fe^{i\sqrt{\mathcal{E}}A}\cos(qA) = T\sen(qA)\cos(qA) + D\cos^2(qA) ,
+    \\
+    &
+    \frac{i\sqrt{\mathcal{E}}}{q}Fe^{i\sqrt{\mathcal{E}}A}\sen(qA)=  T\cos(qA)\sen(qA)-D\sen^2(qA),
+\end{align*}
+al restar se obtiene el valor de $D$, pues:
+\begin{align*}
+    D = Fe^{i\sqrt{\mathcal{E}}A}\big(\cos(qA) - \frac{i\sqrt{\mathcal{E}}}{q}\sen(qA)\big).
+\end{align*}
+Sustituimos en \eqref{eq:ec3} los valores de $T$ y $D$ obtenidos:
+\begin{align*}
+    Me^{-i\sqrt{\mathcal{E}}A}+Be^{i\sqrt{\mathcal{E}}A} = -Fe^{i\sqrt{\mathcal{E}}A}
+    \bigg(\dfrac{i\sqrt{\mathcal{E}}}{q}\cos(qA) + \sen(qA)\bigg)\sen(qA)
+    \\
+    +
+    Fe^{i\sqrt{\mathcal{E}}A}\big(\cos(qA) - \frac{i\sqrt{\mathcal{E}}}{q}\sen(qA)\big)\cos(qA)
+    \\
+    =
+    Fe^{i\sqrt{\mathcal{E}}A}\big(\cos^2(qA)-\sen^2(qA) -2\dfrac{i\sqrt{\mathcal{E}}}{q}\sen(qA)\cos(qA)\big).
+\end{align*}
+Para los términos que multiplican a $Fe^{i\sqrt{\mathcal{E}}A}$, usamos las siguientes identidades trigonométricas:
+\begin{align}
+   \cos^2(qA)-\sen^2(qA) = \cos(2qA), \:\:\: 2\sen(qA)\cos(qA)=\sen(2qA),
+   \label{eq:IdentApoyo}
+\end{align} 
+por lo que, al sustituirlas y multiplicar por $e^{-i\sqrt{\mathcal{E}}A}$ obtenemos:
+\begin{align}
+    Me^{-2i\sqrt{\mathcal{E}}A} + B = \bigg(\cos(2qA)-\frac{i\sqrt{\mathcal{E}}}{q}\sen(2qA)\bigg)F.
+    \label{eq:ecu3}
+\end{align}
+Sustituyendo en \eqref{eq:ec4} los valores de $T$ y $D$ obtenidos:
+\begin{align*}
+    i\sqrt{\mathcal{E}}( Me^{-i\sqrt{\mathcal{E}}A}-Be^{-i\sqrt{\mathcal{E}}A})  = qFe^{i\sqrt{\mathcal{E}}A}
+    \bigg(\dfrac{i\sqrt{\mathcal{E}}}{q}\cos(qA) + \sen(qA)\bigg)\cos(qA)
+    \\
+    +
+    qFe^{i\sqrt{\mathcal{E}}A}\big(\cos(qA) - \frac{i\sqrt{\mathcal{E}}}{q}\sen(qA)\big)\sen(qA)
+    \\
+     =
+    qFe^{i\sqrt{\mathcal{E}}A}
+    \bigg[2\sen(qA)\cos(qA)+\frac{i\sqrt{\mathcal{E}}}{q}\bigg(\cos^2(qA)-\sen^2(qA)\bigg)\bigg].
+\end{align*}
+Aplicando las identidades trigonométricas anteriores (Ec. \eqref{eq:IdentApoyo}):
+\begin{align*}
+    & i\sqrt{\mathcal{E}}( Me^{-i\sqrt{\mathcal{E}}A}-Be^{i\sqrt{\mathcal{E}}A})  = qFe^{i\sqrt{\mathcal{E}}A}\bigg[\sen(2qA)+\frac{i\sqrt{\mathcal{E}}}{q}\cos(2qA)\bigg],
+\end{align*}
+finalmente, al multiplicar por $e^{-i\sqrt{\mathcal{E}}A}/(i\sqrt{\mathcal{E}})$ tendremos:
+\begin{align}
+    Me^{-2i\sqrt{\mathcal{E}}A}-B = -i\frac{q}{\sqrt{\mathcal{E}}}F\bigg[\sen(2qA)+\frac{i\sqrt{\mathcal{E}}}{q}\cos(2qA)\bigg].
+    \label{eq:ecu4}
+\end{align}
+Restando $\eqref{eq:ecu4}$  de $\eqref{eq:ecu3}$, obtenemos B en términos de F:
+\begin{align*}
+    2B & =
+    [\cos(2qA)-\frac{i\sqrt{\mathcal{E}}}{q}\sen(2qA)]F + i\frac{q}{\sqrt{\mathcal{E}}}F[\sen(2qA)+\frac{i\sqrt{\mathcal{E}}}{q}\cos(2qA)]
+    \\
+    & 
+    =
+    \cos(2qA)F -\frac{i\sqrt{\mathcal{E}}}{q}\sen(2qA)F + i\frac{q}{\sqrt{\mathcal{E}}}F\sen(2qA)-F\cos(2qA)
+    \\
+    & 
+    =
+    i\bigg(\frac{q}{\sqrt{\mathcal{E}}} - \frac{\sqrt{\mathcal{E}}}{q} \bigg)\sen(2qA)F,
+\end{align*}
+más adelante determinaremos $M$ en términos de $F$. En el Capítulo 1 hemos mencionado que Max Born consideró un enfoque probabilístico para estos fenómenos. De esta forma, al considerar este enfoque, el módulo al cuadrado de la onda determina la probabilidad de encontrarla en cierta región. 
+En nuestro caso, dado que $M$ representa la información completa de la función de onda que se acerca al pozo, $B$ representa la parte de esa información que no penetró en la región del potencial y $F$ la porción de la función de onda que paso la región del potencial.  El cociente $|B|^2/|M|^2$ es la probabilidad de rebote, mientras que $|F|^2/|M|^2$ da la probabilidad de transmisión\footnote{Más adelante veremos que la suma $|B|^2/|M|^2 + |F|^2/|M|^2 =1$ y por lo tanto si se puede ver como una probabilidad.}, y se denotarán por $\mathcal{R}(E), \mathcal{T}(E)$ respectivamente al depender de la energía de la partícula. 
+\\ \\
+En la Figura \ref{fig:Rebote} al considerar la ecuación \eqref{eq:Tunelaje}, $F$ se representa por la onda de línea negra a partir de la frontera $A$, $B$ con la onda de línea punteada y $M$ por la onda de línea negra para el intervalo $(-\infty, -A)$. Así, al dividir la última ecuación obtenida por $M$, obtenemos:
+\begin{align}
+    \frac{B}{M} = \frac{i}{2}\bigg(\frac{q^2-\mathcal{E}}{q\sqrt{\mathcal{E}}}\bigg)\sen(2qA)\frac{F}{M}.
+    \label{eq:ecu5}
+\end{align}
+Antes de tomar el módulo al cuadrado,  hacemos las siguientes simplificaciones para facilitar el cálculo,
+\begin{align*}
+    (q^2-\mathcal{E})^2 =
+    \bigg(\frac{2mC+2mE}{\hslash^2}-\frac{2mE}{\hslash^2}\bigg)^2 =
+    \frac{(2m)^2C^2}{\hslash^4}.
+\end{align*}
+En el denominador, notamos que:
+\begin{align*}
+    (2q\sqrt{\mathcal{E}})^2 = 4q^2\mathcal{E} =
+    \frac{4}{\hslash^4}\bigg[(2m)^2(C+E)E\bigg],
+\end{align*}
+por lo tanto, al tomar el módulo al cuadrado de \eqref{eq:ecu5}:
+\begin{align*}
+    \mathcal{R}(E) = \bigg[\frac{C^2}{4(C+E)E}\bigg]\sen^2(2qA)\frac{|F|^2}{|M|^2}.
+\end{align*}
+Notamos que, $\mathcal{R}(E)>0$, pues consideramos $C > 0$ y $E>0$. En otras palabras, hay una probabilidad positiva de que la partícula sea rebotada al intentar traspasar a la región con potencial $C$ distinto de cero. Ahora, determinemos $M$ en términos de $F$, para esto sumando las ecuaciones $\eqref{eq:ecu3}$ y $\eqref{eq:ecu4}$ obtenemos:
+\begin{align*}
+    2Me^{-i2\sqrt{\mathcal{E}}A} & =
+    F\cos(2qA) - i\frac{\sqrt{\mathcal{E}}}{q}F\sen(2qA) -i\frac{q}{\sqrt{\mathcal{E}}}F\sen(2qA)+F\cos(2qA)
+    \\
+    & =
+    F\bigg[2\cos(2qA)-i\sen(2qA)\bigg(\frac{\sqrt{\mathcal{E}}}{q} + \frac{q}{\sqrt{\mathcal{E}}}
+    \bigg)\bigg].
+\end{align*}
+Multiplicando por $(e^{i2\sqrt{\mathcal{E}}A})/2F$, obtenemos:
+\begin{align*}
+    \frac{F}{M} = e^{i2\sqrt{\mathcal{E}}A}\bigg[\cos(2qA)-i\frac{\sen(2qA)}{2}\bigg(\frac{\sqrt{\mathcal{E}}}{q} + \frac{q}{\sqrt{\mathcal{E}}}
+    \bigg)\bigg] ^{-1}.
+\end{align*}
+Al tomar el módulo de los términos al cuadrado:
+\begin{align*}
+    \frac{|F|^2}{|M|^2} & =
+    \bigg[\cos^2(2qA)+\sen^2(2qA)\bigg(\frac{\mathcal{E}+q^2}{2q\sqrt{\mathcal{E}}}
+    \bigg)^2\bigg] ^{-1}
+    \\
+    & =
+    \bigg[1-\sen^2(2qA)+\sen^2(2qA)\bigg(\frac{\mathcal{E}+q^2}{2q\sqrt{\mathcal{E}}}
+    \bigg)^2\bigg] ^{-1}
+    \\
+    & = 
+    \bigg[1+\sen^2(2qA)\bigg(\bigg(\frac{\mathcal{E}+q^2}{2q\sqrt{\mathcal{E}}}
+    \bigg)^2-1\bigg)\bigg] ^{-1},
+\end{align*}
+donde el módulo al cuadrado de $e^{i2\sqrt{\mathcal{E}}A}$ es uno, pues el módulo de $e^{i\theta}$ es unitario. Ahora, notamos que:
+\begin{align*}
+    \bigg(\frac{\mathcal{E}+q^2}{2q\sqrt{\mathcal{E}}}
+    \bigg)^2 -1 = \frac{\mathcal{E}^2-2q^2\mathcal{E}+q^4}{4q^2\mathcal{E}} 
+    =
+    \frac{1}{4}\bigg(\frac{\mathcal{E}-q^2}{q\sqrt{\mathcal{E}}}\bigg)^2,
+\end{align*}
+de esta forma
+\begin{align*}
+    \frac{|F|^2}{|M|^2} =
+    \bigg[1+\sen^2(2qA)\frac{1}{4}\bigg(\frac{\mathcal{E}-q^2}{q\sqrt{\mathcal{E}}}\bigg)^2\bigg] ^{-1}.
+\end{align*}
+Anteriormente vimos que $(2q\sqrt{\mathcal{E}})^2 = 
+    \dfrac{4}{\hslash^4}\bigg[(2m)^2(C+E)E\bigg]$, por lo que
+\begin{align*}
+    (\mathcal{E}-q^2)^2 = \bigg(\frac{2mE}{\hslash^2}-\frac{2mC+2mE}{\hslash^2}\bigg)^2 =
+    \frac{(2m)^2C^2}{\hslash^4},
+\end{align*}
+por consiguiente, el coeficiente de transmisión $\mathcal{T}(E)$ que determina la probabilidad de que suceda el Tunelaje Cuántico es:
+\begin{align*}
+    \mathcal{T}(E) = 
+    \bigg[1+\bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)\bigg] ^{-1}.
+\end{align*}
+Notamos que $\mathcal{T}(E)$ es de la forma $f(x) = 1/(1+x)$, donde mientras el término $x$ se aproxime a cero tendremos que $f(x) \approx 1$. Así, el tunelaje cuántico se dará con mayor probabilidad cuando
+\begin{align*}
+    \bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA) \approx 0.
+\end{align*}
+Sin embargo, para que esto suceda es necesario que el denominador sea muy grande o que $A\approx 0$ o que $C\approx 0$, es decir, que la partícula tenga una energía muy alta o que el pozo tenga menor anchura o que no sea tan profundo. Con respecto a la forma de $\mathcal{R}(E)$, a primera vista podríamos suponer que es el coeficiente de transmisión multiplicado por una constante, sin embargo, ambos coeficientes cumplen la siguiente relación:
+\begin{align*}
+    \mathcal{R}(E) + \mathcal{T}(E) & = \frac{\bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)}{1+\bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)} + \frac{1}{1+\bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)}
+    \\
+    &
+    =
+    \frac{1}{1+\bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)}\bigg[
+    \bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA) +1
+    \bigg]
+    \\
+    &
+    =
+    1.
+\end{align*}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 13cm, height = 8cm]{GraficaCoef}
+    \caption{Comportamiento aproximado de $\mathcal{R}(E)$ y $\mathcal{T}(E)$, considerando $x = \bigg(\dfrac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)$.}
+    \label{fig:Aproximacion}
+\end{figure}
+\\
+
+
+Probabilísticamente, esta relación nos dice que sucede sólo un evento a la vez, es decir, o la partícula  rebota o bien es transmitida.
+
+Qué evento es más probable que suceda depende del término del denominador del coeficiente de reflexión, ya que $\mathcal{R}(E)$ tiene forma de $g(x) = (x)/(1+x)$ la cual es una función creciente para valores positivos de $x$ como podemos ver en la Figura \ref{fig:Aproximacion}. Por otra parte, vemos que el coeficiente de transmisión decrece para valores positivos de $x$. Además, en la misma Figura \ref{fig:Aproximacion} podemos ver que hay un punto de cruce de las dos funciones en $x = 1$, en nuestro caso siempre que
+\begin{align*}
+    \bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA) \approx 1,
+\end{align*}
+existe la misma probabilidad de que ambos eventos sucedan. Por lo tanto, concluimos que siempre que $x < 1$ el evento de transmisión es más probable que suceda, en caso contrario, cuando $ x > 1$, el evento de reflexión tiene mayor probabilidad de suceder.
+
+\newpage
+
+\section{El Operador de Schrödinger}
+\noindent
+En 1926, Hilbert busca darle rigor a las formulaciones de la Mecánica Cuántica. Anteriormente, se había intentado describir el movimiento de la partícula mediante la Mecánica de Matrices de Heisenberg, o a través de la Teoría de las Tranformaciones de Dirac y Jordan, el lector interesado puede consultar $\cite{Jammer}$.  Sin embargo, aún no existía un formalismo para comprender cómo se comportaba el Operador de Schrödinger, es decir, la relación $\hat{H}\psi = E\psi$ en \eqref{eq:Hamiltoniano}. Por un lado, Jordan había intentado axiomatizar las ideas de Born basadas en la amplitud de probabilidad, por otro lado, Hilbert propuso que estos operadores podían ser asociados con integrales:
+\begin{align}
+    H[\Psi](x) = \int \phi(x,y)\Psi(y)dy,
+    \label{eq:Example}
+\end{align}
+donde $\phi(x,y)$ es un $\textit{nucleo integral}$; anteriormente ya lo hemos visto en el núcleo del calor en \eqref{eq:Chaleur} y en el núcleo de la Ecuación de Schrödinger en \eqref{eq:NucleoSch}. El problema era entonces transformar un operador diferencial en un operador integral. Jordan en su intento ya había visto que el operador debía ser auto-adjunto, definición que veremos más adelante. Finalmente, en 1929 Von Neumann al extender la Teoría Espectral de Hilbert a los operadores no-acotados resuelve el problema. De esta forma, es importante resaltar el hecho de que una teoría física llevo al desarrollo de importantes conceptos del Análisis Funcional. 
+
+\subsection{Operadores Lineales no-acotados}
+\noindent
+Un operador es una aplicación que toma como entrada una función, es decir, un \textit{vector} en un espacio de dimensión infinita, y le asigna otra función en un espacio de dimensión infinita. En otras palabras, es un mapeo entre dos espacios de funciones, un ejemplo es el operador integral $H$ definido en \eqref{eq:Example}. 
+En esta sección introducimos el concepto de operador lineal, específicamente, el de operador no-acotado ya que es el que usaremos más adelante. Se definen las propiedades básicas de este último, entre ellas, simetría, cerradura, auto-adjuntancia, imagen y núcleo.
+\\ \\
+A lo largo de esta sección $\mathcal{H}$ denotará un espacio de Hilbert separable, en el sentido de que tiene una base ortonormal contable. Por último, dado que se estudian operadores no-acotados definidos en un subespacio del espacio de Hilbert $\mathcal{H}$, se usará la definición de que un \textbf{\emph{operador lineal A no-acotado  en $\mathcal{H}$}} es un mapeo lineal de un subespacio denso $Dom(A) \subset \mathcal{H}$, en el sentido de que la cerradura del dominio de $A$ es todo $\mathcal{H}$, en $\mathcal{H}$. La condición de densidad nos quedará más clara en la siguiente sección con el dominio del operador Laplaciano, pues, en este caso al tomar alguna $\Psi(x)$ en $L^{2}(\field{R},\field{C})$ su segunda derivada $d^2\Psi/dx^2$ no necesariamente existe o pertenece a este mismo espacio.
+\begin{defn}
+    Un \textbf{espacio de Hilbert} $\mathcal{H}$ es un espacio vectorial $\mathcal{H}$ sobre un campo $\field{R}$ ó $\field{C}$ equipado con un \textbf{producto interno} $\langle\cdot,\cdot \rangle$, tal que $\mathcal{H}$ es completo, en el sentido que cada sucesión de Cauchy \footnote{Una sucesión $\{a_{n}\}_{n=0}^{\infty}$ es de Cauchy si para toda $\epsilon > 0$ existe $N\geq 0$ tal que \\ $|a_{k}-a_{m}|<\epsilon$ para toda $k,m\geq N$. } converge en este espacio, bajo la norma asociada al producto interno.
+\end{defn}
+\noindent
+Se puede mostrar que el espacio $L^2(\field{R},\field{C})$ en la Definición \ref{def:espacioL2} es un espacio de Hilbert, el lector interesado puede verificar $\cite[\text{p.4}]{Conway}$, y $\cite[\text{p.40}]{Reed}$. El espacio de Hilbert que ocuparemos en la Sección 5.2 del operador de Schrödinger será $L^2(\field{R},\field{C})$, donde cada elemento de este espacio es una función con dominio en el campo. Sin embargo, las pruebas de esta sección tratan en general sobre espacios de Hilbert $\mathcal{H}$ separables.
+\begin{defn}
+    Sea $\mathcal{S}$ un subconjunto de un espacio de Hilbert $\mathcal{H}$. El conjunto de vectores ortogonales a $\mathcal{S}$ es definido como
+    \begin{align*}
+        \mathcal{S}^\perp = \{\varphi\in\mathcal{H}: \langle\varphi,s\rangle = 0 \:\:\forall s\in\mathcal{S}\}
+    \end{align*}
+\end{defn}
+\noindent
+Esta última Definición nos es de utilidad para la Proposición 
+\ref{prop:Complementos}.
+\begin{defn}
+    Sea $\mathcal{H}$ un espacio de Hilbert. El mapeo $A:Dom(A)\subseteq\mathcal{H}\longrightarrow\mathcal{H}$, donde $Dom(A)$ es un subespacio denso de $\mathcal{H}$, es un \textbf{operador lineal} si dados $\phi,\Psi \in Dom(A)$ se cumplen que
+    \begin{align*}
+        A(\alpha\phi + \beta\Psi) = \alpha A\phi + \beta A \Psi,
+    \end{align*}
+    $\forall \alpha, \beta$ constantes arbitrarias (notése que $\alpha\phi + \beta\Psi \in Dom(A)$ al ser un subespacio).
+    Además, definimos la $\textbf{imagen del operador}$ como $Rango(A) = \{A\Psi\: | \: \Psi\in Dom(A)\}$ y el $\textbf{núcleo del operador}$ como $Ker(A) = \{\Psi\in Dom(A)
+    \:|\: A\Psi = 0 \}$.
+    \label{def:OpLin}
+\end{defn}
+\noindent
+Para la siguiente definición, el operador cumple que $Dom(A) = \mathcal{H}$.
+\begin{defn}
+    Un operador lineal\: $T:\mathcal{H} \longrightarrow \mathcal{H}$ es $\textbf{acotado}$ si existe una constante $C > 0$ tal que $||T\Psi|| \leq C||\Psi||$ para toda $\Psi \in \mathcal{H}$.
+    \label{def:opeAcot}
+\end{defn}
+\begin{prop}
+    Un operador lineal A en $\mathcal{H}$ es $\textbf{no-acotado}$ si y solo si $\forall N > 0$, $\exists$ $\Psi\in Dom(A)$ tal que:
+    \begin{align*}
+        ||A\Psi|| \geq N ||\Psi||,
+    \end{align*}
+    en el sentido de la norma asociada al espacio $\mathcal{H}.$
+\end{prop}
+\begin{demo}
+    Notemos que es la negación de la Definición \ref{def:opeAcot}.
+    \qed 
+\end{demo}
+\begin{defn}
+    Un operador lineal A no-acotado en $\mathcal{H}$ es $\textbf{cerrado}$ si:
+    \begin{align*}
+        \mathcal{G}(A) = \{(\Psi,A\Psi) \in \mathcal{H}\times\mathcal{H} \:|\: \Psi \in Dom(A) \}.
+    \end{align*}
+    es un subconjunto cerrado de $\mathcal{H}\times\mathcal{H}$, donde $\mathcal{G}(A) $ se conoce como la \textbf{gráfica del operador} A.
+\end{defn}
+\begin{defn}
+    Sean $A:Dom(A)\subset\mathcal{H}\rightarrow\mathcal{H}$ y $B:Dom(B)\subset\mathcal{H}\rightarrow\mathcal{H}$ operadores lineales no-acotados, si $\mathcal{G}(A) \subset \mathcal{G}(B)$, entonces se dice que B es una $\textbf{extensión}$ de A y se denota por A $\subset$ B. 
+    \label{def:Extension}
+\end{defn}
+\begin{obs}
+    Un operador lineal $A$ no-acotado en $\mathcal{H}$ es \textbf{cerrable} si tiene una extensión cerrada.
+    \label{obs:extcerrada}
+\end{obs}
+\begin{obs}
+    Alternativamente se dice que $B$ es una extensión de $A$ si $Dom(A)\subset Dom(B)$ y $B\Psi = A\Psi$ para toda $\Psi \in Dom(A)$.
+    \label{obs:defalt}
+\end{obs}
+\begin{defn}
+    Un operador lineal A no-acotado en $\mathcal{H}$ es $\textbf{simétrico}$ si
+    \begin{align*}
+        \langle\phi,A\Psi\rangle = \langle A\phi,\Psi \rangle,
+    \end{align*}
+    para todas $\phi,\Psi \in Dom(A)$.
+    \label{def:Simetrico}
+\end{defn}
+\noindent
+En breve, introduciremos el Lema de Riesz, pues, es de utilidad para precisar el dominio del operador adjunto en la Definición \ref{def:DomAutoadjunto}. Para esto, veamos primero la siguiente definición. 
+\\ \\
+Ahora, aclararemos la siguiente diferencia, ya que las definiciones son parecidas. Un operador lineal acotado es un mapeo lineal de todo el espacio vectorial $\mathcal{H}$ en todo $\mathcal{H}$ y que además es acotado, mientras que un funcional lineal acotado es un mapeo lineal de todo $\mathcal{H}$ en $\field{C}$ y que además es acotado, veamos la siguiente definición.
+\begin{defn}
+    Un \textbf{funcional lineal} en $\mathcal{H}$ es un mapeo $F:\mathcal{H}\longrightarrow\field{C}$ que satisface las siguientes propiedades:
+     \begin{enumerate}[1.]
+    \item  $F(\phi + \varphi) = F(\phi) + F(\varphi)\:\: \forall\: \phi, \varphi \in \mathcal{H}$.
+    \item $F(\alpha\varphi) = \alpha F(\varphi), \:\:\forall\alpha\in\field{R}$ y para toda $\varphi\in\mathcal{H}$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}
+    Un \textbf{funcional lineal acotado} en $\mathcal{H}$ es un funcional lineal $F$ tal que existe una constante $M>0$ donde
+    \begin{align*}
+        |F(\varphi)| \leq M ||\varphi||,\:\: \forall \varphi \in\mathcal{H},
+    \end{align*}
+    donde $||\cdot||$ es la norma asociada al espacio vectorial $\mathcal{H}$.
+\end{defn}
+\begin{lem}[Lema de Riesz]
+    Sea $F:\mathcal{H}\longrightarrow\field{C}$ un funcional lineal acotado, entonces existe un único $\varphi \in \mathcal{H}$ tal que:
+    \begin{align*}
+        F(\Psi) = \langle\varphi,\Psi\rangle,
+    \end{align*}
+    para todo $\Psi \in \mathcal{H}$.
+    \label{lem:LdeRiesz}
+\end{lem}
+\noindent
+Con respecto a la demostración del Lema de Riesz, el lector puede consultar  $\cite[\:\text{Teorema\: 3.4}, \text{p.13}]{Conway}$ y $\cite[\:\text{Teorema\:II.4},  \text{p.43}]{Reed}$, ya que la prueba excede los límites del enfoque de estudio. El siguiente teorema es de gran utilidad, ya que nos permite desarrollar los procedimientos de las siguientes demostraciones, al extender el funcional a todo el espacio $\mathcal{H}$ una vez que el funcional es acotado. 
+\begin{teo}
+    Sea $\mathcal{H}$ un espacio de Hilbert y $T:\mathcal{H}\longrightarrow\mathcal{H}$ un operador lineal. $T$ es un operador lineal acotado si y solo si $T$ es continuo en $\mathcal{H}$ 
+    \label{teo:ExtAcotamiento}
+\end{teo}
+\begin{demo}
+    Por hipótesis, tenemos que $\exists\: C>0$ tal que 
+    \begin{align*}
+        ||T\Psi||\leq C||\Psi||\:\: \text{para toda}\:\: \Psi\in\mathcal{H},
+    \end{align*}
+    y buscamos $\delta,\epsilon$ tal que si
+    \begin{align*}
+        ||\Psi_{1}-\Psi_{2}||\leq \delta \implies ||T(\Psi_{1}) - T(\Psi_{2})||\leq \epsilon,
+    \end{align*}
+    donde $\Psi_{1},\Psi_{2}\in\mathcal{H}$. De esta forma, al tomar $\epsilon>0$ y $\delta = \epsilon/C$ tendremos que
+    \begin{align*}
+        ||T(\Psi_{1}) - T(\Psi_{2})|| = ||T(\Psi_{1}-\Psi_{2})||\leq C||\Psi_{1}-\Psi_{2}|| < \epsilon,
+    \end{align*}
+    como se quería mostrar. \\ \\
+    Para la otra implicación, buscamos $C>0$ tal que $||T(\Psi)||\leq C||\Psi||$. Dado que $T$ es continuo (en particular en el 0), para $\epsilon = 1$ existe $\delta > 0$ tal que
+    \begin{align*}
+        \big|\big|\Psi - 0 \big|\big| \leq \delta \implies \big|\big|T\big(\Psi\big)-T(0)\big|\big| \leq 1,
+    \end{align*}
+    para $\Psi\neq 0$, donde notando que
+    \begin{align*}
+        \delta = \delta\frac{||\Psi||}{||\Psi||} = \bigg|\bigg|\delta\frac{\Psi}{||\Psi||}\bigg|\bigg|,
+    \end{align*}
+    tenemos que 
+    \begin{align*}
+        \bigg|\bigg|T\bigg(\delta\frac{\Psi}{||\Psi||}\bigg)\bigg|\bigg| \leq 1 \implies \delta\bigg|\bigg|\frac{T(\Psi)}{||\Psi||}\bigg|\bigg| \leq 1 \implies ||T(\Psi)|| \leq \frac{1}{\delta}||\Psi||,
+    \end{align*}
+    se satisface al considerar $C = 1/\delta$.
+    \qed
+\end{demo}
+\noindent
+\\
+ Si recordamos la Definición \ref{def:OpLin}, mencionamos que los operadores no-acotados $A$ que estudiamos están definidos en un subespacio denso de $\mathcal{H}$. Equivalentemente, su adjunto $A^*$ está definido en un subespacio de $\mathcal{H}$, pues, el funcional $\langle\phi,A\Psi\rangle$, (con $\Psi\in Dom(A)$), puede no estar acotado para cualquier $\phi\in\mathcal{H}$, es decir, veremos para que vectores $\phi\in\mathcal{H}$ existe el adjunto $A^*$.
+\begin{defn}
+    Sea A un operador lineal no-acotado en $\mathcal{H}$, se define el  \textbf{operador adjunto} $A^*$ de $A$ como sigue: el \textbf{dominio del operador adjunto} $Dom(A^{*})$ es el espacio de todas las funciones $\phi \in \mathcal{H}$ tales que:
+    \begin{align*}
+        \Psi \mapsto \langle\phi,A\Psi\rangle,
+    \end{align*}
+     está acotado $\forall\:\Psi\in Dom(A)$. Para $\phi \in Dom(A^{*})$, se define $A^{*}\phi$ como la función tal que $\langle\phi,A\Psi\rangle = \langle A^{*}\phi,\Psi\rangle$ se satisface para toda función $\Psi \in Dom(A)$.
+    \label{def:DomAutoadjunto}
+\end{defn}
+\noindent
+En la definición anterior, al pedir que el funcional $\langle\phi,A\Psi\rangle$ esté acotado entonces es continuo (Teorema \ref{teo:ExtAcotamiento}), por lo que al estar definido sobre un conjunto denso se puede extender a todo el espacio $\mathcal{H}$. Así, por el Lema de Riesz (Lema \ref{lem:LdeRiesz})podemos garantizar que sí existe una única función $\varphi$ tal que $\langle\phi,A\Psi\rangle = \langle\varphi,\Psi\rangle$ para toda $\Psi\in Dom(A)$, definiendo así $A^{*}\phi = \varphi$.
+\begin{defn}
+    Un operador lineal A no-acotado en  $\mathcal{H}$ es $\textbf{auto-adjunto}$ si
+    \begin{align*}
+        Dom(A^{*}) = Dom(A),
+    \end{align*}
+    y $A^{*}\phi = A\phi$ para toda $\phi \in Dom(A)$.
+    \label{def:Autoadjunto}
+\end{defn}
+\noindent
+  Lo que nos dice esta definición es que $A^{*}$ es una extensión de $A$ y viceversa, pues $Dom(A) \subset Dom(A^{*})$, $Dom(A^{*}) \subset Dom(A) $ y $A^{*}\phi = A\phi$, por lo que alternativamente decimos que A es auto-adjunto si $A = A^{*}$.
+\begin{prop}
+    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$, entonces:
+    \begin{align*}
+        Rango(A)^{\perp} = Ker(A^{*}).
+    \end{align*}
+    \label{prop:Complementos}
+\end{prop}
+\begin{demo}
+    Para la primera contención
+    tomemos $\Psi \in Rango(A)^{\perp}$. Al tomar cualquier elemento $\phi \in Dom(A)$ con su correspondiente mapeo 
+    \begin{align*}
+        \phi \mapsto \langle\Psi,A\phi\rangle,
+    \end{align*}
+    se tiene que $\langle\Psi,A\phi\rangle = 0$ porque $A\phi$ está en la imágen de $A$ y $\Psi$ en su complemento ortogonal. Al notar que el funcional $\langle\Psi,A\phi\rangle$ es continuo (por ser acotado) y esta definido en un conjunto denso (el dominio de A) para toda $\phi\in Dom(A)$, se puede demostrar que el funcional se puede extender a todo el espacio $\mathcal{H}$ y asi aplicar el Lema de Riesz. De esta forma, tendremos que $\Psi\in Dom(A^*)$ por la Definición \ref{def:DomAutoadjunto} del dominio del adjunto  y dado que $\langle A^*\Psi,\phi\rangle = \langle \Psi,A\phi\rangle=0$ se satisface $\forall \phi\in Dom(A)$ tendremos que
+    \begin{align*}
+        A^{*}\Psi = 0,
+    \end{align*}
+    por la densidad del $Dom(A)$. En consecuencia, $\Psi \in Ker(A^{*})$.
+    \\
+    Para la segunda contención, supongamos $\Psi \in Ker(A^{*})$, lo cual implica que $A^{*}\Psi = 0$. Ahora, para toda $\phi \in Dom(A)$ se cumple que:
+    \begin{align*} \langle\Psi,A\phi\rangle = \langle A^{*}\Psi,\phi\rangle = \langle 0,\phi\rangle = 0,
+    \end{align*}
+    por lo que $\Psi$ es ortogonal a la imágen de $A$, es decir, $\Psi\in (Rango(A))^{\perp}$.
+    \qed
+\end{demo}
+\begin{prop}
+    Sea A un operador lineal no-acotado en $\mathcal{H}$, es decir, $Dom(A) \subset\mathcal{H}$ es denso, y sea B un operador lineal acotado definido en todo $\mathcal{H}$. Sea $A + B$ el operador lineal con $Dom(A+B) = Dom(A)$ y definido como $(A + B)\Psi = A\Psi + B\Psi$ para todo $\Psi \in Dom(A)$. Entonces $(A+B)^{*}$ tiene el mismo dominio que $A^{*}$ y $(A+B)^{*}\Psi = A^{*}\Psi + B^{*}\Psi$ para todo $\Psi \in Dom(A^{*})$.
+\end{prop}
+\noindent
+Para la demostración supondremos que el $Dom(B^*)=\mathcal{H}$, el lector puede corrobar esto en \cite{Conway, Reed, Teschl}, pues $B$ es un operador acotado definido en todo $\mathcal{H}$.
+\begin{demo}
+    Sean $\Psi\in Dom\big((A+B)^*\big)\cap Dom(B^*) = Dom\big((A+B)^*\big)$ y $\phi \in Dom(A+B)$. Por un lado, tenemos que:
+    \begin{align*}
+        \langle [(A+B)^*-B^*]\Psi,\phi\rangle & = \langle(A+B)^*\Psi,\phi\rangle - \langle B^*\Psi,\phi\rangle 
+        \\ & = 
+        \langle\Psi,(A+B)\phi\rangle - \langle\Psi,B\phi\rangle
+        \\ & = 
+        \langle\Psi,A\phi\rangle,
+    \end{align*}
+    y dado que el funcional $\langle\Psi,A\phi\rangle$ esta acotado, tendremos que $\Psi\in Dom(A^*)$ por la Definición \ref{def:DomAutoadjunto}. \\\\ Por otro lado, para el mismo $\Psi$:
+    \begin{align*}
+        \langle (A+B)^{*} \Psi, \phi \rangle
+        &
+        =
+        \langle \Psi, (A+B)\phi \rangle =
+        \langle \Psi, A\phi \rangle + \langle \Psi,B\phi \rangle 
+        \\
+        & =
+        \langle A^{*} \Psi , \phi \rangle + \langle B^{*} \Psi, \phi \rangle =
+        \langle (A^{*}+B^{*})\Psi, \phi \rangle ,
+    \end{align*}
+    por lo tanto, $(A+B)^{*}\Psi = A^{*}\Psi + B^{*}\Psi$, como se quería mostrar. 
+    \qed
+\end{demo}
+\noindent
+ Acabamos de ver que el dominio de la suma de un operador no-acotado y la de uno acotado es el mismo que el del no-acotado. Sin embargo, cuando dos operadores son no-acotados, ésto depende de cúal de los dos subespacios es subconjunto del otro, ya que $Dom(A+B) = Dom(A)\cap Dom(B)$, como veremos en seguida.
+\begin{defn}
+    Sean A,B dos operadores lineales no-acotados en $\mathcal{H}$, entonces A+B es el operador con dominio:
+    \begin{align*}
+        Dom(A+B) := Dom(A)\cap Dom(B)
+    \end{align*}
+    y dado por $(A+B)\Psi = A\Psi + B\Psi$.
+    \label{def:DomOPADJS}
+\end{defn}
+\begin{defn}
+    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$, se dice que $A$ es invertible si existe un operador acotado $B:\mathcal{H} \longrightarrow \mathcal{H}$ tal que 
+    \begin{align*}
+        AB = I\:\: y \:\:BA \subset I,
+    \end{align*}
+    donde $I$ denota el operador identidad.\footnote{La definición para operadores acotados la encuentra el lector en la Definición \ref{def:InvOperator} de la pg.71.}
+\end{defn}
+\begin{defn}
+    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$ y $\lambda\in\field{C}$, se define el \textbf{espectro} de $A$ como el conjunto:
+    \begin{align*}
+        \sigma(A) = \{\lambda\in\field{C}\:|\: A-\lambda I\:\text{no es invertible} \},
+    \end{align*}
+    donde $I$ denota el operador identidad. En particular, cuando para $\phi\in\mathcal{H}$ con $\phi\neq0$ se cumple que 
+    \begin{align*}
+        (A-\lambda I)\phi = 0,
+    \end{align*}
+    entonces $\lambda$ está en el \textbf{espectro puntual}.
+\end{defn}
+\begin{obs}
+    Si $\Psi\neq 0$ y $\lambda\in\field{C}$ satisfacen la relación $A\Psi = \lambda\Psi$ entonces decimos que $\Psi$ es un autovector de $A$ y $\lambda$ un autovalor de $A$. El conjunto de todos los valores propios se conoce como el espectro puntual de $A$. 
+\end{obs}
+\noindent
+    La definición de la observación anterior es la que usaremos de acuerdo a la Definición \ref{def:E.I.TdeSch} del Capítulo 4 para determinar los autovalores del operador $\hat{H}$.
+\begin{obs}
+    Hemos definido el espectro para operadores no-acotados, sin embargo, la definición es análoga para los operadores acotados. 
+\end{obs}
+\noindent
+Se omiten las demostraciones del Teorema \ref{teo:EspectroA}, de la Proposición \ref{prop:IntEspectro} y de la Proposición \ref{prop:RankAdj} por que no son el enfoque de esta tesis; no obstante, el lector puede consultar $\cite{QTM, Konrad, Teschl}$ si desea conocer las pruebas, asimismo en general la teoría del espectro de los operadores no-acotados. Sin embargo, la razón de incluirlos se debe a que prueban rigurosamente los resultados del Capítulo 4 como veremos en seguida.
+\begin{teo}
+    Sea A un operador lineal no-acotado y auto-adjunto en $\mathcal{H}$, entonces el espectro de A está contenido en $\field{R}$.
+    \label{teo:EspectroA}
+\end{teo}
+\noindent
+Recordamos que en el Capítulo 4, al resolver el sistema \eqref{eq:TIS2} por el método de separación de variables, supusimos que los valores propios del Hamiltoniano $E\in\field{R}$. El teorema anterior demuestra rigurosamente aquella suposición. Para el espectro puntual la demostración es sencilla, pues, dado que $A$ es auto-adjunto, es simétrico, de esta forma, el problema se reduce a probar que $\lambda=\overline{\lambda}$. Considerando que $\Psi\neq 0$ es un autovector de $A$ con autovalor asociado $\lambda$ entonces
+\begin{align*}
+    \lambda\langle\Psi,\Psi\rangle = \langle\Psi,A\Psi\rangle =
+    \langle A\Psi,\Psi\rangle = \overline{\lambda}\langle\Psi,\Psi\rangle,
+\end{align*}
+por lo tanto $\lambda\in\field{R}$.
+\\ \\
+Para el resto del espectro, dado que $A$ es autoadjunto 
+ basta probar que $(A-\lambda I)$, con $\lambda\in\field{C}\setminus\field{R}$, mapea inyectivamente $Dom(A)$ sobre $\mathcal{H}$ con lo cual se garantiza la suprayectividad. De esta forma, se ve que $(A-\lambda I)$ tiene inversa, por lo tanto $\lambda$ no puede estar en el espectro de $A$. El resultado de este Teorema, se usa en particular para el caso del Pozo Finito, ya que se estudiaron dos casos $E<0$ y $E>0$. Para el caso del Pozo Infinito se utiliza la Proposición \ref{prop:IntEspectro} como se explicará en breve.
+\begin{defn}
+    Sea A un operador lineal no-acotado en $\mathcal{H}$, entonces A es \textbf{no-negativo} si $\langle\Psi,A\Psi\rangle \geq 0$ para todo $\Psi \in Dom(A)$ y A es \textbf{acotado por debajo} por $c\in\field{R}$ si $\langle\Psi,A\Psi\rangle \geq c ||\Psi||^{2}$ para todo $\Psi\in Dom(A)$.
+\end{defn}
+\noindent
+Vamos a comprobar que el operador de Schrödinger es acotado por abajo, en el caso del Pozo Infinito, para las eigenfunciones $\Psi_{n}$ del Capítulo 4. Considerando \eqref{eq:PsiPI}, supongamos que $\Psi_{n}\in Dom(\hat{H})\:\:\forall n\in\field{N}$, entonces:
+\begin{align*}
+    \langle\Psi_{n}, \hat{H}\Psi_{n}\rangle
+    & =
+    \int_{\field{R}}\overline{\Psi_{n}(x)}\hat{H}\Psi_{n}(x)\:dx =
+    \int_{0}^{A} \overline{\Psi_{n}(x)}\hat{H}\Psi_{n}(x)\:dx,
+\end{align*}
+    pues $\Psi_{n} = 0$ para toda $x\notin [0,A]$. Ahora, 
+    \begin{align*}
+    \langle\Psi_{n}, \hat{H}\Psi_{n}\rangle & = 
+     \langle\Psi_{n}, E_{n}\Psi_{n}\rangle =
+     E_{n}||\Psi_{n}||_{2}^2  \\ & =
+    \dfrac{\hslash^2n^2\pi^2}{2mA^2}||\Psi_{n}||_{2}^2 \:\geq\:  \dfrac{\hslash^2\pi^2}{2mA^2}||\Psi_{n}||_{2}^2,\:\:\forall n\in\field{N},
+    \end{align*}
+    pues $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ como en \eqref{eq:TISchro} y $E_{n}=\dfrac{\hslash^2n^2\pi^2}{2mA^2}$ como en \eqref{eq:Enecuant}. De esta forma, suponiendo que $\hat{H}$ es no-acotado (en la siguiente sección aclararemos esto) obtenemos que este operador es no-negativo. Además, hemos ejemplificado que $\hat{H}$ está acotado por debajo por $c = (\hslash^2\pi^2)/(2mA^2)$ para toda eigenfunción $\Psi_{n}$, este resultado es útil para la siguiente proposición.
+\begin{prop}
+    Sea A un operador lineal no-acotado y auto-adjunto en $\mathcal{H}$. Si A es no-negativo, entonces el espectro de A está contenido en $[0,\infty)$. En general, si A está acotado por debajo por c, entonces el espectro de A está contenido en $[c,\infty)$.
+    \label{prop:IntEspectro}
+\end{prop}
+\noindent
+Considerando el resultado anterior, donde vimos que $\hat{H}$ está acotado por debajo por $c = (\hslash^2\pi^2)/(2mA^2)$ tenemos para el caso del Pozo Infinito que el espectro de $\hat{H}$ está contenido en $\big[c, \infty\big)$.
+\begin{prop}
+    Sea A un operador lineal simétrico en $\mathcal{H}$, entonces A es auto-adjunto si y solo si
+    \begin{align*}
+        Rango(A-iI) = Rango (A+iI) = \mathcal{H}.
+    \end{align*}
+    \label{prop:RankAdj}
+\end{prop}
+\noindent
+Como se mencionó anteriormente se omite la demostración de esta Proposición, sin embargo, se explicará brevemente la idea de la prueba. Al considerar $\alpha = iI$; para una dirección, se verifica que  $Rango(A\pm\alpha)^{\perp}$ es solamente el cero, y por lo tanto las imagenes de  $A\pm\alpha$ son densas en $\mathcal{H}$ y cerradas. Para la otra dirección, por la Definición \ref{def:Autoadjunto} basta verificar que $Dom(A) = Dom(A^*)$.
+\subsection{El Operador de Schrödinger $\boldsymbol{-\Delta + V}$}
+\noindent
+Varios de los operadores que se utilizan en Mecánica Cuántica son operadores no-acotados, entre ellos, el de posición, el de momento, el laplaciano \footnote{En este caso, representa la concavidad o curvatura del espacio.} y el operador potencial. En esta sección nos ocuparemos de los últimos dos. Primero veamos porqué el operador Laplaciano $\Delta$ y el potencial $V$ son no-acotados tomando como ejemplo la función $\eqref{eq:Solpar}$ del Capítulo 4. Por un lado
+\begin{align*}
+    ||\Psi||^2 & =
+    \langle\Psi,\Psi\rangle =
+    \int_{\field{R}} \overline{\Psi(x)}\Psi(x)dx \\
+    & = \int_{-\infty}^{-A}a^2e^{2\sqrt{\mathcal{E}}x}dx + 
+    \int_{-A}^{A}b^2\cos^2(qx)dx +
+    \int_{A}^{\infty}a^2e^{-2\sqrt{\mathcal{E}}x}dx
+    \\
+    & =
+    \frac{a^2}{\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A} + b^2A,
+\end{align*}
+por el otro al considerar $\Delta$ como la segunda derivada respecto la variable de interés
+\begin{align*}
+    ||\Delta\Psi||^2 & = \langle\Delta\Psi,\Delta\Psi\rangle = \int_{\field{R}}\overline{\Delta\Psi(x)}\Delta\Psi(x)dx
+    \\
+    & = \int_{-\infty}^{-A}\mathcal{E}^2a^2e^{2\sqrt{\mathcal{E}}x}dx + 
+    \int_{-A}^{A}q^4b^2\cos(qx)dx +
+    \int_{A}^{\infty}\mathcal{E}^2a^2e^{-2\sqrt{\mathcal{E}}x}dx
+    \\
+    & = \frac{\mathcal{E}^2a^2}{\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A} + q^4b^2A.
+\end{align*}
+Cuando consideramos la región interior $[-A,A]$ se cumple que
+\begin{align*}
+    \int_{-A}^{A} |\Delta\Psi|^2 dx= q^2b\sqrt{A} \geq Nb\sqrt{A} = N\int_{-A}^{A}|\Psi(x)|^2
+\end{align*}
+ siempre que $q^2\geq N$, y como $q$ depende del autovalor $E$, pues,
+\begin{align*}
+    q = \sqrt{\frac{2m}{\hslash}(C+E)},
+\end{align*}
+podemos encontrar una energía $E$ adecuada para toda $N>0$. Al considerar la región exterior $\big( (-\infty,-A)\cup(A,\infty)\big)$ la desigualdad $\sqrt{\mathcal{E}}ae^{-\sqrt{\mathcal{E}}A}\geq (Na)/(\mathcal{E}^{1/4})e^{-\sqrt{\mathcal{E}}A}$ se cumple si $\sqrt{\mathcal{E}}\geq N$. Además, dado que $\mathcal{E}$ depende de $E$ \footnote{En el Capítulo 4, vimos que $\mathcal{E} = (2mE)/\hslash^2$} siempre podremos encontrar un valor de $E$ lo suficientemente grande para cualquier $N$.
+Así, tenemos que
+\begin{align*}
+    ||\Delta\Psi|| \geq N ||\Psi||, \:\:\:\forall N>0.
+\end{align*}
+\noindent
+Para el operador potencial del Pozo Finito, recordamos que $\mathcal{V}(x)=0$ para $x\notin [-A,A]$, consecuentemente:
+\begin{align*}
+    ||\mathcal{V}\Psi||^2 = \langle \mathcal{V}\Psi,\mathcal{V}\Psi\rangle = \int_{-A}^{A}C^2b^2\cos^2(qx)dx = C^2b^2A,
+\end{align*}
+por lo que:
+\begin{align*}
+    ||\mathcal{V}\Psi||^2 \geq N^2||\Psi||^2
+    & \Longleftrightarrow 
+    C^2b^2A \geq N^2\bigg( \frac{a^2}{\sqrt{\mathcal{E}}}e^{-2\sqrt{\mathcal{E}}A} + b^2A \bigg) \\
+    & \Longleftrightarrow 
+    C^2 \geq N^2\bigg(1 + \frac{a^2}{\sqrt{\mathcal{E}}b^2A}e^{-2\sqrt{\mathcal{E}}A}\bigg).
+\end{align*}
+Dado que queremos que esto sea válido para toda $N>0$, el término de lado derecho en la última desigualdad lo denotaremos $N^2\gamma^2$ por conveniencia. Así, mientras $C\geq\gamma$ el operador potencial es no-acotado. En otras palabras, existe un umbral a partir del cual el operador potencial es no-acotado cuando $\mathcal{V}$ es una función constante. 
+\begin{defn}
+    Un operador $U:\mathcal{H}\rightarrow\mathcal{H}$ es \textbf{unitario} si $U$ es suprayectivo y preserva el producto interno, es decir, $\langle U\phi,U\Psi\rangle = \langle\phi,\Psi\rangle$, $\forall\:\phi,\Psi \in \mathcal{H}$.
+\end{defn}
+\noindent
+Hasta el momento hemos considerado al laplaciano como la segunda derivada respecto a la variable de interés. Sin embargo, se puede demostrar que la siguiente relación se cumple
+\begin{align*}
+    \frac{d^2 \Psi}{dx^2} = - \mathcal{F}^{-1}(|k|^2\mathcal{F}(\Psi)),
+\end{align*}
+el lector interesado puede consultar la demostración en \cite[\text{Lema 9.33,} \text{p.187}]{QTM}. Así, se utiliza el dominio del operador laplaciano como en la siguiente Proposición.
+\begin{prop}[Operador Laplaciano]
+    Sea $\Delta$ el operador laplaciano definido como
+    \begin{align*}
+        -\Delta\Psi = \mathcal{F}^{-1}(|k|^{2} \hat{\Psi}),
+    \end{align*}
+    en el dominio:
+    \begin{align*} Dom(\Delta) = \{\Psi\in L^{2}(\field{R},\field{C}) \:|\:
+       \: |k|^{2}\hat{\Psi}(k) \in L^{2}(\field{R},\field{C})\},
+    \end{align*}
+donde $\hat{\Psi}$ es la Transformada de Fourier de $\Psi$ y $\mathcal{F}^{-1}$ denota la Transformada Inversa de Fourier. Entonces $\Delta$ es auto-adjunto. 
+\label{prop:DomLap}
+\end{prop}
+\begin{demo}
+    En la Sección 2.2.4 hemos visto que
+    \begin{align*}
+        \mathcal{F}(\Delta\Psi) = -k^2\hat{\Psi}
+        \implies
+        -\Delta\Psi = \mathcal{F}^{-1}(k^2\hat{\Psi}).
+    \end{align*}
+    Ahora, sean $\Psi,\phi \in Dom(\Delta)$ entonces:
+    \begin{align*}   \langle\Delta\Psi,\phi\rangle & = 
+        \langle -\mathcal{F}^{-1}(k^2\hat{\Psi}),\phi\rangle =
+        \langle -\mathcal{F}^{-1}(k^2\hat{\Psi}), \mathcal{F}^{-1}(\hat{\phi})\rangle \\
+        & =
+        \langle -(k^2\hat{\Psi}),\hat{\phi}\rangle,\:\text{pues $\mathcal{F}^{-1}$ es un operador unitario}  \\
+        & =
+        \langle \hat{\Psi}, -k^2\hat{\phi}\rangle \\
+        & =
+        \langle \mathcal{F}(\Psi),\mathcal{F}(\Delta\phi)\rangle =
+        \langle \Psi, \Delta \phi \rangle.
+    \end{align*}
+    Así:
+    \begin{align*} \langle\Psi,\Delta^*\phi\rangle =
+        \langle\Delta\Psi,\phi\rangle =
+        \langle\Psi,\Delta\phi\rangle
+    \end{align*}
+    por lo tanto $Dom(\Delta) =Dom(\Delta^*)$ y $\Delta^*\phi = \Delta\phi$.
+    \qed
+\end{demo}
+\noindent
+    La demostración de densidad del dominio la puede verificar el lector interesado  en  \cite[\text{Teorema 7.75,} \text{p.357}]{Iorio}. Intuitivamente uno puedo pensar que una función al pertenecer a $L^2(\field{R},\field{C})$ garantiza que su segunda derivada pertenece a este mismo espacio. Veamos un ejemplo de una función que no cumple esto, es decir, cuya segunda derivada no está en $L^2(\field{R},\field{C})$:
+    \begin{align*}
+         \mathcal{M}(x) =
+        \left\{ \begin{array}{ll}
+        \frac{1}{n+2}(x-n)^{n+2},& \:\:\:  x\in[n,n+1),
+        \\
+        0,& \:\:\: x < 0,
+        \end{array}
+        \right.
+\end{align*}    
+donde $n\in\field{N}\:\cup\:\{0\}$. Con respecto a la segunda derivada la forma general es 
+\begin{align*}
+    \mathcal{M}''(x)=
+    (n+1)(x-n)^{n}
+\end{align*}
+para $x\in[n,n+1)$. Al evaluar en este intervalo la integral
+\begin{align*}
+    \int_{n}^{n+1}(n+1)^2(x-n)^{2n}dx = \dfrac{(n+1)^2}{2n+1} \geq 1\:\: \text{para}\: n\geq 1
+\end{align*}
+por lo tanto $\mathcal{M}''(x)$ no pertenece a $L^2(\field{R},\field{C})$.
+\\ \\
+Por último, este resultado se puede  generalizar al considerar la función 
+\begin{align*}
+    \dfrac{1}{(n+m)}(x-n)^{n+m},
+\end{align*}
+donde $m\geq 2$ denota el respectivo espacio $L^m(\field{R},\field{R})$ al cual no queremos que pertenezca su $m$-ésima derivada. 
+\begin{prop}[Operador Potencial]
+    Sea $\mathcal{V}:\field{R}\rightarrow\field{R}$ una función integrable de $x\in\field{R}$. Sea $V$ el operador potencial con dominio:
+    \begin{align*}  Dom(V) = \{
+        \Psi\in L^{2}(\field{R},\field{C})\:|\:\mathcal{V}(x)\Psi(x)\in L^{2}(\field{R},\field{C})
+        \}
+    \end{align*}
+    y definido como:
+    \begin{align*}
+        V[\Psi](x) = \mathcal{V}(x)\Psi(x).
+    \end{align*}
+    Entonces $Dom(V)$ es denso en $L^{2}(\field{R},\field{C})$ en el sentido de que la cerradura del dominio de $V$ es $L^{2}(\field{R},\field{C})$, y $\:V$ es auto-adjunto en este dominio.
+    \label{prop:DomPot}
+\end{prop}
+\noindent
+El lector puede verificar la densidad del subespacio $Dom(V)$ en $L^{2}(\field{R},\field{C})$ para cualquier función integrable $\mathcal{V}:\field{R}\longrightarrow\field{R}$ en $\cite[\text{Proposición 9.30,}\: \text{p.185}]{QTM}$, pues su demostración se omite. Sin embargo es de utilidad suponer la densidad de $Dom(V)$ como veremos en seguida.
+\begin{demo}
+    Dado que $V$ es simétrico, veamos la igualdad del dominio de $V$ y $V^{*}$. Supongamos que el $Dom(V)$ es denso en $L^{2}(\field{R},\field{C})$, sea $\phi \in Dom(V^*)$, por la Definición \ref{def:DomAutoadjunto} tenemos que:
+    \begin{align*}
+        \Psi \rightarrow \langle \phi, V[\Psi]\rangle,\: \Psi\in Dom(V)
+    \end{align*}
+    es un funcional acotado, entonces podemos aplicar el Lema de Riesz (Lema \ref{lem:LdeRiesz}). Así, existe un único $\varphi\in L^{2}(\field{R},\field{C})$ tal que $\forall\: \Psi \in Dom(V)$
+    \begin{align*} \langle\phi,V[\Psi]\rangle & = \int_{\field{R}}\overline{\phi(x)}\mathcal{V}(x)\Psi(x) dx = \int_{\field{R}} \overline{\varphi(x)}\Psi(x) dx = \langle\varphi,\Psi\rangle
+    \\ &
+    \implies 
+    \int_{\field{R}}[\overline{\phi(x)}\mathcal{V}(x)-\overline{\varphi(x)}]\Psi(x) dx = 0
+    \\ &
+    \implies
+    \overline{\phi(x)}\mathcal{V}(x) = \overline{\varphi(x)},
+    \end{align*}
+    pues supusimos que $\overline{Dom(V)}=L^2(\field{R},\field{C})$, por lo tanto $\phi \in Dom(V)$ pues $\mathcal{V}$ es un potencial real. En consecuencia, una vez que $Dom(V) = Dom(V^*)$ tenemos que $V$ es auto-adjunto, como se quería mostrar.
+    \qed
+\end{demo}
+\begin{defn}
+    La \textbf{norma de un operador} lineal acotado $T:\mathcal{H}\longrightarrow\mathcal{H}$ se define como:
+    \begin{align*}
+        ||T|| = \sup_{\Psi\in\mathcal{H}\setminus \{0\}}\frac{||T\Psi||}{||\Psi||}= \sup_{||\Psi||=1}||T\Psi||.
+    \end{align*}
+\end{defn}
+\begin{obs}
+    Una de las propiedades de esta norma, que nos será de utilidad en la demostración del Teorema \ref{teo:K-R} es su consistencia, es decir, si $A,B$ son dos operadores de $\mathcal{H}$ en $\mathcal{H}$, se cumple que $||AB||\leq||A||\:||B||$, en el caso de tomar $\phi\in\mathcal{H}$ también se cumple que $||A\phi||\leq||A||\:||\phi||$, pues lo utilizaremos frecuentemente más adelante.
+\end{obs}
+\begin{defn}
+    Un operador lineal acotado $T:\mathcal{H}\longrightarrow\mathcal{H}$ es \textbf{invertible} si existe un operador lineal acotado $S:\mathcal{H}\longrightarrow\mathcal{H}$ tal que:
+    \begin{align*}
+        ST=TS=I,
+    \end{align*}
+    donde $I$ es el operador identidad. $S$ se conoce como la \textbf{inversa} de $T$.
+    \label{def:InvOperator}
+\end{defn}
+\begin{lem}
+    Sea T un operador lineal acotado de $\mathcal{H}$ en $\mathcal{H}$ que satisface $||T|| < 1$, entonces el operador $I - T$ es invertible.
+    \label{lem:opinvertible}
+\end{lem}
+\noindent
+El lector interesado puede corroborar la demostración en \cite[\text{Lema\: 7.6, p.133}]{QTM}. \\ \\
+Ya hemos visto que el operador Laplaciano $\Delta$ es auto-adjunto en un subespacio denso adecuado de $L^2(\field{R},\field{C})$ (Proposición \ref{prop:DomLap}), sin embargo, al considerar el operador Hamiltoniano $\hat{H} = \Delta + V$ no es claro que se preserve esta propiedad. Al considerar la Definición \ref{def:DomOPADJS}, sabemos que $Dom(\Delta)\cap Dom(V)$ es el subespacio en el cual $\hat{H}$ está definido, no obstante, se puede dar el caso en el cual esta intersección es muy pequeña para que $\hat{H}$ sea auto-adjunto, por ejemplo, si el vector nulo es el único elemento. De esta forma, la pregunta natural es ¿bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta? La respuesta fue obtenida de manera independiente por Franz Rellich en 1939 y después por Tosio Kato en 1951.
+\begin{teo}[Kato-Rellich]
+    Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ y que existen constantes positivas a,b con $a<1$ tal que
+    \begin{align*}
+        ||B\Psi|| \leq a||A\Psi|| + b||\Psi||
+    \end{align*}
+    para toda $\Psi\in Dom(A)$, entonces A+B es auto-adjunto en el Dom(A).
+    \label{teo:K-R}
+\end{teo}
+\begin{demo}
+    Primero, notamos que:
+    \begin{align}
+        ||(A+i\mu I)\Psi||^2 & =
+        \langle (A+i\mu I)\Psi, (A+i\mu I)\Psi\rangle
+        \notag
+        \\ &=
+        \langle A\Psi, A\Psi\rangle +
+        \langle A\Psi,i\mu\Psi\rangle +
+        \langle i\mu \Psi, A\Psi \rangle + 
+        \langle i\mu\Psi, i\mu \Psi\rangle
+        \notag
+        \\ & =
+        ||A\Psi||^2 + \mu^2||\Psi||^2, \:\mu \in\field{R},
+        \label{eq:Calc1}
+    \end{align}
+    donde la última igualdad se cumple pues $A=A^*$.
+    Por la Proposición \ref{prop:RankAdj} basta verificar que $Rango(A+B+i\mu I) = Rango(A+B-i\mu I)=\mathcal{H}$ (con $\mu = 1$), donde $A+B+i\mu I$ se puede reescribir como:
+    \begin{align*}
+        (A+B+i\mu I) & = B(A+i\mu I)^{-1}(A+i\mu I) + (A+i\mu I) 
+        \\
+        & =
+        [B(A+i\mu I)^{-1} + I](A+i\mu I),
+    \end{align*}
+    donde $A$ es autoadjunto y tiene espectro real, por lo que $A+i\mu I$ es invertible, vea el Teorema \ref{teo:EspectroA} y los comentarios subsecuentes.
+    Sea $\Psi \in Dom(A)$, veamos que el primer término de la última igualdad satisface el Lema \ref{lem:opinvertible} suponiendo que $B(A+i\mu I)^{-1}$ es un operador lineal acotado:
+    \begin{align}
+        ||B(A+i\mu I)^{-1}\Psi|| & \leq
+        a||A(A+i\mu I)^{-1}\Psi|| + b||(A+i\mu I)^{-1})\Psi||
+        \nonumber
+        \\
+        & \leq
+        \bigg[a||A(A+i\mu I)^{-1}|| +
+        b||(A+i\mu I)^{-1}||
+        \bigg]||\Psi||,
+        \label{eq:Apoyo3KR}
+    \end{align}
+    donde la primera desigualdad se cumple por hipótesis y la segunda por la consistencia de las normas. Los términos que multiplican a las constantes $a, b$ se acotan mediante el cálculo hecho en \eqref{eq:Calc1}, para $\phi\in\mathcal{H}$  tomamos $\Psi = (A+i\mu I)^{-1}\phi$ por simplicidad y suponiendo que $\Psi\in Dom(A)$. Así:
+    \begin{align*}
+        ||\phi||^2 = ||A(A+i\mu I)^{-1}\phi||^2 + \mu^2||(A+i\mu I)^{-1}\phi||^2,
+    \end{align*}
+    de donde, por un lado
+    \begin{align}
+        ||A(A+i\mu I)^{-1}\phi||^2 \leq ||\phi||^2
+        & \implies
+        ||A(A+i\mu I)^{-1}||^2 \leq 1,
+        \label{eq:Apoyo1KR}
+    \end{align}
+    por otro lado
+    \begin{align}
+        ||(A+i\mu I)^{-1}\phi||^2 \leq \frac{1}{\mu^2}||\phi||^2
+        \implies
+        ||(A+i\mu I)^{-1}||^2 \leq \frac{1}{\mu^2}.
+        \label{eq:Apoyo2KR}
+    \end{align}
+    Al tomar la raíz cuadrada en \eqref{eq:Apoyo1KR} y en \eqref{eq:Apoyo2KR} obtenemos el resultado deseado de acotar los términos en corchetes en \eqref{eq:Apoyo3KR}. Continuando con el procedimiento en \eqref{eq:Apoyo3KR}, tendremos que:
+    \begin{align*}
+        ||B(A+i\mu I)^{-1}\Psi|| \leq \bigg(a + \frac{b}{\mu}\bigg)||\Psi||.
+    \end{align*}
+    Recordamos que por hipótesis $a<1$, así al considerar $\mu>0$
+    \begin{align*}
+        a + \frac{b}{\mu} < 1 \Longleftrightarrow \mu a + b < \mu \Longleftrightarrow
+        \mu > \frac{b}{1-a}>0,
+    \end{align*}
+    por lo que, mientras la condición de arriba se cumpla tendremos que
+    \begin{align*}
+        ||B(A+i\mu I)^{-1}|| < 1.
+    \end{align*}
+ Así al aplicar el Lema \ref{lem:opinvertible}, tenemos que $B(A+i\mu I)^{-1} + I$ es invertible, lo cual garantiza que
+    \begin{align*}
+        Rango\big(B(A+i\mu I)^{-1} + I\big) = \mathcal{H}.
+    \end{align*}
+    Con respecto al operador $A$, por hipótesis es auto-adjunto. Así, al aplicar la Proposición \ref{prop:RankAdj}, $Rango(A+i\mu I) = \mathcal{H}$, luego:
+    \begin{align*}
+    Rango(A+B+i\mu I) = Rango\big([B(A+i\mu I)^{-1} + I](A+i\mu I)\big)=\mathcal{H}.
+    \end{align*}
+    El caso con el signo negativo $A+B-i\mu I$ es análogo, por lo tanto:
+    \begin{align*}
+    Rango(A+B+i\mu I) = Rango(A+B-i\mu I)=\mathcal{H},
+    \end{align*}
+    con lo cual concluimos que $A+B$ es auto-adjunto en el $Dom(A)$.
+    \qed
+\end{demo}
+\begin{prop}
+     Sea $\Psi\in Dom(\Delta)\cap L^{\infty}(\field{R},\field{C})$, entonces existe una constante $c>0$ tal que se satisface:
+    \begin{align*}   ||\Psi||_{\infty} \leq c ||\Delta \Psi|| + c ||\Psi||.
+    \end{align*}
+    \label{prop:Acotamiento}
+\end{prop}
+\begin{demo}
+    Sea $\Psi\in Dom(\Delta)\cap L^{\infty}(\field{R},\field{C})$ y $\phi = \mathcal{F}(\Psi)$. Por la definición del Dominio del Laplaciano (Proposición \ref{prop:DomLap}), $|k|^{2}\hat{\Psi} = |k|^{2} \phi \in L^{2}(\field{R},\field{C})$
+    y $\Delta\Psi = -\mathcal{F}^{-1}(|k|^{2} \phi)$, así:
+    \begin{align*} ||-\Delta\Psi|| = ||\mathcal{F}^{-1}(|k|^{2}\phi)|| = ||\: |k|^{2}\phi\:||,
+    \\
+     ||\phi|| = ||\mathcal{F}(\Psi)|| = ||\Psi||,
+    \end{align*}
+    pues la Transformada de Fourier es un operador unitario. Por otro lado, aplicando la desigualdad de Hölder (Teorema \ref{def:Holder}) con $p=q=2$:
+    \begin{align*}
+        ||\phi||_{1} & = ||(1+|k|^{2})^{-1}(1+|k|^{2})\phi||_{1}
+        \\
+        & \leq ||(1+|k|^{2})^{-1}||\:||(1+|k|^{2})\phi||
+        \\
+        &
+        \leq ||(1+|k|^{2})^{-1}||\big(||\phi|| + ||\:|k|^2\phi||\big)
+        \\
+        &=c||\Psi|| + c ||\Delta\Psi||,
+    \end{align*}
+    donde $c =  ||(1+|k|^{2})^{-1}|| = \big(\int_{\field{R}}(1+|k|^{2})^{-2}dk\big)^{1/2}$ es finito con valor $\pi/2$. Además, notamos que:
+    \begin{align*}
+        |\Psi(x)| = \bigg|\frac{1}{2\pi}\int_{\field{R}}\hat{\Psi}(k)e^{ikx}dx\bigg| \leq
+        \frac{1}{2\pi}\int_{\field{R}}|\hat{\Psi}(k)||e^{ikx}|dk = \frac{1}{2\pi}||\hat{\Psi}||_{1}=\frac{1}{2\pi}||\phi||_{1},
+    \end{align*}
+    donde $\hat{\Psi}\in L^1(\field{R},\field{C})$, pues ya hemos visto que $||\phi||_{1}$ es finito.
+    Por lo tanto:
+    \begin{align*}
+        ||\Psi||_{\infty} \leq
+        \frac{1}{2\pi}\big[c||-\Delta\Psi|| + c||\Psi||\big],
+    \end{align*}
+    como se quería mostrar.
+    \qed
+\end{demo}
+\noindent
+    En el Capítulo 4 hemos trabajado el caso del pozo cuadrado, con $\mathcal{V}(x)$ una función constante dentro de un intervalo. Sin embargo, al considerar funciones no constantes, el estudio se amplia y se vuelve más interesante como en el caso de tomar un potencial periódico o el potencial de Von Neumann-Wigner que considera coordenadas polares. Para generalizar este estudio, en el siguiente teorema se considera a $\mathcal{V}$ como una función que se puede descomponer como la suma de una función integrable cuadráticamente y otra acotada. Por ejemplo, una función de tal forma es:
+    \begin{align*}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        \dfrac{1}{|x|},& \:\:\:  x \in (-\infty,\alpha)\cup (\alpha,\infty),
+        \\
+        \dfrac{1}{\alpha},& \:\:\: x \in [-\alpha,\alpha],
+        \end{array}
+        \right.
+    \end{align*}
+    donde $\alpha>0$ es un valor dado. En este caso, al considerar a $V_{1} = 1/|x|$ en el intervalo $(-\infty,\alpha)\cup (\alpha,\infty)$ y nula fuera de él; y a $V_{2} = 1/\alpha$ en el intervalo  $[-\alpha,\alpha]$ y nula fuera de él. Podemos descomponer a $\mathcal{V}$ como la suma de estas funciones, es decir,  $\mathcal{V} = V_{1}+V_{2}$ con $V_{1}\in L^2(\field{R},\field{C})$ y  $V_{2}\in L^{\infty}(\field{R},\field{C})$ para todo $x\in\field{R}$. Invito al lector a consultar \cite{ Oliveira,ReedIV} si quiere profundizar en el tema de las distintas funciones $\mathcal{V}$ que se pueden considerar como potenciales.
+\begin{teo}
+    Sea $\mathcal{V}:\field{R}\longrightarrow\field{R}$ una función integrable que puede expresarse como la suma de dos funciones reales $V_{1}$ y $V_{2}$, con $V_{1}\in L^{2}(\field{R},\field{C})$ y $V_{2}\in L^{\infty}(\field{R},\field{C})$. Entonces el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
+    \label{teo:SCOperator}
+\end{teo}
+\noindent
+Cuando el potencial es constante, como \eqref{eq:PotencialFinito} del Capítulo 4, $Dom(V)=L^{2}(\field{R},\field{C})$, así tenemos que $Dom(\Delta) \subset Dom(V)$. Por lo tanto, por la Definición \ref{def:DomOPADJS},
+    \begin{align*} Dom(\Delta + V) = Dom(\Delta)\cap Dom(V) = Dom(\Delta).
+    \end{align*}
+En el caso de considerar un potencial no constante, no es sencillo ver que $Dom(\Delta)\subset Dom(V)$. Una vez se demuestre este último hecho, la demostración es como sigue.
+\begin{demo}
+    Suponiendo que $Dom(\Delta)\subset Dom(V)$, basta con aplicar el Teorema de Kato-Rellich (Teorema \ref{teo:K-R}) con $A = -\hslash^2 \Delta/2m$ y $B = V$, donde $V$ es el operador potencial. Primero, sea $\Psi\in Dom(\Delta)\cap L^{\infty}(\field{R},\field{C})$ tal que:
+    \begin{align}
+        ||V[\Psi]|| & = ||V_{1}\Psi + V_{2}\Psi||
+        \notag
+        \\
+        &
+        \leq ||V_{1}||\:||\Psi||_{\infty} + ||V_{2}||_{\infty}\:||\Psi||
+        \notag
+        \\
+        & \leq
+        c||V_{1}||\:||\Delta\Psi|| + \bigg[c||V_{1}|| + ||V_{2}||_{\infty}\bigg]||\Psi||,
+        \label{eq:Req1}
+    \end{align}
+    esto último por la Proposición \ref{prop:Acotamiento} y la primera desigualdad porque $V_{2}$ y $\Psi$ estan acotadas.
+    \\ \\
+    Con respecto a las constantes, debe cumplirse que $c||V_{1}|| < 1$, donde $c = (\pi/2)/(2\pi)$ por el cálculo hecho en la Proposición \ref{prop:Acotamiento}, así tomamos $||V_{1}||< 4$. Además, dada la suposición inicial y la Definición \ref{def:DomOPADJS} tenemos que:
+    \begin{align} Dom(\Delta + V) = Dom(\Delta)\cap Dom(V) = Dom(\Delta).
+    \label{eq:Req2}
+    \end{align}
+     Por lo tanto, al considerar \eqref{eq:Req1} y \eqref{eq:Req2} se cumple que $-\hslash^2\Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
+    \qed
+\end{demo}
+\noindent
+En el Capítulo 4, estudiamos dos funciones $\mathcal{V}(x)$ distintas con las cuales obtuvimos autovalores $E$ distintos, pues en el caso del Pozo Infinito $E\in\field{R}^+$ y en el Pozo Finito $E\in\field{R}$. El resultado anterior nos permite generalizar distintos casos de la función $\mathcal{V}(x)$, garantizando que el operador es auto-adjunto y por lo tanto su espectro es real. En otras palabras, al encontrar la solución explícita de la Ecuación de Schrödinger, directamente consideramos $E\in\field{R}$ siempre que $\mathcal{V}(x)$ cumpla los requisitos del Teorema \ref{teo:SCOperator}.
+\\ \\
+A lo largo de este capítulo se consideró $x\in \field{R}$ pues es el caso de estudio que consideramos introductorio para alumnos de licenciatura sin perder el sabor de la teoría. No obstante, estos resultados se pueden generalizar a $x\in \field{R}^n$. Por ejemplo, existen distintas versiones del Teorema \ref{teo:SCOperator} dependiendo de la dimensión (en el caso $n\leq 3$ la demostración es análoga a la que presentamos) y de la forma en la que se descomponga la función $\mathcal{V}$. También, las demostraciones en $L^2(\field{R}^n,\field{C})$ son análogas a las de $L^2(\field{R},\field{C})$.
+\newpage
+\section{Conclusiones}
+\noindent
+El desarrollo de este estudio requirió no sólo utilizar técnicas de distintas áreas de las matemáticas, sino también el desarrollo de una intuición, característica de los físicos, para interpretar resultados fenomenológicos. \\ \\
+Primero, estudiamos el caso de una partícula ``libre", por un lado utilizando herramientas del análisis matemático como la transformada de Fourier y el teorema de la convolución. Por otro lado, fue necesaria la intuición y el concepto físico para comprender las ideas como la velocidad de grupo y de onda. Después, cuando hay un potencial actuando sobre la partícula, las herramientas matemáticas a emplear son más sencillas, sin embargo, la comprensión de este fenómeno físico exige una interpretación de la cual como matemáticos estamos poco acostumbrados. Por último, aquellos resultados obtenidos en el Capítulo 4 pueden tener una interpretación sencilla, no obstante, la demostración rigurosa de ellos requiere herramientas avanzadas de análisis funcional, por ejemplo, nosotros consideramos en el capítulo 5 funciones en el espacio $L^2(\field{R})$, empero, es adecuado considerar el espacio de Sobolev $H^2(\field{R})$ por el Operador Laplaciano $\Delta$. Asimísmo, el potencial es una función que se descompone como la suma de una función en $L^2(\field{R}^n)$ más otra en $L^\infty(\field{R}^n)$ cuando $n\leq 3$.
+\\ \\
+De esta forma, podemos ver que existen relaciones entre los conceptos que estudiamos. Por ejemplo, al resolver la ec. del Calor y la ec. dependiente del tiempo de Schrödinger podemos notar que la solución general de una EDP de la forma $e_{t}=\gamma e_{xx}$, con $\gamma\in\field{T}$ ($\field{T}$ puede ser $\field{R}^+$ (Comportamiento del Calor) ó $\field{C}$ (Comportamiento de una partícula) dependiendo del fenomeno físico que se quiera estudiar) es
+\begin{align*}
+    \sqrt{\frac{1}{4\pi t\gamma}}\int_{-\infty}^{\infty}\exp\bigg[-\frac{\gamma}{4t}(x-y)^2\bigg]f(y)\: dy,
+\end{align*}
+es decir, vimos que la solución es análoga al considerar a $\gamma$ en los reales positivos o en los complejos, en consecuencia, será posible estudiar de forma conjunta (además de la posición) otras propiedades de la partícula, como las rotaciones, al considerar los cuaterniones $\field{H}$ ?
+\\ \\ 
+También, dado que una EDP la podemos ver como un operador, es normal preguntarse ¿por qué no hacer sólamente el análisis de las EDP's desde la teoría de los operadores?, ya que como vimos en el Capítulo 5 el operador de Schrödinger tiene propiedades que nos facilitaron los cálculos del Capítulo 4. No obstante, esto es válido dado que el operador es lineal, en caso contrario no necesariamente es conveniente estudiar las EDP's desde el punto vista de la teoría de los operadores. Por esto, fue necesario el estudio del Capítulo 4 porque al encontrar la solución explícita se puede interpretar el  comportamiento de una partícula subatómica, es decir, en el capítulo 5 mediante la proposición \ref{prop:DomLap}, \ref{prop:DomPot} y el teorema \ref{teo:SCOperator} se demostró rigurosamente que aquella solución era la correcta al pertenecer al dominio del operador de Schrödinger, pero, ésto no nos dice cuál es dicha solución. 
+\\ \\
+Por último, la ecuación de Schrödinger se generaliza en el estudio de la mecánica cuántica relativista (la cual incorpora la relatividad especial a la mecanica cuántica y se denomina teoría cuántica del campo) mediante la ecuación de Dirac, la cual describe cómo se comporta una partícula al viajar a velocidades cercanas a la velocidad de la luz. Para esto son necesarias herramientas matemáticas distintas como los espacios de Fock y una interpretación visual adecuada. El lector interesado en el tema puede consultar el capítulo 5 de \cite{Schwabl}.
+\\ \\
+Confío en que el lector haya encontrado un interés en el tema ya que considero se logró el objetivo planteado de desarrollar las distintas áreas de estudio que involucran la Ecuación de Schrödinger. Para mi es satisfactorio haber comenzado a recorrer el largo camino de comprender los fundamentos matemáticos de la mecánica cuántica mediante esta tesis. 
+
+\newpage
+\begin{thebibliography}{a}
+
+
+\bibitem{Bertlmann}
+Bertlmann, Reinhold.
+\textit{Theoretical Physics T2 Quantum Mechanics}.
+\textit{URL: https://homepage.univie.ac.at/reinhold.bertlmann/pdfs/T2$\_$Skript$\_$final.pdf}
+
+\bibitem{Braun}
+Braun, Martin.
+\textit{Differential Equations and their Applications}.
+Springer-Verlag, New York, 1992.
+
+\bibitem{Oleinik}
+Castañeda, Pablo.
+\textit{Oleinik a través del espejo}.
+Miscelánea Matemática 62, 2016.
+
+\bibitem{Conway}
+Conway, John.
+\textit{A Course in Functional Analysis}.
+Springer Verlag, 1985.
+
+\bibitem{Davies}
+Davies, Edward Brian.
+\textit{Spectral Theory and Differential Operators.}
+Cambridge University Press, 1995.
+
+\bibitem{Oliveira}
+De Oliveira, César R. Intermediate Spectral Theory and Quantum Dynamics. Birkhäuser, 2009.
+
+\bibitem{Eisberg}
+Eisberg, Robert. 
+\textit{Quantum Physics}.
+John Wiley $\&$ Sons, 1985. 
+
+\bibitem{Evans}
+Evans, Lawrence.
+\textit{Partial Differential Equations}.
+Graduate Studies in Mathematics 19, American Mathematical Society, 1998.
+\bibitem{FeyLectures}
+Feynman, Richard; Leighton, Robert; Sands Matthew.
+\textit{The Feynman Lectures on Physics Vol.III}.
+Addison Wesley, 1964.
+
+\bibitem{QTM} 
+Hall, Brian. 
+\textit{Quantum Theory for Mathematicians}. Graduate Texts in Mathematics,
+Springer, New York, 2013.
+
+\bibitem{Haslinger}
+Haslinger, Friedrich.
+\textit{Lecture Notes on Spectral Analysis}.
+\textit{URL: https://www.mat.univie.ac.at/~has/spectral.pdf}
+
+\bibitem{Jammer}
+Jammer, Max.
+\textit{The Conceptual Development of Quantum Mechanics}.
+American Institute of Physics, 1989.
+\bibitem{Iorio}
+Iório, Rafael Jr.; Iório  de Magalhaes, Valéria.
+\textit{Fourier Analysis and Partial Differential Equations}.
+Cambridge University Press, 2001.
+\bibitem{Junior}
+ Iório, Rafael Jr.; Iório  de Magalhaes, Valéria.
+\textit{Equa\c{c}\~oes Diferenciais Parciais: Um Introdu\c{c}\~ao}.
+IMPA, 2013.
+
+\bibitem{Kato}
+Kato, Tosio.
+\textit{Perturbation Theory for Linear Operators}.
+Springer Verlag, 1995.
+
+\bibitem{Katznelson}
+Katznelson, Yitzhak.
+\textit{An Introduction to Harmonic Analysis}.
+Cambridge University Press, 2003.
+
+\bibitem{Novozhilov}
+Novozhilov, Artem.
+\textit{Course Notes of Partial Differential Equations}.
+\textit{URL:
+https://www.ndsu.edu/pubweb/~novozhil/Teaching/483$\%$20Data/02.pdf}
+
+\bibitem{Reed}
+Reed, Michael; Simon, Barry.
+\textit{Methods of Modern Mathematical Physics I: Functional Analysis}.
+Academic Press, 1980.
+
+\bibitem{ReedIV}
+Reed, Michael; Simon, Barry.
+\textit{Methods of Modern Mathematical Physics IV: Analysis of Operators}.
+Academic Press, 1978.
+
+\bibitem{Rudin2}
+Rudin, Walter.
+\textit{Real and Complex Analysis}.
+McGraw-Hill, 1987.
+
+\bibitem{Konrad}
+Schmüdgen, Konrad. 
+\textit{Unbounded Self-Adjoint Operators on Hilbert Space}.
+Graduate Texts in Mathematics, Springer, New York, 2012.
+
+\bibitem{Schwabl}
+Schwabl, Franz.
+\textit{Advanced Quantum Mechanics}.
+Springer, 2008.
+
+\bibitem{Teschl}
+Teschl, Gerard.
+\textit{Mathematical Methods in Quantum Mechanics: with Applications to Schrödinger Operators}.
+Graduate Studies in Mathematics 99, American Mathematical Society, 2009.
+
+\bibitem{Vrscay}
+Vrscay, Edward R.
+\textit{Lecture Notes Partial Differential Equations I}.
+\textit{URL:
+http://links.uwaterloo.ca/amath353docs/}
+\end{thebibliography}
+
+
+\end{document}
