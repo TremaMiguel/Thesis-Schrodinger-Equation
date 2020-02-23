@@ -57,6 +57,26 @@
 
 %------------------------------------------------
 \begin{frame}
+\frametitle{ }
+\begin{columns}
+\column{37em}
+\begin{itemize}\itemsep1em
+  \justifying
+  \item  \textcolor{Ocean}{La dependencia del tiempo} 
+  \item  \textcolor{Ocean}{Formular el Problema de Valores Iniciales} 
+  \item  \textcolor{Ocean}{Soluciones Fuertes y Débiles} 
+  \item  \textcolor{TextGreen}{Funciones de Prueba}
+  \item  \textcolor{TextGreen}{El paquete de Ondas}
+  \item  \textcolor{TextGreen}{La condición de variación lenta (SVEA)}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+
+%------------------------------------------------
+\begin{frame}
 \frametitle{Ecuación Dependiente del Tiempo de Schrödinger}
 
 Suponiendo que el movimiento de la partícula depende del tiempo, la siguiente ecuación modela este comportamiento
@@ -211,6 +231,24 @@ Físicamente, el paquete de ondas inicial debe tener crestas chatas para que sea
 \Huge{\centerline{\usebeamercolor[fg]{title}Ecuación Independiente del Tiempo}}
 \end{columns}
 \end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{ }
+\begin{columns}
+\column{37em}
+\begin{itemize}\itemsep1em
+  \justifying
+  \item  \textcolor{Ocean}{Derivación a partir del caso dependiente del tiempo} 
+  \item  \textcolor{Ocean}{Pozo Infinito} 
+  \item  \textcolor{Ocean}{Pozo Finito} 
+  \item  \textcolor{Ocean}{Tunelaje Cuántico}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
 
 
 %------------------------------------------------
@@ -432,6 +470,26 @@ y del coeficiente de Transmisión $\mathcal{T}$
 \end{columns}
 \end{frame}
 
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{ }
+\begin{columns}
+\column{37em}
+\begin{itemize}\itemsep1em
+  \justifying
+  \item  \textcolor{Ocean}{Espacio de Hilbert} 
+  \item  \textcolor{Ocean}{Operador Lineal y Autoadjunto} 
+  \item  \textcolor{Ocean}{Dominio de la suma de Operadores} 
+  \item  \textcolor{TextGreen}{Operador Laplaciano y Potencial}
+  \item  \textcolor{TextGreen}{Teorema de Kato-Rellich}
+  \item  \textcolor{TextGreen}{Generalizaciones de la Función Potencial $\mathcal{V}(x)$}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
 %------------------------------------------------
 \begin{frame}{¿Qué es un Operador?}
 
@@ -439,7 +497,7 @@ Un mapeo entre dos espacios de funciones. En otras palabras, es una aplicación 
 
 \vspace{0.1\textheight}
 
-\begin{defn}
+\begin{defn}[Espacio de Hilbert]
     Un \textbf{espacio de Hilbert} $\mathcal{H}$ es un espacio vectorial $\mathcal{H}$ sobre un campo $\field{R}$ ó $\field{C}$ equipado con un \textbf{producto interno} $\langle\cdot,\cdot \rangle$, tal que $\mathcal{H}$ es completo, en el sentido que cada sucesión de Cauchy converge en este espacio, bajo la norma asociada al producto interno.
 \end{defn}
    
@@ -450,7 +508,7 @@ Un mapeo entre dos espacios de funciones. En otras palabras, es una aplicación 
 
 
 %------------------------------------------------
-\begin{frame}{}
+\begin{frame}{Operador Lineal}
 
 \begin{defn}
     Sea $\mathcal{H}$ un espacio de Hilbert. El mapeo $A:Dom(A)\subseteq\mathcal{H}\longrightarrow\mathcal{H}$, donde $Dom(A)$ es un subespacio denso de $\mathcal{H}$, es un \textbf{operador lineal} si dados $\phi,\Psi \in Dom(A)$ se cumplen que
@@ -460,7 +518,7 @@ Un mapeo entre dos espacios de funciones. En otras palabras, es una aplicación 
     $\forall \alpha, \beta$ constantes arbitrarias (notése que $\alpha\phi + \beta\Psi \in Dom(A)$ al ser un subespacio).
 \end{defn}
 
-\begin{defn}
+\begin{defn}[Operador Acotado]
     Un operador lineal\: $T:\mathcal{H} \longrightarrow \mathcal{H}$ es $\textbf{acotado}$ si existe una constante $C > 0$ tal que $||T\Psi|| \leq C||\Psi||$ para toda $\Psi \in \mathcal{H}$.
     \label{def:opeAcot}
 \end{defn}
@@ -476,35 +534,43 @@ donde $Dom(A) = \mathcal{H}$.
 %------------------------------------------------
 \begin{frame}{Operador Autoadjunto}
 
+Recordammos que los operadores no-acotados $A$ están definidos en un subespacio denso de $\mathcal{H}$. Equivalentemente su adjunto $A^*$ está definido en un subespacio de $\mathcal{H}$, pues, el funcional $\langle\phi,A\Psi\rangle$, (con $\Psi\in Dom(A)$), puede no estar acotado para cualquier $\phi\in\mathcal{H}$. De esta forma, una vez que el funcional está acotado, por el Lema de Riesz vemos para que vectores $\phi\in\mathcal{H}$ existe el adjunto $A^*$.
+
+
 \begin{defn}
     Un operador lineal A no-acotado en  $\mathcal{H}$ es $\textbf{auto-adjunto}$ si
-    \begin{align*}
+    \begin{align}
         Dom(A^{*}) = Dom(A),
-    \end{align*}
+    \end{align}
     y $A^{*}\phi = A\phi$ para toda $\phi \in Dom(A)$.
     \label{def:Autoadjunto}
 \end{defn}
 
 \vspace{0.05\textheight}
 
- Donde, el adjunto $A^*$ está definido en un subespacio denso de $\mathcal{H}$. Así, por el Lema de Riesz vemos para que vectores $\phi\in\mathcal{H}$ existe el adjunto $A^*$,
- pues, el funcional $\langle\phi,A\Psi\rangle$, (con $\Psi\in Dom(A)$), puede no estar acotado para cualquier $\phi\in\mathcal{H}$.
-   
 \begin{columns}
 \column{37em}
 \end{columns}
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Dominio de la suma de Operadores}
+\begin{frame}{}
 
 \begin{defn}[Dominio de la suma de Operadores]
     Sean A,B dos operadores lineales no-acotados en $\mathcal{H}$, entonces A+B es el operador con dominio:
-    \begin{align*}
+    \begin{align}
         Dom(A+B) := Dom(A)\cap Dom(B)
-    \end{align*}
+        \label{eq:SumadeOperadores}
+    \end{align}
     y dado por $(A+B)\Psi = A\Psi + B\Psi$.
     \label{def:DomOPADJS}
+\end{defn}
+\begin{defn}[Espectro Puntual]
+    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$ y $\lambda\in\field{C}$. Cuando para $\phi\in\mathcal{H}$ con $\phi\neq0$ se cumple que 
+    \begin{align*}
+        (A-\lambda I)\phi = 0,
+    \end{align*}
+    entonces $\lambda$ está en el \textbf{espectro puntual}. Cuando $\Psi\neq 0$ y $\lambda\in\field{C}$ satisfacen la relación $A\Psi = \lambda\Psi$ entonces decimos que $\Psi$ es un autovector de $A$ y $\lambda$ un autovalor de $A$.
 \end{defn}
 
 \begin{columns}
@@ -554,9 +620,9 @@ donde $\hat{\Psi}$ es la Transformada de Fourier de $\Psi$ y $\mathcal{F}^{-1}$ 
 %------------------------------------------------
 \begin{frame}{Teorema de Kato-Rellich}
 
-Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la Definición \ref{def:DomOPADJS} que $Dom(\Delta)\cap Dom(V)$ es el subespacio en el cual $\hat{H}$ está definido. Sin embargo, esta intersección puede ser muy pequeña para que $\hat{H}$ sea auto-adjunto, por ejemplo, si el vector nulo es el único elemento. De esta forma, la pregunta natural es ¿bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta?
-    
-\begin{teo}[Kato-Rellich]
+Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la Definición \eqref{eq:SumadeOperadores} que $Dom(\Delta)\cap Dom(V)$ es el subespacio en el cual $\hat{H}$ está definido. Sin embargo, esta intersección puede ser muy pequeña para que $\hat{H}$ sea auto-adjunto, por ejemplo, si el vector nulo es el único elemento. De esta forma, la pregunta natural es ¿bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta?
+
+\begin{teo}[]
     Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ y que existen constantes positivas a,b con $a<1$ tal que
     \begin{align*}
         ||B\Psi|| \leq a||A\Psi|| + b||\Psi||
@@ -569,39 +635,20 @@ Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la
 
 %------------------------------------------------
 \begin{frame}{Self-Adjointness of Schrödinger Operator}
-Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era una función constante dentro de un intervalo. Generalizemos ahora el estudio al considerar a $\mathcal{V}$ como una función integrable.
+Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era una función constante dentro de un intervalo. Generalizemos ahora el estudio al considerar a $\mathcal{V}$ como una función que se puede descomponer como la suma de una función integrable cuadráticamente y otra acotada.
+
+\vspace{0.04\textheight}
+
 \begin{teo}
     Sea $\mathcal{V}:\field{R}\longrightarrow\field{R}$ una función integrable que puede expresarse como la suma de dos funciones reales $V_{1}$ y $V_{2}$, con $V_{1}\in L^{2}(\field{R},\field{C})$ y $V_{2}\in L^{\infty}(\field{R},\field{C})$. Entonces el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
     \label{teo:SCOperator}
 \end{teo}
+
+\vspace{0.04\textheight}
+    
+El resultado anterior nos permite generalizar distintos casos de la función $\mathcal{V}(x)$, garantizando que el operador es auto-adjunto y por lo tanto su espectro es real.    
     
 \end{frame}
 
-
-%------------------------------------------------
-%\begin{frame}
-%\frametitle{Collaborative }
-%\begin{columns}
-%\column{37em}
-%\begin{itemize}\itemsep1em
-%  \justifying
-%  \item A \textcolor{Ocean}{shared platform} for all %\textcolor{TextGreen}{data science} contributors
-%  \item Open data science \textcolor{Ocean}{tools at scale}
-%  \item \textcolor{TextGreen}{Self-service} access to %\textcolor{Ocean}{data}, \textcolor{Ocean}{storage}, and %\textcolor{Ocean}{compute}
-%  \item A complete \textcolor{darkred}{pipeline} from data to deployment
-%  \item Collaborative \textcolor{Ocean}{development tools}
-%  \item \textcolor{Ocean}{Management} and \textcolor{Ocean}{reproducibility}
-%\end{itemize}
-%\end{columns}
-%\end{frame}
-
-%------------------------------------------------
-\begin{frame}
-%\begin{columns}
-%\column{37em}
-\vspace{1cm}
-\Huge{\centerline{\usebeamercolor[fg]{title}Thanks!}}
-%\end{columns}
-\end{frame}
 
 \end{document}
