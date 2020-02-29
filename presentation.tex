@@ -24,7 +24,7 @@
 %------------------------------------------------
 \begin{frame}[noframenumbering,plain]
 
-  \vspace{0.02\textheight}
+\vspace{0.02\textheight}
   
 \begin{columns}[]
 \column{37em}
@@ -35,7 +35,7 @@
 \vspace{0.1\textheight}
 
 \small{\centerline{Armando Miguel Trejo Marrufo}}
-\scriptsize{\centerline{\tt Asesor: Pablo Castañeda}}
+%\scriptsize{\centerline{\tt Asesor: Pablo Castañeda}}
 \scriptsize{\centerline{}}
 \end{columns}
 \end{frame}
@@ -44,6 +44,43 @@
 \usebackgroundtemplate{\vbox{\null\vspace{3mm}
   \hspace{3mm}\pgfuseimage{kthlogosmall}\par
   \vspace{72mm}\hbox{\hspace{-75mm}\pgfuseimage{kthplatta}}}}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{}
+\begin{columns}
+\column{37em}
+\begin{itemize}\itemsep1em
+  \justifying
+  \item \textcolor{Ocean}{¿Antecedentes?} 
+  \textcolor{TextGreen}{ Dualidad onda-partícula} $\implies$ Louis de Broglie y Albert Einstein.
+  
+  \begin{figure}%
+    \centering
+    {{\includegraphics[width=4.5cm, height = 3cm]{figs/DeBroglie.jpg}}}%
+    \qquad
+    {{\includegraphics[width=4.5cm, height = 3cm]{figs/Einstein.jpg}}}%
+    
+    \label{fig:example}%
+\end{figure}
+  
+  \item  \textcolor{Ocean}{¿Cual es su importancia?} \textcolor{TextGreen}{ Dinámica} $\implies$ describir la evolución de la función de onda en el tiempo.
+  
+  \begin{figure}%
+    \centering
+    {{\includegraphics[width=4.5cm, height = 3cm]{figs/Schrodinger.jpg}}}%
+    \label{fig:example}%
+\end{figure}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
 
 %------------------------------------------------
 \begin{frame}
@@ -63,7 +100,7 @@
 \begin{itemize}\itemsep1em
   \justifying
   \item  \textcolor{Ocean}{La dependencia del tiempo} 
-  \item  \textcolor{Ocean}{Formular el Problema de Valores Iniciales} 
+  \item  \textcolor{Ocean}{El Problema de Valores Iniciales} 
   \item  \textcolor{Ocean}{Soluciones Fuertes y Débiles} 
   \item  \textcolor{TextGreen}{Funciones de Prueba}
   \item  \textcolor{TextGreen}{El paquete de Ondas}
@@ -79,12 +116,16 @@
 \begin{frame}
 \frametitle{Ecuación Dependiente del Tiempo de Schrödinger}
 
-Suponiendo que el movimiento de la partícula depende del tiempo, la siguiente ecuación modela este comportamiento
+La ecuación de Schrödinger representa el movimiento de la partícula en el tiempo:
 \begin{align}
     -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t}.
     \label{eq:ECDepTiemp}
 \end{align}
-Primero veamos el caso de una \textbf{partícula líbre}, para esto el potencial debe ser cero, es decir, $\mathcal{V}(x,t) = 0$. El caso de la función potencial distinta de cero lo vermemos en la ecuación independiente del tiempo. Ahora, debemos suponer que la onda se comparta inicialmente de cierta forma 
+Primero modelar una \textbf{partícula líbre} necesitamos 
+\begin{align*}
+    \mathcal{V}(x,t) = 0
+\end{align*}  
+y la condición inicial
 \begin{align*}
     \psi(x,0) = \psi_{0}(x),
 \end{align*}
@@ -98,7 +139,7 @@ donde $\psi_{0}(x) \in L^{2}(\field{R},\field{C})$
 %--------------------------------------
 \begin{frame}
 
-Así, el problema de valor inicial (PVI) a resolver es:
+El problema de valor inicial (PVI) a resolver es:
     \begin{align}
          \left\{ \begin{array}{ll}
          \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2},\:\:\:x\in\field{R},\:t>0 \\
@@ -107,7 +148,9 @@ Así, el problema de valor inicial (PVI) a resolver es:
 \right.
     \label{eq:TISchrodinger}
     \end{align}
-donde el siguiente Teorema nos da la solución.    
+ 
+\vspace{0.02\textheight} 
+    
 \begin{teo}
     Supongamos $\psi_{0} \in L^2(\field{R},\field{C})$. Definamos $\psi(x,t)$ por:
     \begin{align*}
@@ -123,9 +166,13 @@ donde el siguiente Teorema nos da la solución.
 \end{frame}
 %------------------------------------------------
 \begin{frame}{}
-   
-Para funciones generales $\psi_{0}(x,t)\in L^2(\field{R},\field{C})$, $\psi(x,t)$ no necesariamente satisface la ecuación de Schrödinger en el sentido clásico por que puede no ser diferenciable en la variable $x$ o en la variable $t$.
-Por ello, las \textbf{funciones de prueba} son de utilidad, estas funciones buscamos que estén definidas en un conjunto compacto para garantizar que la integral en este intervalo sea finita. De esta forma, en lugar de evaluar $\psi(x,t)$ en cada punto de $\field{R}\times\field{R}^{+}$, se evalua $\chi$ en intervalos abiertos. Así, para la ecuación de Schrödinger tenemos 
+
+\begin{itemize}\itemsep1em
+  \justifying
+  \item  \textcolor{Ocean}{¿$\psi(x,t)$ es diferenciable en las variables $x,t$? $\implies$ \textbf{funciones de prueba}} 
+\end{itemize}
+
+\vspace{0.1\textheight} 
 
 \begin{defn}
         Una función $\psi(x,t)$ satisface la ecuación libre \footnote{En el sentido de que consideramos $\mathcal{V}(x,t)$ como nula para $x\in\field{R}$.}  de Schrödinger en el sentido débil, si para toda función de prueba $\chi \in C_{\mathcal{D}}^{\infty}(\field{R}\times\field{R}^{+})$ con soporte compacto $\mathcal{D}\subset \field{R}\times\field{R}^{+}$ se cumple:
@@ -144,11 +191,7 @@ Por ello, las \textbf{funciones de prueba} son de utilidad, estas funciones busc
    
 \begin{lem}
     Sea $\psi(x,t)$ una función suave, en el sentido de tener primera derivada espacial y temporal, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
-\end{lem}
-
-\begin{demo}
-    
-\end{demo}
+\end{lem}   
     
 \begin{columns}
 \column{37em}
@@ -157,14 +200,17 @@ Por ello, las \textbf{funciones de prueba} son de utilidad, estas funciones busc
 
 
 %------------------------------------------------
-\begin{frame}{Qué es un Paquete de Ondas?}
+\begin{frame}{¿Qué es un Paquete de Ondas?}
    
-Las componentes de un paquete de ondas se mueven a distintas velocidades. Es útil pensar que éstas varían en el tiempo y en el espacio.  
+¿Las componentes de un paquete de ondas varían en el tiempo y en el espacio?
 \begin{figure}[h]
     \centering
     \includegraphics[width = 9cm, height = 3cm]{figs/GroupandPhase.png}
 \end{figure}
-Por un lado, la velocidad a la cual la parte externa (la cobertura) se propaga en el espacio se conoce como velocidad de grupo y queda determinada por $A(x,t)$. Por otro lado, la rápidez a la cual las ondas individuales dentro de la cobertura se mueven se conoce como velocidad fase y queda determinada por $\theta(x,t)$. 
+\begin{itemize}\itemsep1em
+    \item \textcolor{}{Velocidad de Grupo $\implies$ $A(x,t)$}
+    \item \textcolor{}{Velocidad de Fase $\implies$ $\theta(x,t)$}
+\end{itemize}
     
 \begin{columns}
 \column{37em}
@@ -174,7 +220,14 @@ Por un lado, la velocidad a la cual la parte externa (la cobertura) se propaga e
 %------------------------------------------------
 \begin{frame}{Paquete de ondas como Condición Inicial}
    
-Supongamos que la fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$, debido a que el momento inicial de la partícula es $p_{0}$, y que para $t=0$  la amplitud inicial es $A_{0}(x)$, tendremos el Problema de Valor Inicial siguiente: 
+\begin{itemize}\itemsep1em
+    \item \textcolor{}{La fase de onda inicial es $\theta(x,0) = (p_{0}x) / \hslash$}
+    \item \textcolor{}{La amplitud inicial es $A_{0}(x)$}
+\end{itemize} 
+
+\vspace{0.1\textheight} 
+
+El PVI que resolvemos es
 \begin{align}
          \left\{ \begin{array}{ll}
          \dfrac{\partial\psi}{\partial t} = \dfrac{i\hslash}{2m}\dfrac{\partial^2\psi}{\partial x^2} , \:x\in\field{R}, \:t>0,\\
@@ -214,12 +267,15 @@ donde $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es decir, $A_{0}
 
 %---------------------------------------
 \begin{frame}{Slowly Varying Envelope Approximation}
- 
-El paquete de ondas $A_{o}(x)$ es una función que varía lentamente respecto al espacio, es decir, se debe satisfacer que la razón de crecimiento de la curva de la amplitud sea de magnitud más pequeña que una constante veces la altura de la amplitud. En notación matemática
-\begin{align*} 
+
+\begin{itemize}
+    \item El paquete de ondas $A_{o}(x)$ tiene crestas chatas $\implies$ constante sobre los periodos de la función $e^{ip_{0}x/\hslash}$
+    \vspace{0.1\textheight} 
+    \item En notación Matemática
+    \begin{align*} 
     A_{0}''(\kappa) \ll A_{0}(\kappa)\bigg(\frac{p_{0}}{\hslash}\bigg)^2,
     \end{align*}
-Físicamente, el paquete de ondas inicial debe tener crestas chatas para que sea constante sobre los periodos de la función $e^{ip_{0}x/\hslash}$.
+\end{itemize} 
 \end{frame}
 
 
@@ -254,21 +310,23 @@ Físicamente, el paquete de ondas inicial debe tener crestas chatas para que sea
 %------------------------------------------------
 \bgroup
 \begin{frame}{}
-Proponemos como solución de \eqref{eq:ECDepTiemp} a
-\begin{align*}
-    \psi(x,t) = \Psi(x)T(t),
-\end{align*}
-por el método de separación de variables y después de una serie de operaciones algebráicas llegamos a 
-\begin{align*}
-    i\hslash \frac{T'(t) }{T(t)} = \frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x),
-\end{align*}
-donde notamos que si variamos $x$ el lado dependiente del término $t$ no varía y viceversa. Por lo que, estos términos son iguales a alguna constante $E \in \field{R}$, así
+Recordamos la Ecuación de Schrödinger
 \begin{align}
-\frac{-\hslash ^2 }{2m}\frac{\Psi''(x)}{\Psi(x)} + \mathcal{V}(x) = E \implies 
-\hat{H} \Psi(x) = E \Psi(x),
+    -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t}.
+    \label{eq:ECDepTiemp}
+\end{align}
+\vspace{0.05\textheight} 
+¿Cómo obtener el caso dependiente del tiempo? $\implies$ \textbf{separación de variables}
+    \begin{align*}
+    \psi(x,t) = \Psi(x)T(t).
+    \end{align*}
+\vspace{0.05\textheight} 
+Así, la ecuación dependiente del tiempo es 
+\begin{align}
+\dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2}\Psi(x) + \mathcal{V}(x)\Psi(x) = E \Psi(x),
 \label{eq:HamiltonianEigenValues}
 \end{align}
-donde $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ se conoce como el  \textit{Hamiltoniano}.
+donde $E \in \field{R}$
 
 \end{frame}
 
@@ -276,9 +334,13 @@ donde $\hat{H} = - \dfrac{\hslash^2}{2m}\dfrac{d^2}{dx^2} + \mathcal{V}(x)$ se c
 
 %------------------------------------------------
 \begin{frame}{Pozo Infinito}
-   
-Consideramos el caso de confinar a una partícula en un intervalo finito $[0 , A]$ con $A$ un valor fijo, para esto, pedimos que la energía potencial en este intervalo sea nula.
-\begin{align*}
+ 
+¿Qué sucede cuando confinamos a una partícula a una región finita? 
+\vspace{0.05\textheight} 
+\textbf{Requerimos}
+\begin{itemize}
+    \item Energía potencial muy grande
+    \begin{align*}
         \mathcal{V}(x) = 
         \left\{ \begin{array}{ll}
         0, \:\:\:  x \in [0,A],
@@ -286,14 +348,16 @@ Consideramos el caso de confinar a una partícula en un intervalo finito $[0 , A
         \kappa, \:\:\: x \notin [0,A],
         \end{array}
         \right.
-\end{align*}
-donde $\kappa$ toma valores muy grandes, es decir, $\kappa \to\infty$. Además, pedimos $\Psi(x) = 0$ en las fronteras, para que la partícula no escape de la región. Así, tendremos 
-\begin{align}
-    \frac{d^2\Psi}{dx^2} = -k^2\Psi(x),
+    \end{align*}
+    donde $A$ es un valor fijo.
+    \item La partícula no escape de la región, es decir, $\Psi(x) = 0$.
+    \vspace{0.05\textheight} 
+    \item Modelar el comportamiento a través de
+    \begin{align}
+    \frac{d^2\Psi}{dx^2} = -(2mE)/\hslash^2\Psi(x),
     \label{eq:PozoInfinito}
-\end{align}
-con $k^2 = (2mE)/\hslash^2$ y $ E>0.$
-    
+    \end{align}
+\end{itemize}
 \begin{columns}
 \column{37em}
 \end{columns}
@@ -302,17 +366,22 @@ con $k^2 = (2mE)/\hslash^2$ y $ E>0.$
 
 %------------------------------------------------
 \begin{frame}{}
- La solución general de la ecuación \eqref{eq:PozoInfinito} es una combinación lineal de senos y cosenos
+\begin{columns}
+\column{37em}
+\end{columns}
+
+ ¿Cuál es la solución general? $\implies$
+ combinación lineal de senos y cosenos
 \begin{align*}
-    \Psi(x) = a\sen(kx) + b\cos(kx),
+    \Psi(x) = a\:\text{sen}(kx) + b\cos(kx),
 \end{align*}   
-donde $k,a,b$ son constantes a determinar. Así al encontrar $k_{n}$ podemos encontrar los autovalores $E_{n}$ asociados al Hamiltoniano
+donde encontrar los modos $k_{n}$ asociados a la partícula nos permite encontrar la energía $E_{n}$ asociada
 \begin{align*}
     k_{n}=\frac{n\pi}{A}, E_{n} = \frac{\hslash^2n^2\pi^2}{2mA^2}, n \in \field{N}.
 \end{align*}
-y al considerar los modos asociados a la partícula, llegamos a la solución dependiente de la posición
+con lo cual la solución dependiente de la posición es
 \begin{align}
-    \Psi_{n}(x) = \sqrt{\frac{2}{A}}\sen\bigg(\frac{n\pi x}{A}\bigg), n \in \field{N},
+    \Psi_{n}(x) = \sqrt{\frac{2}{A}}\:\text{sen} \bigg(\frac{n\pi x}{A}\bigg), n \in \field{N},
     \label{eq:PsiPI}
 \end{align}
     
@@ -321,8 +390,8 @@ y al considerar los modos asociados a la partícula, llegamos a la solución dep
 
 %------------------------------------------------
 \begin{frame}{Pozo Finito}
-   
-Tomando una región par $[-A , A]$ porque nos permite obtener soluciones pares e impares. Consideramos la energía potencial dentro de esta región es de la siguiente forma  
+  
+¿Qué sucede si la energía potencial es finita?, es decir 
 \begin{align}
         \mathcal{V}(x) = 
         \left\{ \begin{array}{ll}
@@ -333,129 +402,54 @@ Tomando una región par $[-A , A]$ porque nos permite obtener soluciones pares e
         \right.
         \label{eq:PotencialFinito}
 \end{align}
-donde $C$ es positiva. Así, recordanddo \eqref{eq:HamiltonianEigenValues} tenemos
-\begin{align}
-        \frac{d^2\Psi}{dx^2}= 
-        \left\{ \begin{array}{ll}
-        -(c-\mathcal{E})\Psi,& \:\:\:  |x| \leq A,
-        \\
-        \mathcal{E}\Psi,& \:\:\: |x| > A.
-        \end{array}
-        \right.
-        \label{eq:SCsimple}
-\end{align}
-donde consideramos los siguientes términos $\mathcal{E} = (-2mE)/\hslash^2$, \\ $c = (2mC)/\hslash^2$ y $ E<0$
-    
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
+con $C > 0$. Obtendremos soluciones pares e impares 
 
-
-
-%------------------------------------------------
-\begin{frame}{Solución Par}
-Para el comportamiento de la partícula fuera y dentro del pozo, tenemos las siguientes ecuaciones respectivamente
- \begin{align*}
-     \frac{d^2\Psi}{dx^2} = \mathcal{E}\Psi, \:\:      \frac{d^2\Psi}{dx^2} = -q^2\Psi,
- \end{align*}
-cuya solución general es 
-\begin{align}
-        \Psi(x) = 
-        \left\{ \begin{array}{ll}
-        ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
-        \\
-        b\cos(qx), & \:\:\: |x| \leq A,
-        \\
-        ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A,
-        \end{array}
-        \right.
-        \label{eq:Solpar}
-\end{align}
-con $a, b$ constantes a determinar. Notamos que los paramaetros
-$a,b,\mathcal{E}$, y $q$ varían la forma de la onda. Por ejemplo, mientras mayor sea $q$ mayor será el número de crestas y mientras menor sea $\mathcal{E}$ mayor será el área abarcada por las colas de la función.
-    
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
-
-
-%------------------------------------------------
-\begin{frame}{Solución Impar}
-Buscamos que $\Psi(x) = - \Psi(-x)$, es decir, funciones impares. Así, 
-\begin{align}
-        \Psi(x) = 
-        \left\{ \begin{array}{ll}
-        -ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A,
-        \\
-        \Tilde{a}\sen(qx), & \:\:\: |x| \leq A,
-        \\
+\begin{equation*}
+\Psi(x) =  \begin{cases}
+             ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A, \\
+             b\cos(qx), & \:\:\: |x| \leq A, \\
+             ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A,
+       \end{cases} \quad
+\Psi(x) =  \begin{cases}
+        -ae^{\sqrt{\mathcal{E}}x},& \:\:\:  x < -A, \\
+        \Tilde{a}\:\text{sen}(qx), & \:\:\: |x| \leq A, \\
         ae^{-\sqrt{\mathcal{E}}x},& \:\:\: x > A.
-        \end{array}
-        \right.
-        \label{eq:Solimpar}
-\end{align}
+       \end{cases}
+\end{equation*}
+    
+\begin{columns}
+\column{37em}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
 \begin{figure}[h]
     \centering
     \includegraphics[width = 12cm, height = 6cm]{figs/Solimpar.png}
 \end{figure}
+Notamos que los parámetros
+$a,b,\mathcal{E}$, y $q$ varían la forma de la onda.
     
 \begin{columns}
 \column{37em}
 \end{columns}
 \end{frame}
-
 
 %------------------------------------------------
 \begin{frame}{Tunelaje Cuántico}
-   
-En este caso $E > 0$, así $\mathcal{E} = 2mE/\hslash^2$, la ecuación de interés es:
-\begin{align}
-        \frac{d^2\Psi}{dx^2}= 
-        \left\{ \begin{array}{ll}
-        -\mathcal{E}\Psi,& \:\:\:  x \in (-\infty,-A)\cup (A,\infty),
-        \\
-        -(c+\mathcal{E})\Psi& \:\:\: |x| \leq A.
-        \end{array}
-        \right.
-        \label{eq:SCsimple}
-\end{align}
-con correspondiente solución:
-\begin{align}
-        \Psi(x) = 
-        \left\{ \begin{array}{ll}
-        Me^{i\sqrt{\mathcal{E}}x}+Be^{-i\sqrt{\mathcal{E}}x}, & x<-A,
-        \\
-        T\sen(qx) + D\cos(qx), & x \in [-A,A],
-        \\ Fe^{i\sqrt{\mathcal{E}}x},& x > A.
-        \end{array}
-        \right.
-        \label{eq:Tunelaje}
-\end{align}
-donde al buscar que $\Psi(x)$ y $\Psi'(x)$ sean continuas en los límites de la región $\pm A$, obtendremos un sistema de ecuaciones para determinar las constantes $M, B, T, D$ y $F$. 
 
-    
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
-%------------------------------------------------
-\begin{frame}{}
-   
-Al resolver el sistema de ecuaciones anteriores, obtenemos el valor del coeficiente de Reflexión $\mathcal{R}$
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 10cm, height = 4.5cm]{figs/Tunelaje.png}
+\end{figure}
+\textbf{\textcolor{Ocean}{¿Cómo se determinan estos eventos?}}
 \begin{align*}
-    \mathcal{R}(E) = \bigg[\frac{C^2}{4(C+E)E}\bigg]\sen^2(2qA)\frac{|F|^2}{|M|^2}.
-\end{align*}
-y del coeficiente de Transmisión $\mathcal{T}$
-\begin{align*}
+    \mathcal{R}(E) = \bigg[\frac{C^2}{4(C+E)E}\bigg]\sen^2(2qA)\frac{|F|^2}{|M|^2}, \:\:\:
     \mathcal{T}(E) = 
     \bigg[1+\bigg(\frac{C^2}{4(C+E)E}\bigg)\sen^2(2qA)\bigg] ^{-1}.
 \end{align*}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 12.5cm, height = 5.7cm]{figs/Tunelaje.png}
-\end{figure}
+
     
 \begin{columns}
 \column{37em}
@@ -478,7 +472,6 @@ y del coeficiente de Transmisión $\mathcal{T}$
 \column{37em}
 \begin{itemize}\itemsep1em
   \justifying
-  \item  \textcolor{Ocean}{Espacio de Hilbert} 
   \item  \textcolor{Ocean}{Operador Lineal y Autoadjunto} 
   \item  \textcolor{Ocean}{Dominio de la suma de Operadores} 
   \item  \textcolor{TextGreen}{Operador Laplaciano y Potencial}
@@ -493,61 +486,21 @@ y del coeficiente de Transmisión $\mathcal{T}$
 %------------------------------------------------
 \begin{frame}{¿Qué es un Operador?}
 
-Un mapeo entre dos espacios de funciones. En otras palabras, es una aplicación que toma como entrada una función (un \textit{vector}) en un espacio de dimensión infinita, y le asigna otra función en un espacio de dimensión infinita.
+Es un mapeo entre dos espacios de funciones
+\vspace{0.05\textheight} 
 
-\vspace{0.1\textheight}
+\textbf{\textcolor{Ocean}{¿Qué propiedades buscamos?}}
 
-\begin{defn}[Espacio de Hilbert]
-    Un \textbf{espacio de Hilbert} $\mathcal{H}$ es un espacio vectorial $\mathcal{H}$ sobre un campo $\field{R}$ ó $\field{C}$ equipado con un \textbf{producto interno} $\langle\cdot,\cdot \rangle$, tal que $\mathcal{H}$ es completo, en el sentido que cada sucesión de Cauchy converge en este espacio, bajo la norma asociada al producto interno.
-\end{defn}
+\vspace{0.05\textheight} 
+\begin{itemize}
+    \item Lineal $\implies$ $A(\alpha\phi + \beta\Psi) = \alpha A\phi + \beta A \Psi$
+    \vspace{0.03\textheight} 
+    \item Acotado $\implies$ $||T\Psi||
+    \leq C||\Psi||$
+    \vspace{0.03\textheight} 
+    \item Autoadjunto $\implies$ $A^{*}\phi = A\phi$ para toda $\phi \in Dom(A)$.
+\end{itemize}
    
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
-
-
-%------------------------------------------------
-\begin{frame}{Operador Lineal}
-
-\begin{defn}
-    Sea $\mathcal{H}$ un espacio de Hilbert. El mapeo $A:Dom(A)\subseteq\mathcal{H}\longrightarrow\mathcal{H}$, donde $Dom(A)$ es un subespacio denso de $\mathcal{H}$, es un \textbf{operador lineal} si dados $\phi,\Psi \in Dom(A)$ se cumplen que
-    \begin{align*}
-        A(\alpha\phi + \beta\Psi) = \alpha A\phi + \beta A \Psi,
-    \end{align*}
-    $\forall \alpha, \beta$ constantes arbitrarias (notése que $\alpha\phi + \beta\Psi \in Dom(A)$ al ser un subespacio).
-\end{defn}
-
-\begin{defn}[Operador Acotado]
-    Un operador lineal\: $T:\mathcal{H} \longrightarrow \mathcal{H}$ es $\textbf{acotado}$ si existe una constante $C > 0$ tal que $||T\Psi|| \leq C||\Psi||$ para toda $\Psi \in \mathcal{H}$.
-    \label{def:opeAcot}
-\end{defn}
-donde $Dom(A) = \mathcal{H}$.
-   
-\begin{columns}
-\column{37em}
-\end{columns}
-\end{frame}
-
-
-
-%------------------------------------------------
-\begin{frame}{Operador Autoadjunto}
-
-Recordammos que los operadores no-acotados $A$ están definidos en un subespacio denso de $\mathcal{H}$. Equivalentemente su adjunto $A^*$ está definido en un subespacio de $\mathcal{H}$, pues, el funcional $\langle\phi,A\Psi\rangle$, (con $\Psi\in Dom(A)$), puede no estar acotado para cualquier $\phi\in\mathcal{H}$. De esta forma, una vez que el funcional está acotado, por el Lema de Riesz vemos para que vectores $\phi\in\mathcal{H}$ existe el adjunto $A^*$.
-
-
-\begin{defn}
-    Un operador lineal A no-acotado en  $\mathcal{H}$ es $\textbf{auto-adjunto}$ si
-    \begin{align}
-        Dom(A^{*}) = Dom(A),
-    \end{align}
-    y $A^{*}\phi = A\phi$ para toda $\phi \in Dom(A)$.
-    \label{def:Autoadjunto}
-\end{defn}
-
-\vspace{0.05\textheight}
-
 \begin{columns}
 \column{37em}
 \end{columns}
@@ -583,46 +536,27 @@ Recordammos que los operadores no-acotados $A$ están definidos en un subespacio
 %------------------------------------------------
 \begin{frame}{El Operador de Schrödinger $\boldsymbol{-\Delta + V}$}
 
-\begin{prop}[Operador Laplaciano]
-    Sea $\Delta$ el operador laplaciano definido como
-    \begin{align*}
-        -\Delta\Psi = \mathcal{F}^{-1}(|k|^{2} \hat{\Psi}),
-    \end{align*}
-    en el dominio:
+\begin{itemize}
+    \item Sea el operador Laplaciano $-\Delta\Psi = \mathcal{F}^{-1}(|k|^{2} \hat{\Psi})$ con correspondiente dominio 
     \begin{align*} Dom(\Delta) = \{\Psi\in L^{2}(\field{R},\field{C}) \:|\:
        \: |k|^{2}\hat{\Psi}(k) \in L^{2}(\field{R},\field{C})\},
     \end{align*}
-donde $\hat{\Psi}$ es la Transformada de Fourier de $\Psi$ y $\mathcal{F}^{-1}$ denota la Transformada Inversa de Fourier. Entonces $\Delta$ es auto-adjunto.
-\end{prop}    
-    
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Operador Potencial}
-
-\begin{prop}[Operador Potencial]
-    Sea $\mathcal{V}:\field{R}\rightarrow\field{R}$ una función integrable de $x\in\field{R}$. Sea $V$ el operador potencial con dominio:
+    \item Sea el operador Potencial $V$ es autoadjunto con correspondiente dominio
     \begin{align*}  Dom(V) = \{
         \Psi\in L^{2}(\field{R},\field{C})\:|\:\mathcal{V}(x)\Psi(x)\in L^{2}(\field{R},\field{C})
         \}
     \end{align*}
-    y definido como:
-    \begin{align*}
-        V[\Psi](x) = \mathcal{V}(x)\Psi(x).
-    \end{align*}
-    Entonces $Dom(V)$ es denso en $L^{2}(\field{R},\field{C})$ en el sentido de que la cerradura del dominio de $V$ es $L^{2}(\field{R},\field{C})$, y $\:V$ es auto-adjunto en este dominio.
-    \label{prop:DomPot}
-\end{prop}
+    
+\end{itemize}
     
 \end{frame}
 
-
 %------------------------------------------------
-\begin{frame}{Teorema de Kato-Rellich}
+\begin{frame}{¿Bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta?}
 
-Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la Definición \eqref{eq:SumadeOperadores} que $Dom(\Delta)\cap Dom(V)$ es el subespacio en el cual $\hat{H}$ está definido. Sin embargo, esta intersección puede ser muy pequeña para que $\hat{H}$ sea auto-adjunto, por ejemplo, si el vector nulo es el único elemento. De esta forma, la pregunta natural es ¿bajo qué condiciones garantizo que la suma de dos operadores no-acotados sea auto-adjunta?
+\vspace{0.03\textheight} 
 
-\begin{teo}[]
+\begin{teo}[Kato-Rellich]
     Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ y que existen constantes positivas a,b con $a<1$ tal que
     \begin{align*}
         ||B\Psi|| \leq a||A\Psi|| + b||\Psi||
@@ -634,8 +568,22 @@ Al considerar el operador de Schrödinger $\hat{H} = \Delta + V$, sabemos por la
 
 
 %------------------------------------------------
-\begin{frame}{Self-Adjointness of Schrödinger Operator}
-Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era una función constante dentro de un intervalo. Generalizemos ahora el estudio al considerar a $\mathcal{V}$ como una función que se puede descomponer como la suma de una función integrable cuadráticamente y otra acotada.
+\begin{frame}{¿El operador de Schrödinger es autoadjunto?}
+
+¿Qué sucede cuando $\mathcal{V}(x)$ no es una función constante? \\
+\vspace{0.04\textheight}
+Por ejemplo, una función definida a trozos
+
+\begin{align*}
+        \mathcal{V}(x) = 
+        \left\{ \begin{array}{ll}
+        \dfrac{1}{|x|},& \:\:\:  x \in (-\infty,\alpha)\cup (\alpha,\infty),
+        \\
+        \dfrac{1}{\alpha},& \:\:\: x \in [-\alpha,\alpha],
+        \end{array}
+        \right.
+    \end{align*}
+donde $\alpha>0$ es un valor dado.
 
 \vspace{0.04\textheight}
 
@@ -645,9 +593,6 @@ Anteriormente hemos visto el caso del pozo cuadrado, donde $\mathcal{V}(x)$ era 
 \end{teo}
 
 \vspace{0.04\textheight}
-    
-El resultado anterior nos permite generalizar distintos casos de la función $\mathcal{V}(x)$, garantizando que el operador es auto-adjunto y por lo tanto su espectro es real.    
-    
 \end{frame}
 
 
