@@ -121,7 +121,7 @@ La ecuación de Schrödinger representa el movimiento de la partícula en el tie
     -\frac{\hslash^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + \mathcal{V}(x,t)\psi(x,t) = i\hslash\frac{\partial\psi(x,t)}{\partial t}.
     \label{eq:ECDepTiemp}
 \end{align}
-Primero modelar una \textbf{partícula líbre} necesitamos 
+Para modelar una \textbf{partícula líbre} necesitamos 
 \begin{align*}
     \mathcal{V}(x,t) = 0
 \end{align*}  
@@ -175,7 +175,7 @@ El problema de valor inicial (PVI) a resolver es:
 \vspace{0.1\textheight} 
 
 \begin{defn}
-        Una función $\psi(x,t)$ satisface la ecuación libre \footnote{En el sentido de que consideramos $\mathcal{V}(x,t)$ como nula para $x\in\field{R}$.}  de Schrödinger en el sentido débil, si para toda función de prueba $\chi \in C_{\mathcal{D}}^{\infty}(\field{R}\times\field{R}^{+})$ con soporte compacto $\mathcal{D}\subset \field{R}\times\field{R}^{+}$ se cumple:
+        Una función $\psi(x,t)$ satisface la ecuación libre de Schrödinger en el sentido débil, si para toda función de prueba $\chi$ se cumple:
         \begin{align} \int_{\field{R}^+}\int_{\field{R}}\psi(x,t)\bigg[\frac{\partial\chi}{\partial t}-\frac{i\hslash}{2m}\frac{\partial ^2\chi}{\partial x^2}\bigg]\:dxdt = -\int_{\field{R}}\chi(x,0)\psi(x,0). \label{eq:Soldebil}
         \end{align}
         \label{lem:Rev5}
@@ -190,7 +190,7 @@ El problema de valor inicial (PVI) a resolver es:
 \begin{frame}{Soluciones Débiles de la Ecuación de Schrödinger}
    
 \begin{lem}
-    Sea $\psi(x,t)$ una función suave, en el sentido de tener primera derivada espacial y temporal, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
+    Sea $\psi(x,t)$ una función suave, entonces $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido clásico si y solo si $\psi(x,t)$ satisface la ecuación de Schrödinger en el sentido débil.
 \end{lem}   
     
 \begin{columns}
@@ -235,7 +235,7 @@ El PVI que resolvemos es
          \end{array} \label{eq:Paqonda}
 \right.
     \end{align}
-donde $|\psi_{0}(x)|\leq A_{0}(x)\:\:\: \forall x\in\field{R}$, es decir, $A_{0}(x)$ envuelve al paquete de ondas.
+donde $A_{0}(x)$ envuelve al paquete de ondas.
     
 \begin{columns}
 \column{37em}
@@ -402,7 +402,7 @@ con lo cual la solución dependiente de la posición es
         \right.
         \label{eq:PotencialFinito}
 \end{align}
-con $C > 0$. Obtendremos soluciones pares e impares 
+con $C > 0$. $\implies$ Obtendremos \textbf{soluciones pares e impares} 
 
 \begin{equation*}
 \Psi(x) =  \begin{cases}
@@ -428,9 +428,7 @@ con $C > 0$. Obtendremos soluciones pares e impares
     \centering
     \includegraphics[width = 12cm, height = 6cm]{figs/Solimpar.png}
 \end{figure}
-Notamos que los parámetros
-$a,b,\mathcal{E}$, y $q$ varían la forma de la onda.
-    
+ 
 \begin{columns}
 \column{37em}
 \end{columns}
@@ -510,20 +508,20 @@ Es un mapeo entre dos espacios de funciones
 \begin{frame}{}
 
 \begin{defn}[Dominio de la suma de Operadores]
-    Sean A,B dos operadores lineales no-acotados en $\mathcal{H}$, entonces A+B es el operador con dominio:
+    Sean A,B dos operadores lineales no-acotados en $\mathcal{H}$, entonces
     \begin{align}
         Dom(A+B) := Dom(A)\cap Dom(B)
         \label{eq:SumadeOperadores}
     \end{align}
-    y dado por $(A+B)\Psi = A\Psi + B\Psi$.
+    donde $(A+B)\Psi = A\Psi + B\Psi$.
     \label{def:DomOPADJS}
 \end{defn}
 \begin{defn}[Espectro Puntual]
-    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$ y $\lambda\in\field{C}$. Cuando para $\phi\in\mathcal{H}$ con $\phi\neq0$ se cumple que 
+    Sea $A$ un operador lineal no-acotado en $\mathcal{H}$ y $\lambda\in\field{C}$. Si se cumple que 
     \begin{align*}
         (A-\lambda I)\phi = 0,
     \end{align*}
-    entonces $\lambda$ está en el \textbf{espectro puntual}. Cuando $\Psi\neq 0$ y $\lambda\in\field{C}$ satisfacen la relación $A\Psi = \lambda\Psi$ entonces decimos que $\Psi$ es un autovector de $A$ y $\lambda$ un autovalor de $A$.
+    para $\phi\in\mathcal{H}$ ($\phi\neq0$) entonces $\lambda$ está en el \textbf{espectro puntual}. 
 \end{defn}
 
 \begin{columns}
@@ -541,7 +539,7 @@ Es un mapeo entre dos espacios de funciones
     \begin{align*} Dom(\Delta) = \{\Psi\in L^{2}(\field{R},\field{C}) \:|\:
        \: |k|^{2}\hat{\Psi}(k) \in L^{2}(\field{R},\field{C})\},
     \end{align*}
-    \item Sea el operador Potencial $V$ es autoadjunto con correspondiente dominio
+    \item Sea el operador Potencial $V$ con correspondiente dominio
     \begin{align*}  Dom(V) = \{
         \Psi\in L^{2}(\field{R},\field{C})\:|\:\mathcal{V}(x)\Psi(x)\in L^{2}(\field{R},\field{C})
         \}
@@ -557,11 +555,11 @@ Es un mapeo entre dos espacios de funciones
 \vspace{0.03\textheight} 
 
 \begin{teo}[Kato-Rellich]
-    Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ y que existen constantes positivas a,b con $a<1$ tal que
+    Sean  A y B operadores lineales auto-adjuntos no-acotados en $\mathcal{H}$. Supongamos que $Dom(A)\subset Dom(B)$ tal que
     \begin{align*}
         ||B\Psi|| \leq a||A\Psi|| + b||\Psi||
     \end{align*}
-    para toda $\Psi\in Dom(A)$, entonces A+B es auto-adjunto en el Dom(A).
+    entonces A+B es auto-adjunto en el Dom(A).
     \label{teo:K-R}
 \end{teo}    
 \end{frame}
@@ -587,13 +585,28 @@ donde $\alpha>0$ es un valor dado.
 
 \vspace{0.04\textheight}
 
-\begin{teo}
-    Sea $\mathcal{V}:\field{R}\longrightarrow\field{R}$ una función integrable que puede expresarse como la suma de dos funciones reales $V_{1}$ y $V_{2}$, con $V_{1}\in L^{2}(\field{R},\field{C})$ y $V_{2}\in L^{\infty}(\field{R},\field{C})$. Entonces el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
-    \label{teo:SCOperator}
-\end{teo}
+Condiciones de Kato-Rellich $\implies$ el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto $\implies$ ¿Dónde?
+%\begin{teo}
+%    Sea $\mathcal{V}:\field{R}\longrightarrow\field{R}$ una función integrable que puede expresarse como la suma de dos funciones reales $V_{1}$ y $V_{2}$, con $V_{1}\in L^{2}(\field{R},\field{C})$ y $V_{2}\in L^{\infty}(\field{R},\field{C})$. Entonces el operador de Schrödinger $-\hslash^2 \Delta/2m + V$ es auto-adjunto en $Dom(\Delta)$.
+%    \label{teo:SCOperator}
+%\end{teo}
 
 \vspace{0.04\textheight}
 \end{frame}
 
+\begin{frame}{Conclusiones}
+
+\begin{itemize}
+    \item 
+    \LARGE{\textcolor{Ocean}{Enfoque de las Ecuaciones Diferenciales Parciales}
+    \vspace{0.2\textheight}}
+    \item \LARGE{\textcolor{Ocean}{Enfoque del Análisis Funcional}} 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{}
+    \Huge{\centerline{\usebeamercolor[fg]{title}Gracias por su atención}}
+\end{frame}
 
 \end{document}
